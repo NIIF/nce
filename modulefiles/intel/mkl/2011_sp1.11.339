@@ -1,0 +1,51 @@
+#%Module1.0
+
+### errors
+module-log error null
+
+### globals
+set module  [module-info name]
+set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
+set release [lrange [split $module {/}] end end]
+
+set approot /opt/intel
+set appname "Intel MKL"
+set appdesc "Intel MKL 2011 SP1"
+set appurl  "http://software.intel.com/en-us/articles/intel-mkl/"
+set license Intel
+set arch    intel64
+set app     composer_xe
+
+### help
+proc ModulesHelp { } {
+  global appname release appdesc appurl license
+  puts stderr "Application : $appname"
+  puts stderr "Description : $appdesc"
+  puts stderr "License     : $license"
+  puts stderr "URL         : $appurl"
+}
+
+module-whatis "$appname"
+
+### conflict
+if [info exists env(INTEL_MKL)] {
+  set current $env(INTEL_MKL)
+} else {
+  set current $module
+}
+if { $module != $current } {
+  if { [ is-loaded $current ] } {
+    module unload $current
+  }
+}
+
+### env
+setenv INTEL_MKL $module
+setenv INTEL_MKL_HOME $approot/${app}_${release}/mkl
+setenv MKLROOT $approot/${app}_${release}/mkl
+
+prepend-path LD_LIBRARY_PATH $approot/${app}_${release}/mkl/lib/$arch
+
+### mkl
+setenv OMP_NUM_THREADS 1
+setenv MKL_NUM_THREADS 1

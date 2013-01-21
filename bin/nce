@@ -1,0 +1,35 @@
+#!/bin/bash
+
+function help/nce() {
+  cat <<EOF
+EOF
+  exit 1
+}
+
+function nce/node() {
+  nodeattr -f "${NUCE_GENDERS}" $*
+}
+
+function nce/env() {
+  cat <<EOF
+
+NIIF Common Environment
+------------------------------------------
+EOF
+  set | grep ^NCE
+  echo ""
+}
+
+### args
+_cmd="${1:-env}"
+
+### main
+case "${_cmd}" in
+  env|node)
+    shift
+    nce/${_cmd} $*
+    ;;
+  help|*)
+    help/nce
+    ;;
+esac

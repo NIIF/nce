@@ -1,0 +1,47 @@
+#%Module1.0
+
+### errors
+# module-log error null
+
+### globals
+set module  [module-info name]
+set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
+set release [lrange [split $module {/}] end end]
+
+set approot /opt
+set appname "SGI MPI Perfcatcher Profiler"
+set appdesc "Profile performance of an MPI or SHMEM program"
+set appurl  "http://techpubs.sgi.com/library/tpl/cgi-bin/getdoc.cgi?coll=linux&db=man&fname=/usr/share/catman/man1/perfcatch.1.html"
+set license SGI
+set app $module
+
+### help
+proc ModulesHelp { } {
+  global appname release appdesc appurl license
+  puts stderr "Application : $appname"
+  puts stderr "Description : $appdesc"
+  puts stderr "License     : $license"
+  puts stderr "URL         : $appurl"
+}
+
+module-whatis "$appname"
+
+### conflict
+if [info exists env(SGI_PERFCATCHER)] {
+  set current $env(SGI_PERFCATCHER)
+} else {
+  set current $module
+}
+if { $module != $current } {
+  if { [ is-loaded $current ] } {
+    module unload $current
+  }
+}
+
+# env
+setenv SGI_PERFCATCHER $module
+setenv SGI_PERFCATCHER_HOME $approot/$app
+
+# path
+prepend-path PATH $approot/$app/bin
+prepend-path LD_LIBRARY_PATH $approot/$app/lib

@@ -1,0 +1,49 @@
+#%Module1.0
+
+### errors
+# module-log error null
+
+### globals
+set module  [module-info name]
+set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
+set release [lrange [split $module {/}] end end]
+
+set approot /opt/sgi
+set appname "SGI MPT (MPI)"
+set appdesc "SGI Message Passing Toolkit 2.04 (MPT)"
+set appurl  "http://techpubs.sgi.com/library/tpl/cgi-bin/browse.cgi?cmd=toc&coll=linux&db=bks&pth=/SGI_Developer/MPT_UG"
+set license SGI
+set app mpt
+
+### help
+proc ModulesHelp { } {
+  global appname release appdesc appurl license
+  puts stderr "Application : $appname"
+  puts stderr "Description : $appdesc"
+  puts stderr "License     : $license"
+  puts stderr "URL         : $appurl"
+}
+
+module-whatis "$appname"
+
+### conflict
+if [info exists env(NCE_MPI)] {
+  set current $env(NCE_MPI)
+} else {
+  set current $module
+}
+if { $module != $current } {
+  if { [ is-loaded $current ] } {
+    module unload $current
+  }
+}
+
+### env
+setenv NCE_MPI $module
+setenv SGI_MPT_HOME $approot/$app/mpt-$release
+
+prepend-path LD_LIBRARY_PATH $approot/$app/mpt-$release/lib
+prepend-path PATH $approot/$app/mpt-$release/bin
+prepend-path MANPATH $approot/$app/mpt-$release/man
+
+setenv MPI_ROOT $approot/$app/mpt-$release
