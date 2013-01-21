@@ -39,9 +39,9 @@ if { $module != $current } {
 }
 
 ### env
-setenv NUCE_MODE $module
-setenv NUCE_ROOT $approot
-setenv NUCE_PACKAGES  $approot/packages/$release
+setenv NCE_MODE $module
+setenv NCE_ROOT $approot
+setenv NCE_PACKAGES  $approot/packages/$release
 
 ### path
 prepend-path PATH ${approot}/bin

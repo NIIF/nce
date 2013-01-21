@@ -10,7 +10,7 @@ set release [lrange [split $module {/}] end end]
 
 ### eszr
 if [info exists env(NCE_ROOT)] {
-  set nuce_root $env(NCE_ROOT)
+  set nce_root $env(NCE_ROOT)
 } else {
   puts stderr "Error: NCE_ROOT is not set"
   break
@@ -53,8 +53,8 @@ setenv NCE_ARCH amd64
 setenv NCE_HOME $env(HOME)
 setenv NCE_DATA $env(HOME)
 setenv NCE_SCRATCH /scratch/$env(USER)
-setenv NCE_GENDERS $nuce_root/etc/$module/genders
-setenv NCE_SCHEDULER slurm
+setenv NCE_GENDERS $nce_root/etc/$module/genders
+setenv NCE_SCHEDULER sge
 ### node spec
 # cluster smp
 setenv NCE_COMPUTE_TYPE cluster

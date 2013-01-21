@@ -7,7 +7,7 @@ EOF
 }
 
 function nce/node() {
-  nodeattr -f "${NUCE_GENDERS}" $*
+  nodeattr -f "${NCE_GENDERS}" $*
 }
 
 function nce/env() {
