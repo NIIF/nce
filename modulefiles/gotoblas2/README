@@ -1,15 +1,20 @@
 ## Compile
-make | tee make.out
+  make | tee make.out
 
 ## Test
-cd benchmark
-make $(cat Makefile | grep ^[sdcz][a-z]*.goto | cut -d' ' -f1)
+  cd benchmark
+  make $(cat Makefile | grep ^[sdcz][a-z]*.goto | cut -d' ' -f1)
 
-### Goto threads
-for i in *.goto; do GOTO_NUM_THREADS=8 ./$i 1 2000 | tee ${i}.out ; done
+  - Goto threads
+  for i in *.goto; do GOTO_NUM_THREADS=8 ./$i 1 2000 | tee ${i}.out ; done
 
-### OMP threads
-for i in *.goto; do OMP_NUM_THREADS=8 ./$i 1 2000 | tee ${i}.out ; done
+  - OMP threads
+  for i in *.goto; do OMP_NUM_THREADS=8 ./$i 1 2000 | tee ${i}.out ; done
 
 ## Usage
-GOTO_NUM_THREADS=? exec ...
+  - Link
+  -L$TACC_GOTOBLAS_HOME/lib -lgoto2
+
+  - Execute
+  GOTO_NUM_THREADS=? exec ...
+  OMP_NUM_THREADS=? exec ...

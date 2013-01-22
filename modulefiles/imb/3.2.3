@@ -1,7 +1,7 @@
 #%Module1.0
 
 ### errors
-module-log error null
+# module-log error null
 
 ### globals
 set module  [module-info name]
@@ -16,10 +16,10 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "Open64 Compiler"
-set appdesc "Open64 Compiler 5.0.0"
-set appurl  "http://developer.amd.com/tools/open64/Pages/default.aspx#four"
-set license GPL
+set appname "IMB"
+set appdesc "IMB Benchmark 3.2.3"
+set appurl  "http://software.intel.com/en-us/articles/intel-mpi-benchmarks"
+set license Intel
 
 ### help
 proc ModulesHelp { } {
@@ -33,8 +33,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(OPEN64_COMPILER)] {
-  set current $env(OPEN64_COMPILER)
+if [info exists env(INTEL_IMB)] {
+  set current $env(INTEL_IMB)
 } else {
   set current $module
 }
@@ -45,9 +45,6 @@ if { $module != $current } {
 }
 
 ### env
-setenv OPEN64_COMPILER $module
-setenv OPEN64_COMPILER_HOME $approot
-setenv OPEN64_TC $approot
-
+setenv INTEL_IMB $module
+setenv INTEL_IMB_HOME $approot
 prepend-path PATH $approot/bin
-# prepend-path LD_LIBRARY_PATH $approot/lib

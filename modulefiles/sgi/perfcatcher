@@ -13,7 +13,6 @@ set appname "SGI MPI Perfcatcher Profiler"
 set appdesc "Profile performance of an MPI or SHMEM program"
 set appurl  "http://techpubs.sgi.com/library/tpl/cgi-bin/getdoc.cgi?coll=linux&db=man&fname=/usr/share/catman/man1/perfcatch.1.html"
 set license SGI
-set app $module
 
 ### help
 proc ModulesHelp { } {
@@ -40,8 +39,8 @@ if { $module != $current } {
 
 # env
 setenv SGI_PERFCATCHER $module
-setenv SGI_PERFCATCHER_HOME $approot/$app
+setenv SGI_PERFCATCHER_HOME $approot/$module
 
 # path
-prepend-path PATH $approot/$app/bin
-prepend-path LD_LIBRARY_PATH $approot/$app/lib
+prepend-path PATH $approot/$module/bin
+prepend-path LD_LIBRARY_PATH $approot/$module/lib

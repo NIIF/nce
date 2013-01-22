@@ -1,7 +1,7 @@
 #%Module1.0
 
 ### errors
-module-log error null
+# module-log error null
 
 ### globals
 set module  [module-info name]
@@ -16,10 +16,10 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "Open64 Compiler"
-set appdesc "Open64 Compiler 5.0.0"
-set appurl  "http://developer.amd.com/tools/open64/Pages/default.aspx#four"
-set license GPL
+set appname "GotoBLAS 2"
+set appdesc "GotoBLAS 2 1.13"
+set appurl  "http://www.tacc.utexas.edu/tacc-projects/gotoblas2"
+set license TACC
 
 ### help
 proc ModulesHelp { } {
@@ -33,8 +33,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(OPEN64_COMPILER)] {
-  set current $env(OPEN64_COMPILER)
+if [info exists env(TACC_GOTOBLAS)] {
+  set current $env(TACC_GOTOBLAS)
 } else {
   set current $module
 }
@@ -45,9 +45,10 @@ if { $module != $current } {
 }
 
 ### env
-setenv OPEN64_COMPILER $module
-setenv OPEN64_COMPILER_HOME $approot
-setenv OPEN64_TC $approot
+setenv TACC_GOTOBLAS $module
+setenv TACC_GOTOBLAS_HOME $approot
+prepend-path LD_LIBRARY_PATH $approot/lib
 
-prepend-path PATH $approot/bin
-# prepend-path LD_LIBRARY_PATH $approot/lib
+### env
+setenv OMP_NUM_THREAD 1
+setenv GOTO_NUM_THREAD 1

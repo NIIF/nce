@@ -49,6 +49,7 @@ setenv NCE_SYSTEM $module
 
 ### system
 # intel64 amd64 power6
+setenv NCE_MICRO_ARCH barcelona
 setenv NCE_ARCH amd64
 setenv NCE_HOME $env(HOME)
 setenv NCE_DATA $env(HOME)

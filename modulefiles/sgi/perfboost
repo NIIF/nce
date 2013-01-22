@@ -13,7 +13,6 @@ set appname "SGI MPI Perfboost"
 set appdesc "A wrapper library to run applications compiled against other MPI implementations"
 set appurl  "http://techpubs.sgi.com/library/tpl/cgi-bin/getdoc.cgi?coll=linux&db=bks&fname=/SGI_Developer/MPT_UG/ch06.html"
 set license SGI
-set app $module
 
 ### help
 proc ModulesHelp { } {
@@ -40,8 +39,8 @@ if { $module != $current } {
 
 # env
 setenv SGI_PERFBOOST $module
-setenv SGI_PERFBOOST_HOME $approot/$app
+setenv SGI_PERFBOOST_HOME $approot/$module
 
 # path
-prepend-path PATH $approot/$app/bin
-prepend-path LD_LIBRARY_PATH $approot/$app/lib
+prepend-path PATH $approot/$module/bin
+prepend-path LD_LIBRARY_PATH $approot/$module/lib

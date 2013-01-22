@@ -16,7 +16,7 @@ if [info exists env(NCE_PACKAGES)] {
   break
 }
 
-set approot $nce_pkgs/acml
+set approot $nce_pkgs/$program
 set appname "AMD ACML"
 set appdesc "AMD ACML 5.0.0"
 set appurl  "http://developer.amd.com/libraries/acml/pages/default.aspx"

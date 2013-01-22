@@ -13,7 +13,6 @@ set appname "SGI MPT (MPI)"
 set appdesc "SGI Message Passing Toolkit 2.04 (MPT)"
 set appurl  "http://techpubs.sgi.com/library/tpl/cgi-bin/browse.cgi?cmd=toc&coll=linux&db=bks&pth=/SGI_Developer/MPT_UG"
 set license SGI
-set app mpt
 
 ### help
 proc ModulesHelp { } {
@@ -40,10 +39,10 @@ if { $module != $current } {
 
 ### env
 setenv NCE_MPI $module
-setenv SGI_MPT_HOME $approot/$app/mpt-$release
+setenv SGI_MPT_HOME $approot/$program/mpt-$release
 
-prepend-path LD_LIBRARY_PATH $approot/$app/mpt-$release/lib
-prepend-path PATH $approot/$app/mpt-$release/bin
-prepend-path MANPATH $approot/$app/mpt-$release/man
+prepend-path LD_LIBRARY_PATH $approot/$program/mpt-$release/lib
+prepend-path PATH $approot/$program/mpt-$release/bin
+prepend-path MANPATH $approot/$program/mpt-$release/man
 
-setenv MPI_ROOT $approot/$app/mpt-$release
+setenv MPI_ROOT $approot/$program/mpt-$release
