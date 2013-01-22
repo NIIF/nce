@@ -6,6 +6,8 @@
 # run by root before services start
 #
 
+echo ""
+echo "--- Hyper-threading OFF ---------------------------------"
 cat /sys/devices/system/cpu/cpu*/topology/thread_siblings_list | \
 sort -u | \
 while read sibs ; do
@@ -18,7 +20,7 @@ while read sibs ; do
       shift
       while [ "$1" ]
       do
-        echo "Disabling CPU $1 .."
+        echo "Disabling Logical CPU $1 .."
         echo 0 > /sys/devices/system/cpu/cpu$1/online
         shift
       done
@@ -27,3 +29,5 @@ while read sibs ; do
     ;;
   esac
 done
+echo "---------------------------------------------------------"
+echo ""

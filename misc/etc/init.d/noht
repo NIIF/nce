@@ -1,0 +1,77 @@
+#!/bin/bash
+# Author: T
+#
+# http://www.novell.com/communities/node/11464/easy-running-scripts-boot-and-shutdown
+# http://superuser.com/questions/368620/should-i-disable-hyperthreading
+#
+# /etc/init.d/noht
+#
+
+### INSTALL
+#   - Copy this script to /etc/init.d/noht
+#   cd /etc/init.d
+#   chmod a+x noht
+#   insserv /etc/init.d/noht
+#   reboot
+
+### BEGIN INIT INFO
+# Provides:          noht
+# Required-Start:
+# Should-Start:      $null
+# Should-Stop:	     $null
+# Required-Stop:
+# Default-Start:     3 5
+# Short-Description: Disable Hyper-Threading on Intel CPUs
+# Description:       Disable Hyper-Threading on Intel CPUs
+### END INIT INFO
+
+. /etc/rc.status
+
+rc_reset
+
+### functions
+function noht() {
+  cat /sys/devices/system/cpu/cpu*/topology/thread_siblings_list | \
+  sort -u | \
+  while read sibs ; do
+    case "$sibs" in
+      *,*)
+        oldIFS="$IFS"
+        IFS=",$IFS"
+        set $sibs
+        IFS="$oldIFS"
+        shift
+        while [ "$1" ]
+        do
+          echo "Disabling Logical CPU: $1"
+          echo 0 > /sys/devices/system/cpu/cpu$1/online
+          shift
+        done
+      ;;
+      *)
+      echo ""
+      echo "HYPER-THREADING IS OFF"
+      echo ""
+      ;;
+    esac
+  done	
+}
+
+### main
+case "$1" in
+   start)
+      echo ""
+      echo -e "\E[36mRunning $0 \E[0m";
+      noht
+      echo -e "\E[36mDone $0 \E[0m";
+      echo ""
+   ;;
+   stop|restart)
+   ;;
+   *)
+     echo "Usage $0 (start)"
+      exit 1; 
+   ;;
+esac 
+
+rc_exit

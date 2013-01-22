@@ -1,0 +1,133 @@
+#!/bin/bash
+# Author: T
+##
+# /etc/init.d/nce
+#
+
+### INSTALL
+#   - Copy this script to /etc/init.d/nce
+#   cd /etc/init.d
+#   chmod a+x nce
+#   insserv /etc/init.d/nce
+#   reboot
+
+### BEGIN INIT INFO
+# Provides:          nce
+# Required-Start:    $network $remote_fs
+# Should-Start:      $null
+# Should-Stop:	     $null
+# Required-Stop:
+# Default-Start:     3 5
+# Short-Description: NIIF Common Environment Init
+# Description:       NIFF Common Environment Init
+### END INIT INFO
+
+. /etc/rc.status
+
+rc_reset
+
+gbn=$(basename $BASH_SOURCE)
+site=${gbn##*.}
+
+function nce() {
+  if test -z "${site}" ; then
+    echo ""
+    echo "NCE: SITE CONFIGURATION NOT FOUND"
+    echo ""
+    return 0
+  fi
+
+  echo ""
+  echo "NCE: INIT ${site}"
+
+  ### init fileystem
+  echo ""
+  echo "NCE: Filesystem Setup"
+  nce/${site}/home
+  nce/${site}/scratch
+  nce/${site}/nce
+  echo ""
+  # nce/cpumap
+  # echo ""
+}
+
+### BEGIN DEBRECEN
+function nce/debrecen/home() {
+  local TARGET="/mnt/nfs1/home"
+  local LINK_NAME="/home"
+
+  if ! test -d "${LINK_NAME}" ; then
+    if ! test -r "${TARGET}" ; then
+      echo "Target not found: ${TARGET}"
+      return 1
+    fi
+    ln -v -s "${TARGET}" "${LINK_NAME}"
+    return $?
+  fi
+
+  ls -ld "${LINK_NAME}"
+}
+
+function nce/debrecen/scratch() {
+  local TARGET="/mnt/nfs1/scratch"
+  local LINK_NAME="/scratch"
+
+  if ! test -d "${LINK_NAME}" ; then
+    if ! test -r "${TARGET}" ; then
+      echo "Target not found: ${TARGET}"
+      return 1
+    fi
+    ln -v -s "${TARGET}" "${LINK_NAME}"
+    return $?
+  fi
+
+  ls -ld "${LINK_NAME}"
+}
+
+function nce/debrecen/nce() {
+  local TARGET="/mnt/nfs1/nce"
+  local LINK_NAME="/opt/nce"
+
+  if ! test -d "${LINK_NAME}" ; then
+    if ! test -r "${TARGET}" ; then
+      echo "Target not found: ${TARGET}"
+      return 1
+    fi
+    ln -v -s "${TARGET}" "${LINK_NAME}"
+    return $?
+  fi
+
+  ls -ld "${LINK_NAME}"
+
+}
+### END DEBRECEN
+
+
+### common
+function nce/cpumap() {
+  which "cpumap" &> /dev/null
+  if test $? -gt 0 ; then
+    echo "cpumap not found"
+    return 1
+  fi
+  cpumap
+}
+
+### main
+case "$1" in
+   start)
+      echo ""
+      echo -e "\E[36mRunning $0 \E[0m";
+      nce
+      echo -e "\E[36mDone $0 \E[0m";
+      echo ""
+   ;;
+   stop|restart)
+   ;;
+   *)
+     echo "Usage $0 (start)"
+      exit 1; 
+   ;;
+esac 
+
+rc_exit
