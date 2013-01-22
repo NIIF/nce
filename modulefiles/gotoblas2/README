@@ -1,0 +1,15 @@
+## Compile
+make | tee make.out
+
+## Test
+cd benchmark
+make $(cat Makefile | grep ^[sdcz][a-z]*.goto | cut -d' ' -f1)
+
+### Goto threads
+for i in *.goto; do GOTO_NUM_THREADS=8 ./$i 1 2000 | tee ${i}.out ; done
+
+### OMP threads
+for i in *.goto; do OMP_NUM_THREADS=8 ./$i 1 2000 | tee ${i}.out ; done
+
+## Usage
+GOTO_NUM_THREADS=? exec ...
