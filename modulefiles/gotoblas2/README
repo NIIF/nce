@@ -1,5 +1,7 @@
 ## Compile
-  make | tee make.out
+  make CC=gcc FC=gfortran | tee make.out
+
+  make CC=opencc FC=openf95 | tee make.out
 
 ## Test
   cd benchmark
