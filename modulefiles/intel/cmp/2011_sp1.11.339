@@ -50,6 +50,7 @@ setenv INTEL_ICC_HOME   $approot/${app}_${release}/compiler
 prepend-path PATH $approot/${app}_${release}/bin/$arch
 prepend-path MANPATH $approot/${app}_${release}/man
 prepend-path LD_LIBRARY_PATH $approot/${app}_${release}/compiler/lib/$arch
+prepend-path LD_RUN_PATH $approot/${app}_${release}/compiler/lib/$arch
 prepend-path NLSPATH $approot/${app}_${release}/compiler/lib/$arch/locale/en_US/%N
 
 ### License
@@ -57,3 +58,4 @@ setenv INTEL_LICENSE_FILE /opt/intel/licenses/
 
 prepend-path OPENCL_VENDOR_PATH $approot/${app}_${release}/etc/OpenCL/vendors
 prepend-path LD_LIBRARY_PATH $approot/${app}_${release}/compiler/lib/$arch/OpenCL/vendors/intel
+prepend-path LD_RUN_PATH $approot/${app}_${release}/compiler/lib/$arch/OpenCL/vendors/intel

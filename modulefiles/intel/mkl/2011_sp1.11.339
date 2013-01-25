@@ -45,6 +45,7 @@ setenv INTEL_MKL_HOME $approot/${app}_${release}/mkl
 setenv MKLROOT $approot/${app}_${release}/mkl
 
 prepend-path LD_LIBRARY_PATH $approot/${app}_${release}/mkl/lib/$arch
+prepend-path LD_RUN_PATH $approot/${app}_${release}/mkl/lib/$arch
 
 ### mkl
 setenv OMP_NUM_THREADS 1

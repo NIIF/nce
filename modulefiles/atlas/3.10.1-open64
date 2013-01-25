@@ -49,3 +49,4 @@ if { $module != $current } {
 setenv LIB_ATLAS $module
 setenv LIB_ATLAS_HOME $approot/$release
 prepend-path LD_LIBRARY_PATH $approot/$release/lib
+prepend-path LD_RUN_PATH $approot/$release/lib

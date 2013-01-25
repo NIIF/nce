@@ -15,11 +15,11 @@ if [info exists env(NCE_PACKAGES)] {
   break
 }
 
-set approot $nce_pkgs/$program
-set appname "AMD ACML"
-set appdesc "AMD ACML 5.0.0"
-set appurl  "http://developer.amd.com/libraries/acml/pages/default.aspx"
-set license AMD
+set approot $nce_pkgs/$module
+set appname "Boost"
+set appdesc "Boost 1.52.0"
+set appurl  "http://www.boost.org/"
+set license Boost
 
 ### help
 proc ModulesHelp { } {
@@ -33,8 +33,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(AMD_ACML)] {
-  set current $env(AMD_ACML)
+if [info exists env(LIB_BOOST)] {
+  set current $env(LIB_BOOST)
 } else {
   set current $module
 }
@@ -45,11 +45,10 @@ if { $module != $current } {
 }
 
 ### env
-setenv AMD_ACML $module
-setenv AMD_ACML_HOME $approot/$release
+setenv LIB_BOOST $module
+setenv LIB_BOOST_HOME $approot
+prepend-path PATH $approot/bin
+# prepend-path MANPATH $approot/share/man
+prepend-path LD_LIBRARY_PATH $approot/lib
+prepend-path LD_RUN_PATH $approot/lib
 
-prepend-path LD_LIBRARY_PATH $approot/gfortran64_mp/lib
-prepend-path LD_RUN_PATH $approot/gfortran64_mp/lib
-
-### env
-setenv OMP_NUM_THREAD 1

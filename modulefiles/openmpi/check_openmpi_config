@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ompi_info | grep openib
+
+ompi_info | grep gridengine

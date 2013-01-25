@@ -42,6 +42,7 @@ setenv NCE_MPI $module
 setenv SGI_MPT_HOME $approot/$program/mpt-$release
 
 prepend-path LD_LIBRARY_PATH $approot/$program/mpt-$release/lib
+prepend-path LD_RUN_PATH $approot/$program/mpt-$release/lib
 prepend-path PATH $approot/$program/mpt-$release/bin
 prepend-path MANPATH $approot/$program/mpt-$release/man
 

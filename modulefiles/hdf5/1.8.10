@@ -15,11 +15,11 @@ if [info exists env(NCE_PACKAGES)] {
   break
 }
 
-set approot $nce_pkgs/$program
-set appname "AMD ACML"
-set appdesc "AMD ACML 5.0.0"
-set appurl  "http://developer.amd.com/libraries/acml/pages/default.aspx"
-set license AMD
+set approot $nce_pkgs/$module
+set appname "HDF5"
+set appdesc "HDF5 1.8.10"
+set appurl  "http://www.hdfgroup.org"
+set license GNU
 
 ### help
 proc ModulesHelp { } {
@@ -33,8 +33,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(AMD_ACML)] {
-  set current $env(AMD_ACML)
+if [info exists env(LIB_HDF5)] {
+  set current $env(LIB_HDF5)
 } else {
   set current $module
 }
@@ -45,11 +45,8 @@ if { $module != $current } {
 }
 
 ### env
-setenv AMD_ACML $module
-setenv AMD_ACML_HOME $approot/$release
-
-prepend-path LD_LIBRARY_PATH $approot/gfortran64_mp/lib
-prepend-path LD_RUN_PATH $approot/gfortran64_mp/lib
-
-### env
-setenv OMP_NUM_THREAD 1
+setenv LIB_HDF5 $module
+setenv LIB_HDF5_HOME $approot
+prepend-path PATH $approot/bin
+prepend-path LD_LIBRARY_PATH $approot/lib
+prepend-path LD_RUN_PATH $approot/lib

@@ -48,5 +48,8 @@ if { $module != $current } {
 setenv AMD_ACML $module
 setenv AMD_ACML_HOME $approot/$release
 
+prepend-path LD_LIBRARY_PATH $approot/gfortran64_mp/lib
+prepend-path LD_RUN_PATH $approot/gfortran64_mp/lib
+
 ### env
 setenv OMP_NUM_THREAD 1
