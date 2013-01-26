@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# hostkey check: delete wrong entries from known_hosts
+function cmumgr/nodelist() {
+  cat /etc/hosts | \
+  awk 'BEGIN{p=0} {
+  if(match($0,"cmu_node_list_begin")) {p=1;next};
+  if(match($0,"cmu_node_list_end")) p=0;
+  if(p) print}'
+}
+
+_cmd=$1
+
+case ${_cmd} in
+  key)
+    for i in $(cmumgr/nodelist | cut -d " " -f2); do
+      ssh -A root@${i} hostname 2>&1
+    done | grep Offending | sort -n
+  ;;
+  run)
+    shift
+    echo "Do you want to run $*?"
+    for i in $(cmumgr/nodelist | cut -d " " -f2); do
+      ssh -A root@${i} $*
+    done
+  init)
+    shift
+    echo "Do you want to init $*?"
+    read
+    service=$1
+    shift
+    action=${*:-status}
+    for i in $(cmumgr/nodelist | cut -d " " -f2); do
+      ssh -A root@${i} /etc/init.d/${service} ${action}
+    done
+  ;;
+  *)
+    cmu/node/list
+  ;;
+esac

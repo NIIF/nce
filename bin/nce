@@ -20,6 +20,12 @@ EOF
   echo ""
 }
 
+function nce/niif/budapest/top() {
+  gstat -1 -i manager -a | \
+  grep -v ^manager | \
+  grep -v ^login
+}
+
 ### args
 _cmd="${1:-env}"
 
@@ -28,6 +34,9 @@ case "${_cmd}" in
   env|node)
     shift
     nce/${_cmd} $*
+    ;;
+  top)
+    nce/${NCE_SYSTEM}/top
     ;;
   help|*)
     help/nce
