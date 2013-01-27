@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sacctmgr list associations cluster=${1:-cluster} format=Account,Cluster,User,Fairshare tree withd

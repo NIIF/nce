@@ -1,0 +1,64 @@
+#!/bin/bash
+echo "https://computing.llnl.gov/linux/slurm/cpu_management.html"
+echo ""
+
+test=${1:-1}
+alloc=/opt/nce/etc/slurm/set
+
+case $test in
+  1)
+    echo "Example 1: Allocation of whole nodes"
+    srun --nodes=2 $alloc
+    ;;
+  2)
+    echo "Example 2: Simple allocation of cores as consumable resources"
+    srun --nodes=1-1 --ntasks=2 --cpus-per-task=3 $alloc
+    ;;
+  3)
+    echo "Example 3: Consumable resources with balanced allocation across nodes"
+    srun --nodes=3-3 --ntasks=3 --cpus-per-task=3 $alloc
+    ;;
+  4)
+    echo "Example 4: Consumable resources with minimization of resource fragmentation"
+    srun --ntasks=36 $alloc
+    ;;
+  5)
+    echo "Example 5: Consumable resources with cyclic distribution of tasks to nodes"
+    srun --nodes=2-2 --ntasks-per-node=3 --distribution=cyclic --ntasks=6 --cpus-per-task=2 $alloc
+    ;;
+  6)
+    echo "Example 6: Consumable resources with default allocation and plane distribution of tasks to nodes"
+    srun --nodes=3-3 --distribution=plane=2 --ntasks=8 --cpus-per-task=2 $alloc
+    ;;
+  7)
+    echo "Example 7: Consumable resources with overcommitment of CPUs to tasks"
+    srun --nodes=1-1 --ntasks=20 --overcommit $alloc
+    ;;
+  # 8 9 N/A
+  # TODO: check affinity
+  10)
+    echo "Example 10: Consumable resources with task affinity and core binding"
+    srun --nodes=1-1 --ntasks=6 --cpu_bind=cores $alloc
+    ;;
+  11)
+    echo "Example 11: Consumable resources with task affinity and socket binding, Case 1"
+    srun --nodes=1-1 --ntasks=6 --cpu_bind=sockets $alloc
+    ;;
+  12)
+    echo "Example 12: Consumable resources with task affinity and socket binding, Case 2"
+    srun --nodes=1-1 --ntasks=2 --cpus-per-task=3 --cpu_bind=sockets --distribution=block:block $alloc
+    ;;
+  13)
+    echo "Example 13: Consumable resources with task affinity and socket binding, Case 3"
+    srun --nodes=1-1 --ntasks=2 --cpus-per-task=3 --cpu_bind=sockets --distribution=block:cyclic $alloc
+    ;;
+  14)
+    echo "Example 14: Consumable resources with task affinity and customized allocation and distribution"
+    srun --nodes=3-3 --ntasks=18 --ntasks-per-node=6 --distribution=cyclic:block --cpu_bind=cores $alloc
+    ;;
+  15)
+    echo "Example 15: Consumable resources with task affinity to optimize the performance of a multi-task, multi-thread job"
+    srun --ntasks=3 --cpus-per-task=3 --ntasks-per-node=1 --cpu_bind=cores $alloc
+    ;;
+  # 16 N/A
+esac

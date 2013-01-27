@@ -1,0 +1,2 @@
+SLURMD_OPTIONS="-M"
+SLURM_CONFIG="/opt/nce/etc/slurm/slurm.conf"

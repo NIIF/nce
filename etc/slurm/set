@@ -1,0 +1,3 @@
+#!/bin/bash
+echo -e "[$SLURMD_NODENAME] $SLURM_NODEID/$SLURM_NNODES #cpus=$SLURM_CPUS_ON_NODE #tasks=$SLURM_NTASKS #c/t=$SLURM_CPUS_PER_TASK #procid/locid=$SLURM_PROCID/$SLURM_LOCALID #task/node=$SLURM_TASKS_PER_NODE"
+# set | grep SLURM

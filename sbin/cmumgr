@@ -21,6 +21,7 @@ case ${_cmd} in
     shift
     echo "Do you want to run $*?"
     for i in $(cmumgr/nodelist | cut -d " " -f2); do
+      echo "[$i] run: root@${i} $*"
       ssh -A root@${i} $*
     done
   ;;
@@ -32,6 +33,7 @@ case ${_cmd} in
     shift
     action=${*:-status}
     for i in $(cmumgr/nodelist | cut -d " " -f2); do
+      echo "[$i] init: /etc/init.d/${service} ${action}"
       ssh -A root@${i} /etc/init.d/${service} ${action}
     done
   ;;
