@@ -36,6 +36,6 @@ case ${_cmd} in
     done
   ;;
   *)
-    cmu/node/list
+    cmumgr/nodelist
   ;;
 esac
