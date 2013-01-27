@@ -1,0 +1,10 @@
+#!/bin/bash
+
+URL=http://ftp.cs.stanford.edu/pub/rpms/centos/5.6/x86_64
+for i in $(curl -s -L ${URL} | \
+  grep slurm | \
+  sed s/.*href=\"// | \
+  sed s/\".*//) ; do
+
+  wget ${URL}/$i
+done

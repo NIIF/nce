@@ -23,6 +23,7 @@ case ${_cmd} in
     for i in $(cmumgr/nodelist | cut -d " " -f2); do
       ssh -A root@${i} $*
     done
+  ;;
   init)
     shift
     echo "Do you want to init $*?"
