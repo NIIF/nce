@@ -1,0 +1,32 @@
+#!/bin/bash
+
+CONF=/opt/nce/etc/directory
+
+if test -z "$*" ; then
+  if test -r "${CONF}" ; then
+    source ${CONF}
+  fi
+else
+  $HOST=$1
+  $BASE=$2
+  $ATTR=$3
+fi
+
+function directory/search() {
+  ldapsearch -LLL -h ${1} -x -b "${2}" ${3}
+}
+
+for project in $(directory/search $HOST $BASE $ATTR | \
+  grep "cn:" | \
+  cut -d ":" -f 2 | \
+  sed -e "s/\s*//g") ; do
+
+  group=$(getent group ${project})
+  users=$(echo ${group} | cut -d ":" -f 4)
+  
+  if test -z "${users}" ; then
+    # skip emtpy groups
+    continue
+  fi
+  echo ${project}:${users}
+done
