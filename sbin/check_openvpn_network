@@ -1,0 +1,25 @@
+#!/bin/bash
+
+admin="budapest szeged debrecen pecs"
+login="budapest_login szeged_login debrecen_login pecs_login"
+
+ports="6817,6851,80,6852"
+
+function nmap/sites() {
+  local s
+  for s in ${1} ; do
+    nmap -p${2} $s
+  done
+}
+
+if ! test -z "${1}" ; then
+  nmap/sites "${1}" "${ports}"
+  exit $?
+fi
+
+echo "ADMIN"
+nmap/sites "${admin}" "${ports}"
+
+echo ""
+echo "LOGIN"
+nmap/sites "${login}" "${ports}"
