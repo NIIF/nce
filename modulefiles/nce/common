@@ -11,7 +11,7 @@ set release [lrange [split $module {/}] end end]
 ### eszr
 set approot /opt/$program
 set appname "nce global"
-set appdesc "NIIF Common Environment for global access"
+set appdesc "NIIF Common Environment common"
 set appurl  ""
 set license GPL
 
@@ -26,25 +26,11 @@ proc ModulesHelp { } {
 
 module-whatis "$appname"
 
-### conflict
-if [info exists env(NCE_MODE)] {
-  set current $env(NCE_MODE)
-} else {
-  set current $module
-}
-if { $module != $current } {
-  if { [ is-loaded $current ] } {
-    module unload $current
-  }
-}
-
 ### env
-setenv NCE_MODE $module
-setenv NCE_ROOT $approot
-setenv NCE_PACKAGES  $approot/packages/$release
+setenv NCE_FFLAGS ""
+setenv NCE_CFLAGS ""
+setenv NCE_LDFLAGS ""
+setenv NCE_STATIC_LDFLAGS ""
 
-### path
-prepend-path PATH ${approot}/bin
-
-### common variables
-module load nce/common
+setenv NCE_CXXFLAGS ""
+setenv NCE_CPPFLAGS ""

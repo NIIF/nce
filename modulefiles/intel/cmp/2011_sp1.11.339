@@ -59,3 +59,11 @@ setenv INTEL_LICENSE_FILE /opt/intel/licenses/
 prepend-path OPENCL_VENDOR_PATH $approot/${app}_${release}/etc/OpenCL/vendors
 prepend-path LD_LIBRARY_PATH $approot/${app}_${release}/compiler/lib/$arch/OpenCL/vendors/intel
 prepend-path LD_RUN_PATH $approot/${app}_${release}/compiler/lib/$arch/OpenCL/vendors/intel
+
+prepend-path -d { } NCE_CFLAGS -I$approot/${app}_${release}/compiler/include
+prepend-path -d { } NCE_FFLAGS -I$approot/${app}_${release}/compiler/include
+# shared
+append-path -d { } NCE_LDFLAGS -L$approot/${app}_${release}/compiler/lib/$arch
+# append-path -d { } NCE_LDFLAGS
+# static
+# append-path -d { } NCE_STATIC_LDFLAGS

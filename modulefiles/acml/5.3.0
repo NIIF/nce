@@ -8,6 +8,8 @@ set module  [module-info name]
 set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
 set release [lrange [split $module {/}] end end]
 
+set subversion "gfortran64_mp"
+
 if [info exists env(NCE_PACKAGES)] {
   set nce_pkgs $env(NCE_PACKAGES)
 } else {
@@ -48,8 +50,16 @@ if { $module != $current } {
 setenv AMD_ACML $module
 setenv AMD_ACML_HOME $approot/$release
 
-prepend-path LD_LIBRARY_PATH $approot/gfortran64_mp/lib
-prepend-path LD_RUN_PATH $approot/gfortran64_mp/lib
+prepend-path LD_LIBRARY_PATH $approot/$subversion/lib
+prepend-path LD_RUN_PATH $approot/$subversion/lib
+
+prepend-path -d { } NCE_CFLAGS -I$approot/$subversion/include
+prepend-path -d { } NCE_FFLAGS -I$approot/$subversion/include
+# shared
+append-path -d { } NCE_LDFLAGS -L$approot/$subversion/lib
+append-path -d { } NCE_LDFLAGS -lacml_mp
+# static
+append-path -d { } NCE_STATIC_LDFLAGS $approot/$subversion/lib/libacml_mp.a
 
 ### env
 setenv OMP_NUM_THREAD 1

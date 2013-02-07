@@ -45,3 +45,6 @@ setenv NCE_PACKAGES $approot/packages/$release
 
 ### path
 prepend-path PATH ${approot}/bin
+
+### common variables
+module load nce/common

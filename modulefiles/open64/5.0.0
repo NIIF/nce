@@ -51,3 +51,11 @@ setenv OPEN64_TC $approot
 
 prepend-path PATH $approot/bin
 # prepend-path LD_LIBRARY_PATH $approot/lib
+
+# prepend-path -d { } NCE_CFLAGS -I$approot/include
+# prepend-path -d { } NCE_FFLAGS -I$approot/include
+# shared
+# append-path -d { } NCE_LDFLAGS -L$approot/$release/lib
+# append-path -d { } NCE_LDFLAGS
+# static
+# append-path -d { } NCE_STATIC_LDFLAGS

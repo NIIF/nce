@@ -47,3 +47,11 @@ prepend-path PATH $approot/$program/mpt-$release/bin
 prepend-path MANPATH $approot/$program/mpt-$release/man
 
 setenv MPI_ROOT $approot/$program/mpt-$release
+
+prepend-path -d { } NCE_CFLAGS -I$approot/$program/mpt-$release/include
+prepend-path -d { } NCE_FFLAGS -I$approot/$program/mpt-$release/include
+# shared
+append-path -d { } NCE_LDFLAGS -L$approot/$program/mpt-$release/lib
+append-path -d { } NCE_LDFLAGS -lmpi
+# static
+# append-path -d { } NCE_STATIC_LDFLAGS

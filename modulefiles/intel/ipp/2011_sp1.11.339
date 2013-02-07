@@ -45,3 +45,11 @@ setenv INTEL_IPP_HOME $approot/${app}_${release}/ipp
 
 prepend-path LD_LIBRARY_PATH $approot/${app}_${release}/ipp/lib/$arch
 prepend-path LD_RUN_PATH $approot/${app}_${release}/ipp/lib/$arch
+
+prepend-path -d { } NCE_CFLAGS -I$approot/${app}_${release}/ipp/include
+prepend-path -d { } NCE_FFLAGS -I$approot/${app}_${release}/ipp/include
+# shared
+append-path -d { } NCE_LDFLAGS -L$approot/${app}_${release}/ipp/lib/$arch
+# append-path -d { } NCE_LDFLAGS
+# static
+# append-path -d { } NCE_STATIC_LDFLAGS
