@@ -82,11 +82,14 @@ function estimate() {
 }
 
 function myaccounts() {
-  sacctmgr list accounts withassoc format=Account,Cluster,GrpCPUMins,MaxWall user=$USER cluster=$*
+  local _c=${1:-${NCE_SYSTEM##*/}}
+  sacctmgr list accounts withassoc format=Account,Cluster,GrpCPUMins,MaxWall user=$USER cluster=${_c} $*
 }
 
 function allaccounts() {
   local _a=$1
   shift
-  sacctmgr list associations format=Account,Cluster,GrpCPUMins,MaxWall account=${_a} cluster=$*
+  local _c=${1:-${NCE_SYSTEM##*/}}
+  shift
+  sacctmgr list associations format=Account,Cluster,GrpCPUMins,MaxWall account=${_a} cluster=${_c} $*
 }
