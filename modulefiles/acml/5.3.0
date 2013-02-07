@@ -58,8 +58,11 @@ prepend-path -d { } NCE_FFLAGS -I$approot/$subversion/include
 # shared
 append-path -d { } NCE_LDFLAGS -L$approot/$subversion/lib
 append-path -d { } NCE_LDFLAGS -lacml_mp
+append-path -d { } NCE_LDFLAGS -lcblas_mp
+
 # static
 append-path -d { } NCE_STATIC_LDFLAGS $approot/$subversion/lib/libacml_mp.a
+append-path -d { } NCE_STATIC_LDFLAGS $approot/$subversion/lib/libcblas_mp.a
 
 ### env
 setenv OMP_NUM_THREAD 1
