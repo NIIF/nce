@@ -81,7 +81,7 @@ function estimate() {
   sbank balance request -v --cluster ${_c} --account ${_a} --time ${_t}
 }
 
-function myaccounts() {
+function myaccount() {
   local _c=${1:-${NCE_SYSTEM##*/}}
   sacctmgr list accounts withassoc format=Account,Cluster,GrpCPUMins,MaxWall user=$USER cluster=${_c} $*
 }
@@ -89,6 +89,8 @@ function myaccounts() {
 function account() {
   if test -z "${1}" ; then
     echo "Usage: account <ACCOUNT>"
+    return 1
+  fi
   local _a=$1
   shift
   local _c=${1:-${NCE_SYSTEM##*/}}
