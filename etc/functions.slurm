@@ -80,3 +80,13 @@ function estimate() {
 
   sbank balance request -v --cluster ${_c} --account ${_a} --time ${_t}
 }
+
+function myaccounts() {
+  sacctmgr list accounts withassoc format=Account,Cluster,GrpCPUMins,MaxWall user=$USER cluster=$*
+}
+
+function allaccounts() {
+  local _a=$1
+  shift
+  sacctmgr list associations format=Account,Cluster,GrpCPUMins,MaxWall account=${_a} cluster=$*
+}
