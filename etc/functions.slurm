@@ -86,7 +86,9 @@ function myaccounts() {
   sacctmgr list accounts withassoc format=Account,Cluster,GrpCPUMins,MaxWall user=$USER cluster=${_c} $*
 }
 
-function allaccounts() {
+function account() {
+  if test -z "${1}" ; then
+    echo "Usage: account <ACCOUNT>"
   local _a=$1
   shift
   local _c=${1:-${NCE_SYSTEM##*/}}
