@@ -19,16 +19,15 @@ case ${_cmd} in
   ;;
   run)
     shift
-    echo "Do you want to run $*?"
+    read -p "Do you want to run $*?"
     for i in $(cmumgr/nodelist | cut -d " " -f2); do
-      echo "[$i] run: root@${i} $*"
+      echo "[$i] Run: root@${i} $*"
       ssh -A root@${i} $*
     done
   ;;
   init)
     shift
-    echo "Do you want to init $*?"
-    read
+    read -p "Do you want to init $*?"
     service=$1
     shift
     action=${*:-status}

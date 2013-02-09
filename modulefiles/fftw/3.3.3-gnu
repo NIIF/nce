@@ -53,10 +53,10 @@ prepend-path LD_LIBRARY_PATH $approot/lib
 prepend-path LD_RUN_PATH $approot/lib
 prepend-path PKG_CONFIG_PATH $approot/lib/pkgconfig
 
-prepend-path -d { } NCE_CFLAGS -I$approot/$release/include
-prepend-path -d { } NCE_FFLAGS -I$approot/$release/include
+prepend-path -d { } NCE_CFLAGS -I$approot/include
+prepend-path -d { } NCE_FFLAGS -I$approot/include
 # shared
-append-path -d { } NCE_LDFLAGS -L$approot/$release/lib
-# append-path -d { } NCE_LDFLAGS
+append-path -d { } NCE_LDFLAGS -L$approot/lib
+append-path -d { } NCE_LDFLAGS -lfftw3
 # static
-# append-path -d { } NCE_STATIC_LDFLAGS
+append-path -d { } NCE_STATIC_LDFLAGS $approot/lib/libfftw3.a

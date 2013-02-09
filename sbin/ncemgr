@@ -1,0 +1,106 @@
+#!/bin/bash
+
+NCE_URL=nce@slurmdbd:/opt/nce
+NCE_MOUNT=/mnt/nce
+NCE_IDENTITY=/root/.ssh/nce.slurmdbd
+
+NCE_ROOT=/opt/nce
+NCE_DISKLESS_ROOT=/opt/nce/cmu/diskless/root
+
+
+function ncemgr/nodes/budapest() {
+  cat /etc/hosts | \
+  awk 'BEGIN{p=0} {
+  if(match($0,"cmu_node_list_begin")) {p=1;next};
+  if(match($0,"cmu_node_list_end")) p=0;
+  if(p) print}'
+}
+
+function ncemgr/nodes/szeged() {
+  ncemgr/nodes/budapest $*
+}
+
+function ncemgr/munge/budapest() {
+  local _cmd=${1:-status}
+  echo ""
+  read -p "sudo_ssh ssh -A root@login service munge ${_cmd}?"
+  sudo_ssh ssh -A root@login service munge ${_cmd}
+
+  echo ""
+  read -p "sudo_ssh ssh -A root@<CLUSTER> service munge ${_cmd}"
+  local i
+  for i in $(ncemgr/nodes/budapest | cut -d " " -f2); do
+    echo "${i}:"
+    sudo_ssh ssh -A root@${i} service munge ${_cmd}
+  done
+}
+
+
+function ncemgr/slurm/budapest() {
+  local _cmd=${1:-status}
+  echo ""
+  read -p "sudo_ssh ssh -A root@login service slurm ${_cmd}?"
+  sudo_ssh ssh -A root@login service slurm ${_cmd}
+
+  if test "${_cmd}" = "config" ; then
+    if ! test -r "${NCE_ROOT}/etc/slurm/slurm.conf" ; then return 0; fi
+    if ! test -d "${NCE_DISKLESS_ROOT}/etc/slurm" ; then return 0; fi
+
+    read -p "cp -vf ${NCE_ROOT}/etc/slurm/slurm.conf ${NCE_DISKLESS_ROOT}/etc/slurm/slurm.conf"
+    cp -vf "${NCE_ROOT}/etc/slurm/slurm.conf" "${NCE_DISKLESS_ROOT}/etc/slurm/slurm.conf"
+    return 0
+  fi
+
+  echo ""
+  read -p "sudo_ssh ssh -A root@<CLUSTER> service slurm ${_cmd}"
+  local i
+  for i in $(ncemgr/nodes/budapest | cut -d " " -f2); do
+    echo "${i}:"
+    sudo_ssh ssh -A root@${i} service slurm ${_cmd}
+  done
+}
+
+function ncemgr/munge() {
+  local _cmd=${1:-status} 
+  echo "Press Ctrl+C to abort"
+  read -p "Do you want to ${_cmd} munge on this cluster?"
+  echo ""
+  read -p "service munge ${_cmd}?"
+  service munge ${_cmd}
+  ncemgr/munge/${NCE_SYSTEM##*/} $*
+}
+
+function ncemgr/slurm() {
+  local _cmd=${1:-status} 
+  echo "Press Ctrl+C to abort"
+  read -p "Do you want to ${_cmd} slurm on this cluster?"
+  echo ""
+  read -p "service slurm ${_cmd}?"
+  service slurm ${_cmd}
+  ncemgr/slurm/${NCE_SYSTEM##*/} $*
+}
+
+
+### main
+_cmd=${1:-help}
+shift
+
+case "${_cmd}" in
+  mount)
+    if test -r "${NCE_MOUNT}/README" ; then exit 0; fi
+    sshfs ${NCE_URL} ${NCE_MOUNT} -o IdentityFile=${NCE_IDENTITY}
+  ;;
+  unmount)
+    if ! test -r "${NCE_MOUNT}/README" ; then exit 0; fi
+    umount ${NCE_MOUNT}
+  ;;
+  munge)
+    ncemgr/munge $*
+  ;;
+  slurm)
+    ncemgr/slurm $*
+  ;;  
+  help|*)
+    echo ""
+  ;;
+esac

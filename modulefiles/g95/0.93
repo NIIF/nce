@@ -1,14 +1,13 @@
 #%Module1.0
 
 ### errors
-# module-log error null
+module-log error null
 
 ### globals
 set module  [module-info name]
 set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
 set release [lrange [split $module {/}] end end]
 
-### eszr
 if [info exists env(NCE_PACKAGES)] {
   set nce_pkgs $env(NCE_PACKAGES)
 } else {
@@ -16,11 +15,11 @@ if [info exists env(NCE_PACKAGES)] {
   break
 }
 
-set approot $nce_pkgs/$program
-set appname "ATLAS"
-set appdesc "ATLAS 3.10.1"
-set appurl  "http://math-atlas.sourceforge.net/"
-set license BSD
+set approot $nce_pkgs/$module
+set appname "G95 Compiler"
+set appdesc "G95 Compiler 0.93"
+set appurl  "http://www.g95.org/"
+set license GPL
 
 ### help
 proc ModulesHelp { } {
@@ -34,8 +33,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(LIB_ATLAS)] {
-  set current $env(LIB_ATLAS)
+if [info exists env(G95_COMPILER)] {
+  set current $env(G95_COMPILER)
 } else {
   set current $module
 }
@@ -46,15 +45,17 @@ if { $module != $current } {
 }
 
 ### env
-setenv LIB_ATLAS $module
-setenv LIB_ATLAS_HOME $approot/$release
-prepend-path LD_LIBRARY_PATH $approot/$release/lib
-prepend-path LD_RUN_PATH $approot/$release/lib
+setenv G95_COMPILER $module
+setenv G95_COMPILER_HOME $approot
+setenv G95_TC $approot
 
-prepend-path -d { } NCE_CFLAGS -I$approot/$release/include
-# prepend-path -d { } NCE_FFLAGS -I$approot/$release/include
+prepend-path PATH $approot/bin
+# prepend-path LD_LIBRARY_PATH $approot/lib
+
+# prepend-path -d { } NCE_CFLAGS -I$approot/include
+# prepend-path -d { } NCE_FFLAGS -I$approot/include
 # shared
-append-path -d { } NCE_LDFLAGS -L$approot/$release/lib
-# append-path -d { } NCE_LDFLAGS $approot/$release/lib/libatlas.a
+# append-path -d { } NCE_LDFLAGS -L$approot/$release/lib
+# append-path -d { } NCE_LDFLAGS
 # static
-append-path -d { } NCE_STATIC_LDFLAGS $approot/$release/lib/libatlas.a
+# append-path -d { } NCE_STATIC_LDFLAGS
