@@ -60,6 +60,10 @@ function ncemgr/slurm/budapest() {
   done
 }
 
+function ncemgr/slurm/szeged() {
+  ncemgr/slurm/budapest $*
+}
+
 function ncemgr/munge() {
   local _cmd=${1:-status} 
   echo "Press Ctrl+C to abort"
