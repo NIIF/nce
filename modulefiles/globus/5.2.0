@@ -51,6 +51,7 @@ prepend-path PATH $approot/bin
 prepend-path PATH $approot/sbin
 prepend-path LD_LIBRARY_PATH $approot/lib64
 prepend-path LD_RUN_PATH $approot/lib64
+prepend-path MANPATH $approot/share/man
 # OS X
 prepend-path DYLD_LIBRARY_PATH $approot/lib
 setenv GLOBUS_LOCATION $approot
