@@ -59,7 +59,8 @@ SCALAPACKLIB  = libscalapack.a
 # LAPACKLIB     = -llapack
 # LIBS          = $(LAPACKLIB) $(BLASLIB)
 
-BLASLIB       = $(TACC_GOTOBLAS_HOME)/lib/libgoto2.a
-LAPACKLIB     = -L$(LIB_ATLAS_HOME)/lib/libatlas.a
+BLASLIB = $(NCE_LDFLAGS)
+# BLASLIB       = $(TACC_GOTOBLAS_HOME)/lib/libgoto2.a
+# LAPACKLIB     = -L$(LIB_ATLAS_HOME)/lib/libatlas.a
 
 LIBS          = $(LAPACKLIB) $(BLASLIB)

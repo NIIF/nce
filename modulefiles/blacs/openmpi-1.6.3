@@ -17,10 +17,10 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "Open MPI"
-set appdesc "Open MPI"
-set appurl  "http://www.open-mpi.org/"
-set license BSD
+set appname "Blacs"
+set appdesc "Blacs for Openmpi-1.6.3"
+set appurl  "http://www.netlib.org/blacs/"
+set license NETLIB
 
 ### help
 proc ModulesHelp { } {
@@ -34,8 +34,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(NCE_MPI)] {
-  set current $env(NCE_MPI)
+if [info exists env(LIB_BLACS)] {
+  set current $env(LIB_BLACS)
 } else {
   set current $module
 }
@@ -46,21 +46,20 @@ if { $module != $current } {
 }
 
 ### env
-setenv NCE_MPI $module
+setenv LIB_BLACS $module
 
 ### path
-prepend-path PATH $approot/bin
-prepend-path MANPATH $approot/man
 prepend-path LD_LIBRARY_PATH $approot/lib
 prepend-path LD_RUN_PATH $approot/lib
 
-setenv OPENMPI_HOME $approot
-setenv MPI_ROOT $approot
+setenv LIB_BLACS_HOME $approot
 
-prepend-path -d { } NCE_CFLAGS -I$approot/include
-prepend-path -d { } NCE_FFLAGS -I$approot/include
+# prepend-path -d { } NCE_CFLAGS -I$approot/include
+# prepend-path -d { } NCE_FFLAGS -I$approot/include
 # shared
-append-path -d { } NCE_LDFLAGS -L$approot/lib
-append-path -d { } NCE_LDFLAGS -lmpi -lmpi_f77
+append-path -d { } NCE_LDFLAGS $approot/lib/blacsCinit_MPI-amd64-0.a
+append-path -d { } NCE_LDFLAGS $approot/lib/blacsF77init_MPI-amd64-0.a
+append-path -d { } NCE_LDFLAGS $approot/lib/blacs_MPI-amd64-0.a
+
 # static
 # append-path -d { } NCE_STATIC_LDFLAGS

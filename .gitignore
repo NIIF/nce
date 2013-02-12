@@ -1,1 +1,4 @@
 *.out
+modulefiles/prace
+*.template
+*.old

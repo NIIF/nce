@@ -8,8 +8,6 @@ set module  [module-info name]
 set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
 set release [lrange [split $module {/}] end end]
 
-set subversion "gfortran64"
-
 ### eszr
 if [info exists env(NCE_PACKAGES)] {
   set nce_pkgs $env(NCE_PACKAGES)
@@ -19,10 +17,10 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$program
-set appname "AMD ACML"
-set appdesc "AMD ACML 5.0.0"
-set appurl  "http://developer.amd.com/libraries/acml/pages/default.aspx"
-set license AMD
+set appname "Scalapack"
+set appdesc "Scalapack 2.0.2"
+set appurl  "http://www.netlib.org/scalapack/"
+set license BSD
 
 ### help
 proc ModulesHelp { } {
@@ -36,8 +34,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(AMD_ACML)] {
-  set current $env(AMD_ACML)
+if [info exists env(LIB_SCALAPACK)] {
+  set current $env(LIB_SCALAPACK)
 } else {
   set current $module
 }
@@ -48,19 +46,16 @@ if { $module != $current } {
 }
 
 ### env
-setenv AMD_ACML $module
-setenv AMD_ACML_HOME $approot/$release
+setenv LIB_SCALAPACK $module
+setenv LIB_SCALAPACK_HOME $approot/$release
+prepend-path LD_LIBRARY_PATH $approot/$release/lib
+prepend-path LD_RUN_PATH $approot/$release/lib
 
-prepend-path LD_LIBRARY_PATH $approot/$release/$subversion/lib
-prepend-path LD_RUN_PATH $approot/$release/$subversion/lib
-
-prepend-path -d { } NCE_CFLAGS -I$approot/$release/$subversion/include
-prepend-path -d { } NCE_FFLAGS -I$approot/$release/$subversion/include
+# prepend-path -d { } NCE_CFLAGS -I$approot/include
+# prepend-path -d { } NCE_FFLAGS -I$approot/include
 # shared
-append-path -d { } NCE_LDFLAGS -L$approot/$release/$subversion/lib
-append-path -d { } NCE_LDFLAGS -lacml
+append-path -d { } NCE_LDFLAGS $approot/$release/lib/libscalapck.a
+#append-path -d { } NCE_LDFLAGS -L$approot/$release/lib
+# append-path -d { } NCE_LDFLAGS -lscalapack
 # static
-append-path -d { } NCE_STATIC_LDFLAGS $approot/$release/$subversion/lib/libacml.a
-
-### env
-setenv OMP_NUM_THREAD 1
+#append-path -d { } NCE_STATIC_LDFLAGS $approot/$release/lib/libscalapck.a
