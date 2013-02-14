@@ -1,0 +1,1 @@
+export CFLAGS=$NCE_CFLAGS; export LDFLAGS=$NCE_LDFLAGS; ./configure --prefix=/opt/nce/packages/global/gcc/4.7.2/ --enable-languages=c,fortran,c++ --enable-threads --disable-bootstrap;make clean;make -j 8

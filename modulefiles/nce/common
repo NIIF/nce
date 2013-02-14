@@ -34,3 +34,8 @@ setenv NCE_STATIC_LDFLAGS ""
 
 setenv NCE_CXXFLAGS ""
 setenv NCE_CPPFLAGS ""
+
+### env
+setenv OMP_NUM_THREADS 1
+setenv GOTO_NUM_THREADS 1
+setenv MKL_NUM_THREADS 1

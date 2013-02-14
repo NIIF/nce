@@ -53,11 +53,7 @@ prepend-path LD_RUN_PATH $approot/lib
 # prepend-path -d { } NCE_CFLAGS -I$approot/include
 # prepend-path -d { } NCE_FFLAGS -I$approot/include
 # shared
-append-path -d { } NCE_LDFLAGS -L$approot/$release/lib
+append-path -d { } NCE_LDFLAGS -L$approot/lib
 append-path -d { } NCE_LDFLAGS -lgoto2
 # static
 append-path -d { } NCE_STATIC_LDFLAGS $approot/lib/libgoto2.a
-
-### env
-setenv OMP_NUM_THREAD 1
-setenv GOTO_NUM_THREAD 1

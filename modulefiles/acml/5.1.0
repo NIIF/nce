@@ -60,6 +60,3 @@ append-path -d { } NCE_LDFLAGS -L$approot/$release/$subversion/lib
 append-path -d { } NCE_LDFLAGS -lacml
 # static
 append-path -d { } NCE_STATIC_LDFLAGS $approot/$release/$subversion/lib/libacml.a
-
-### env
-setenv OMP_NUM_THREAD 1

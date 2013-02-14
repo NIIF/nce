@@ -1,0 +1,22 @@
+#
+# gfortran arch file, currently for testing gfortran (svn version 4.3)
+# status on http://gcc.gnu.org/bugzilla/show_bug.cgi?id=29975
+#
+CC       = cc
+CPP      = 
+
+FC       = gfortran
+LD       = gfortran
+
+AR       = ar -r
+
+CPPFLAGS = 
+DFLAGS   = -D__GFORTRAN -D__FFTSG -D__FFTW3 
+FCFLAGS  = -fopenmp -O3 -ffast-math -funroll-all-loops -march=amdfam10 -ftree-vectorize -ffree-form $(DFLAGS) $(NCE_FFLAGS)
+LDFLAGS  = $(FCFLAGS) -lgfortran
+LIBS     = $(AMD_ACML_HOME)/gfortran64_mp/lib/libacml_mp.a $(LIB_FFTW_HOME)/lib/libfftw3.a $(LIB_FFTW_HOME)/lib/libfftw3_omp.a
+
+OBJECTS_ARCHITECTURE = machine_gfortran.o
+
+# LIBS     = $(INTEL_LIB)/libacml.a\
+#           $(INTEL_LIB)/libacml_mv.a \

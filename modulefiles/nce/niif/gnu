@@ -1,0 +1,8 @@
+#%Module1.0
+
+module load gmp
+module load mpfr
+module load mpc
+module load fftw
+module load acml
+module load gcc

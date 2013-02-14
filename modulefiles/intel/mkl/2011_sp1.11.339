@@ -54,7 +54,3 @@ append-path -d { } NCE_LDFLAGS -L$approot/${app}_${release}/mkl/lib/$arch
 # append-path -d { } NCE_LDFLAGS
 # static
 # append-path -d { } NCE_STATIC_LDFLAGS
-
-### mkl
-setenv OMP_NUM_THREADS 1
-setenv MKL_NUM_THREADS 1
