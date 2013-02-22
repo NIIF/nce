@@ -1,0 +1,60 @@
+#!/bin/bash
+
+database=${PWD}/du.db
+
+function check/disk/usage/select() {
+  printf "%9s %9s %s\n" home scratch user
+  sqlite3 ${database} "SELECT * FROM du where ${1}>${2} order by ${1} desc;" | \
+  awk -F"|" '{printf "%9d %9d %s\n", $2, $3, $1}'
+}
+
+function check/disk/usage/create() {
+  echo "Creating database: ${database}"
+  sqlite3 ${database} <<EOF
+DROP TABLE IF EXISTS du;
+
+CREATE TABLE du (
+  uid     varchar(512) PRIMARY KEY NOT NULL,
+  home    integer,
+  scratch integer,
+  ctime   date
+);
+EOF
+}
+
+function check/disk/usage/scan() {
+  local _id=${1:-home}
+  local _dir=${2:-/${_id}}
+  echo "Scannning directory: ${_dir} (${threads})"
+  cd ${_dir}
+
+  ls . | \
+  parallel -j ${threads} du -shm {} | \
+  awk -v d="$(date)" -v id=${_id} '{print "INSERT OR IGNORE INTO du (uid," id ",ctime) VALUES(\"" $2 "\"," "\"" $1 "\",\"" d "\"); UPDATE du SET " id "=\"" $1 "\" WHERE uid=\"" $2 "\";"}' | \
+  sqlite3 ${database}
+}
+
+### main
+cmd=${1:-select}
+shift
+threads=${1:-1}
+
+case ${cmd} in
+  select)
+    shift
+    check/disk/usage/select ${threads} ${1:-1}
+  ;;
+  create)
+    read -p "Do you want to create ${database}?"
+    check/disk/usage/create
+  ;;  
+  home|scratch)
+    read -p "Do you want to scan ${cmd} (${threads})?"
+    check/disk/usage/scan ${cmd}
+  ;;
+  scan)
+    read -p "Do you want to scan (${threads})?"
+    check/disk/usage/scan home
+    check/disk/usage/scan scratch
+  ;;
+esac
