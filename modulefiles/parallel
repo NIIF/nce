@@ -1,13 +1,12 @@
 #%Module1.0
 
 ### errors
-module-log error null
+# module-log error null
 
 ### globals
 set module  [module-info name]
 set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
 set release [lrange [split $module {/}] end end]
-set app template
 
 if [info exists env(NCE_PACKAGES)] {
   set nce_pkgs $env(NCE_PACKAGES)
@@ -17,9 +16,9 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "Brew"
-set appdesc "Brew Package Manager"
-set appurl  "http://mxcl.github.com/homebrew/"
+set appname "GNU parallel and ppss"
+set appdesc "GNU parallel and ppss"
+set appurl  ""
 set license GPL
 
 ### help
@@ -34,8 +33,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(NCE_OSX_PKGMGR)] {
-  set current $env(NCE_OSX_PKGMGR)
+if [info exists env(KERNEL_KNEM)] {
+  set current $env(KERNEL_KNEM)
 } else {
   set current $module
 }
@@ -46,12 +45,7 @@ if { $module != $current } {
 }
 
 ### env
-setenv NCE_OSX_PKGMGR $module
-
-### path
-prepend-path PATH /usr/local/bin
-prepend-path PATH /usr/local/sbin
-prepend-path MANPATH /usr/local/share/man
-# prepend-path LD_LIBRARY_PATH $approot/lib
-# prepend-path LD_RUN_PATH $approot/lib
-prepend-path PYTHONPATH
+setenv APP_PARALLEL $module
+setenv APP_PARALLEL_HOME $approot
+prepend-path PATH $approot/bin
+prepend-path MANPATH $approot/share/man
