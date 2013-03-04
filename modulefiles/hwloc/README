@@ -1,0 +1,1 @@
+CFLAGS=${NCE_CFLAGS} LDFLAGS=${NCE_LDFLAGS} ./configure --prefix=/opt/nce/packages/global/hwloc/1.6.1/ --enable-static

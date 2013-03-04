@@ -16,10 +16,10 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "Libint"
-set appdesc "Libint 1.1.4"
-set appurl  "http://sourceforge.net/projects/libint/"
-set license GNU
+set appname "Hwloc"
+set appdesc "Hwloc 1.6.1"
+set appurl  "http://www.open-mpi.org/projects/hwloc/"
+set license GPL
 
 ### help
 proc ModulesHelp { } {
@@ -33,8 +33,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(LIB_LIBINT)] {
-  set current $env(LIB_LIBINT)
+if [info exists env(LIB_HWLOC)] {
+  set current $env(LIB_HWLOC)
 } else {
   set current $module
 }
@@ -45,17 +45,19 @@ if { $module != $current } {
 }
 
 ### env
-setenv LIB_LIBINT $module
-setenv LIB_LIBINT_HOME $approot
+setenv LIB_HWLOC $module
+setenv LIB_HWLOC_HOME $approot
+prepend-path PATH $approot/bin
+prepend-path MANPATH $approot/share/man
 prepend-path LD_LIBRARY_PATH $approot/lib
 prepend-path LD_RUN_PATH $approot/lib
+prepend-path PKG_CONFIG_PATH $approot/lib/pkgconfig
 
 prepend-path -d { } NCE_CFLAGS -I$approot/include
 prepend-path -d { } NCE_FFLAGS -I$approot/include
 # shared
 append-path -d { } NCE_LDFLAGS -L$approot/lib
-# append-path -d { } NCE_LDFLAGS
-# append-path -d { } NCE_LDFLAGS $approot/lib/libint.a
+append-path -d { } NCE_LDFLAGS -lhwloc
+
 # static
-append-path -d { } NCE_STATIC_LDFLAGS $approot/lib/libint.a
-append-path -d { } NCE_STATIC_LDFLAGS $approot/lib/libderiv.a
+append-path -d { } NCE_STATIC_LDFLAGS $approot/lib/libhwloc.a

@@ -5,4 +5,6 @@ module load mpfr
 module load mpc
 module load fftw
 module load acml
+module load hwloc
 module load gcc
+module load openmpi

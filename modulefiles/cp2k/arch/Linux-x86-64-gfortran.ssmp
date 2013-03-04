@@ -11,10 +11,13 @@ LD       = gfortran
 AR       = ar -r
 
 CPPFLAGS = 
-DFLAGS   = -D__GFORTRAN -D__FFTSG -D__FFTW3 
+DFLAGS   = -D__GFORTRAN -D__FFTSG -D__FFTW3 -D__LIBINT -D__HWLOC
 FCFLAGS  = -fopenmp -O3 -ffast-math -funroll-all-loops -march=amdfam10 -ftree-vectorize -ffree-form $(DFLAGS) $(NCE_FFLAGS)
 LDFLAGS  = $(FCFLAGS) -lgfortran
-LIBS     = $(AMD_ACML_HOME)/gfortran64_mp/lib/libacml_mp.a $(LIB_FFTW_HOME)/lib/libfftw3.a $(LIB_FFTW_HOME)/lib/libfftw3_omp.a
+LIBS     = $(AMD_ACML_HOME)/gfortran64_mp/lib/libacml_mp.a \
+           $(LIB_FFTW_HOME)/lib/libfftw3.a \
+           $(LIB_FFTW_HOME)/lib/libfftw3_omp.a \
+           $(NCE_STATIC_LDFLAGS)
 
 OBJECTS_ARCHITECTURE = machine_gfortran.o
 
