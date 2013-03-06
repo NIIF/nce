@@ -17,10 +17,10 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$program
-set appname "Scalapack"
-set appdesc "Scalapack 2.0.2"
-set appurl  "http://www.netlib.org/scalapack/"
-set license BSD
+set appname "SIESTA"
+set appdesc "SIESTA 3.1"
+set appurl  "http://icmab.cat/leem/siesta/"
+set license SIESTA
 
 ### help
 proc ModulesHelp { } {
@@ -34,8 +34,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(LIB_SCALAPACK)] {
-  set current $env(LIB_SCALAPACK)
+if [info exists env(APP_SIESTA)] {
+  set current $env(APP_SIESTA)
 } else {
   set current $module
 }
@@ -45,17 +45,12 @@ if { $module != $current } {
   }
 }
 
-### env
-setenv LIB_SCALAPACK $module
-setenv LIB_SCALAPACK_HOME $approot/$release
-prepend-path LD_LIBRARY_PATH $approot/$release/lib
-prepend-path LD_RUN_PATH $approot/$release/lib
+### deps
+# module load nce/niif/intel
 
-# prepend-path -d { } NCE_CFLAGS -I$approot/include
-# prepend-path -d { } NCE_FFLAGS -I$approot/include
-# shared
-append-path -d { } NCE_LDFLAGS $approot/$release/lib/libscalapck.a
-#append-path -d { } NCE_LDFLAGS -L$approot/$release/lib
-# append-path -d { } NCE_LDFLAGS -lscalapack
-# static
-#append-path -d { } NCE_STATIC_LDFLAGS $approot/$release/lib/libscalapck.a
+### env
+setenv APP_SIESTA $module
+setenv APP_SIESTA_HOME $approot/$release
+
+prepend-path PATH $approot/$release/bin
+# append-path -d { } NCE_LDFLAGS -L$approot/$release/lib

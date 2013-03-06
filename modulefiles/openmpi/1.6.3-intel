@@ -1,14 +1,14 @@
 #%Module1.0
 
 ### errors
-# module-log error null
+module-log error null
 
 ### globals
 set module  [module-info name]
 set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
 set release [lrange [split $module {/}] end end]
+set app template
 
-### eszr
 if [info exists env(NCE_PACKAGES)] {
   set nce_pkgs $env(NCE_PACKAGES)
 } else {
@@ -16,10 +16,10 @@ if [info exists env(NCE_PACKAGES)] {
   break
 }
 
-set approot $nce_pkgs/$program
-set appname "Scalapack"
-set appdesc "Scalapack 2.0.2"
-set appurl  "http://www.netlib.org/scalapack/"
+set approot $nce_pkgs/$module
+set appname "Open MPI"
+set appdesc "Open MPI"
+set appurl  "http://www.open-mpi.org/"
 set license BSD
 
 ### help
@@ -34,8 +34,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(LIB_SCALAPACK)] {
-  set current $env(LIB_SCALAPACK)
+if [info exists env(NCE_MPI)] {
+  set current $env(NCE_MPI)
 } else {
   set current $module
 }
@@ -46,16 +46,21 @@ if { $module != $current } {
 }
 
 ### env
-setenv LIB_SCALAPACK $module
-setenv LIB_SCALAPACK_HOME $approot/$release
-prepend-path LD_LIBRARY_PATH $approot/$release/lib
-prepend-path LD_RUN_PATH $approot/$release/lib
+setenv NCE_MPI $module
 
-# prepend-path -d { } NCE_CFLAGS -I$approot/include
-# prepend-path -d { } NCE_FFLAGS -I$approot/include
+### path
+prepend-path PATH $approot/bin
+prepend-path MANPATH $approot/man
+prepend-path LD_LIBRARY_PATH $approot/lib
+prepend-path LD_RUN_PATH $approot/lib
+
+setenv OPENMPI_HOME $approot
+setenv MPI_ROOT $approot
+
+prepend-path -d { } NCE_CFLAGS -I$approot/include
+prepend-path -d { } NCE_FFLAGS -I$approot/include
 # shared
-append-path -d { } NCE_LDFLAGS $approot/$release/lib/libscalapck.a
-#append-path -d { } NCE_LDFLAGS -L$approot/$release/lib
-# append-path -d { } NCE_LDFLAGS -lscalapack
+append-path -d { } NCE_LDFLAGS -L$approot/lib
+append-path -d { } NCE_LDFLAGS -lmpi -lmpi_f77
 # static
-#append-path -d { } NCE_STATIC_LDFLAGS $approot/$release/lib/libscalapck.a
+# append-path -d { } NCE_STATIC_LDFLAGS

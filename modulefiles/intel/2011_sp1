@@ -34,6 +34,6 @@ if { $module != $current } {
 ### env
 setenv NCE_INTEL_SUITE $module
 
-module load intel/cmp/2011.$version
-module load intel/mkl/2011.$version
-module load intel/ipp/2011.$version
+module load intel/cmp/$release.$version
+module load intel/mkl/$release.$version
+module load intel/ipp/$release.$version
