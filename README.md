@@ -1,24 +1,30 @@
 ## NIIF Common Environment
+NIIF Common Environment is a Modules based shell environment tree.
+
+A NIIF általános környezet egy Modules alapú shell környezet fa.
 
 ### Install
-  - Install NCE into a common nfs directory and link to /opt
-  ln -s .../nce /opt/nce
+Install NCE into a shared directory and link to `/opt/nce`
 
-  - Set permission and ownership
+    ln -s <INSTALL DIRECTORY>/nce /opt/nce
 
-  - Edit /usr/share/modules/init/.modulespath on login and in compute node images
-  - Comment all lines
+### Usage
+Hook modules in you `$HOME/.bashrc`:
 
-### Usage Example
-  - Edit $HOME/.profile
-  module purge
-  module use /opt/nce/modulefiles
-  module load nce/global
-  module load niif/<SITE>
-  source $NCE_ROOT/etc/functions.$NCE_SCHEDULER
-  source $NCE_ROOT/etc/alias
+    module use /opt/nce/modulefiles
+    module load nce/global
+    module load niif/<SITE>
 
-  - The nce command shows the NCE environment
+Where `niif/<SITE>` is the site specific initialization, currently `budapest, debrecen, pecs, szeged`.
+
+### Használat
+A module környezetet a `$HOME/.bashrc` fájlban lehet aktiválni. Helyezzük el a következő sorokat az előbb fájl végére:
+
+    module use /opt/nce/modulefiles
+    module load nce/global
+    module load niif/<SITE>
+
+ahol a `<SITE>` értéke a következő gépspecifikus érték lehet: `budapest, debrecen, pecs, szeged`. Például a budapesti gépen a `module load niif/budapest`-nek kell szerepelni.
 
 ### Install packages
   - Compile and install packages into /opt/nce/packages/<PROGRAM>/<VERSION>
