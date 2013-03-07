@@ -26,6 +26,27 @@ A module környezetet a `$HOME/.bashrc` fájlban lehet aktiválni. Helyezzük el
 
 ahol a `<SITE>` értéke a következő gépspecifikus érték lehet: `budapest, debrecen, pecs, szeged`. Például a budapesti gépen a `module load niif/budapest`-nek kell szerepelni.
 
-### Install packages
-  - Compile and install packages into /opt/nce/packages/<PROGRAM>/<VERSION>
+Elérhető modulok listája:
+
+    module avail
+
+Betöltött modulok listája:
+
+    module list
+
+A modulok a következő elv szerint vannak rendezve: `[csoport/]program[/verzió]`. A csoport és a verzió opcionális. Például a NetCDF könyvtár GCC 4.7.2-es fordítóval készített verziója a `netcdf/4.2.1.1-gcc-4.7.2` modulban található. Az egymást kizáró modulok automatikusan kitöltődnek, a modulok csak betölteni kell, például a NetCDF Intel fordítóval készített változatára a `module load netcdf/4.2.1.1-intel` pranccsal lehet váltani.
+
+Részletes információ a modul tartalmáról:
+
+    module show <MODULE>
+
+Általában minden modulnak megfelel egy program könyvtár is, ahol a tényleges alkamazás találhat, a module csak környezeti változókat manipulál.
+
+Vannak meta modulok is, amik több, egy csoportba tartozó modult töltenek be. Például a GNU alapú környezet így tölthető be:
+
+    module load nce/niif/gnu
+
+Az Intel alapú környezetre így válthatunk át:
+
+    module load nce/niif/intel
 
