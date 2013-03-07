@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Nce by NIIF</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Nce</h1>
+        <p class="header">NIIF Common Environment</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/NIIF/nce/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/NIIF/nce/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/NIIF/nce">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/NIIF">NIIF</a></p>
+
+
+      </header>
+      <section>
+        <h2>NIIF Common Environment</h2>
+
+<p>NIIF Common Environment is a Modules based shell environment tree.</p>
+
+<p>A NIIF általános környezet egy Modules alapú shell környezet fa.</p>
+
+<h3>Install</h3>
+
+<p>Install NCE into a shared directory and link to <code>/opt/nce</code></p>
+
+<pre><code>ln -s &lt;INSTALL DIRECTORY&gt;/nce /opt/nce
+</code></pre>
+
+<h3>Usage</h3>
+
+<p>Hook modules in you <code>$HOME/.bashrc</code>:</p>
+
+<pre><code>module use /opt/nce/modulefiles
+module load nce/global
+module load niif/&lt;SITE&gt;
+</code></pre>
+
+<p>Where <code>niif/&lt;SITE&gt;</code> is the site specific initialization, currently <code>budapest, debrecen, pecs, szeged</code>.</p>
+
+<h3>Használat</h3>
+
+<p>A module környezetet a <code>$HOME/.bashrc</code> fájlban lehet aktiválni. Helyezzük el a következő sorokat az előbb fájl végére:</p>
+
+<pre><code>module use /opt/nce/modulefiles
+module load nce/global
+module load niif/&lt;SITE&gt;
+</code></pre>
+
+<p>ahol a <code>&lt;SITE&gt;</code> értéke a következő gépspecifikus érték lehet: <code>budapest, debrecen, pecs, szeged</code>. Például a budapesti gépen a <code>module load niif/budapest</code>-nek kell szerepelni.</p>
+
+<p>Elérhető modulok listája:</p>
+
+<pre><code>module avail
+</code></pre>
+
+<p>Betöltött modulok listája:</p>
+
+<pre><code>module list
+</code></pre>
+
+<p>A modulok a következő elv szerint vannak rendezve: <code>[csoport/]program[/verzió]</code>. A csoport és a verzió opcionális. Például a NetCDF könyvtár GCC 4.7.2-es fordítóval készített verziója a <code>netcdf/4.2.1.1-gcc-4.7.2</code> modulban található. Az egymást kizáró modulok automatikusan kitöltődnek, a modulok csak betölteni kell, például a NetCDF Intel fordítóval készített változatára a <code>module load netcdf/4.2.1.1-intel</code> pranccsal lehet váltani.</p>
+
+<p>Részletes információ a modul tartalmáról:</p>
+
+<pre><code>module show &lt;MODULE&gt;
+</code></pre>
+
+<p>Általában minden modulnak megfelel egy program könyvtár is, ahol a tényleges alkamazás találhat, a module csak környezeti változókat manipulál.</p>
+
+<p>Vannak meta modulok is, amik több, egy csoportba tartozó modult töltenek be. Például a GNU alapú környezet így tölthető be:</p>
+
+<pre><code>module load nce/niif/gnu
+</code></pre>
+
+<p>Az Intel alapú környezetre így válthatunk át:</p>
+
+<pre><code>module load nce/niif/intel
+</code></pre>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
