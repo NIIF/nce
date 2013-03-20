@@ -6,6 +6,7 @@
 ipmi_scan=/opt/nce/sbin/ipmi_temp.sh
 pid=/var/run/ipmi_send.pid
 timeout=300
+gmond=/etc/ganglia/gmond.conf
 
 function monitor/stop() {
   if test -r "${pid}" ; then
@@ -19,6 +20,6 @@ echo $$ > ${pid}
 
 # loop
 while true ; do
-  ${ipmi_scan}
+  ${ipmi_scan} -c $gmond
   sleep  $timeout
 done
