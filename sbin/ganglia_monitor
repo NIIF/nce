@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+# run: nohup /opt/nce/ganglia_monitor &
+#
+
+ipmi_scan=/opt/nce/sbin/ipmi_temp.sh
+pid=/var/run/ipmi_send.pid
+timeout=300
+
+function monitor/stop() {
+  if test -r "${pid}" ; then
+    rm -f "${pid}"
+  fi
+  exit 1
+}
+trap monitor/stop INT TERM EXIT
+
+echo $$ > ${pid}
+
+# loop
+while true ; do
+  ${ipmi_scan}
+  sleep  $timeout
+done
