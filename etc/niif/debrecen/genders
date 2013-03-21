@@ -1,2 +1,2 @@
-r1i[0-3]n[0-15] cluster=all,compute,rack1
-r2i[0-3]n[0-15] cluster=all,compute,rack2
+r1i[0-3]n[0-15] all,compute,rack1
+r2i[0-3]n[0-15] all,compute,rack2
