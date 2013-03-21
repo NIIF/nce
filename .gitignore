@@ -2,3 +2,4 @@
 modulefiles/prace
 *.template
 *.old
+*sublime*
