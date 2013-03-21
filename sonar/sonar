@@ -35,5 +35,6 @@ while true ; do
     ${metrics}/${s} $gmond
     sleep 1
   done
-  sleep  $timeout
+  sleep  $timeout &
+  wait %1
 done
