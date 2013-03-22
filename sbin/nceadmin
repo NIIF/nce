@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# /opt/nce/sbin/nceadmin pssh rack1 'nohup /opt/nce/sonar/sonar ipmi_temperature >/dev/null&'
+
+function nceadmin/genders() {
+  nodeattr -f $NCE_GENDERS -c $* | \
+  sed s/,/\ /g
+}
+
+cmd=$1
+shift
+hosts=$1
+shift
+arg=$1
+shift
+
+case "${cmd}" in
+  pssh)
+    read -p "SSH on ${hosts}?"
+    pssh $* -H "$(nceadmin/genders ${hosts})" $arg
+  ;;
+  ssh)
+    read -p "SSH on ${hosts}?"
+    pssh $* -H "$hosts" $arg
+  ;;  
+esac
