@@ -76,3 +76,7 @@ module load sgi/mpt/2.04
 
 # uv defaults
 setenv MPI_MEMMAP_OFF 1
+setenv MPI_BUFS_PER_PROC 256
+setenv MPI_IB_RAILS 2
+setenv MPI_BUFS_THRESHOLD 0
+setenv MPI_GROUP_MAX 512
