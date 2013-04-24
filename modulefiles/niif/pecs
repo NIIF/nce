@@ -66,9 +66,11 @@ setenv NCE_COMPUTE_CORES 6
 setenv NCE_COMPUTE_SLOTS 12
 # default MPI mode
 setenv NCE_COMPUTE_MPI mpi/mpt
-setenv NCE_DEFAULT_MPI sgi/mpt/2.04
+# setenv NCE_DEFAULT_MPI sgi/mpt/2.04
 
 setenv NCE_HOSTID PÉCS
 
 # sgi
-# module load slurm/2.2.7
+module load nce/niif/intel
+module load sgi/mpt/2.04
+
