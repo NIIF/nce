@@ -54,7 +54,7 @@ setenv NCE_HOME $env(HOME)
 setenv NCE_DATA $env(HOME)
 setenv NCE_SCRATCH /scratch/$env(USER)
 setenv NCE_GENDERS $nce_root/etc/$module/genders
-setenv NCE_SCHEDULER sge
+setenv NCE_SCHEDULER sog/8.1.3
 ### node spec
 # cluster smp
 setenv NCE_COMPUTE_TYPE smp

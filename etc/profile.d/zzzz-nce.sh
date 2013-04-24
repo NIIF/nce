@@ -7,3 +7,7 @@ else
   module load $(cat /etc/NCE_SYSTEM)
   export PS1="${NCE_HOSTID}[\h] \W (\$?)\$ "
 fi
+
+if ! test -z "${NCE_SCHEDULER}" ; then
+	module load ${NCE_SCHEDULER}
+fi
