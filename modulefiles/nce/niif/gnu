@@ -3,8 +3,8 @@
 module load gmp
 module load mpfr
 module load mpc
+module load gcc
 module load fftw
 module load acml
 module load hwloc
-module load gcc
 module load openmpi
