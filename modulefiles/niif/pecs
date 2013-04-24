@@ -57,7 +57,7 @@ setenv NCE_GENDERS $nce_root/etc/$module/genders
 setenv NCE_SCHEDULER sge
 ### node spec
 # cluster smp
-setenv NCE_COMPUTE_TYPE numa
+setenv NCE_COMPUTE_TYPE smp
 setenv NCE_COMPUTE_HOST uv
 setenv NCE_COMPUTE_SOCKETS 2
 # cores per socket
@@ -68,4 +68,4 @@ setenv NCE_COMPUTE_SLOTS 12
 setenv NCE_COMPUTE_MPI mpi/mpt
 
 # sgi
-module load slurm/2.2.7
+# module load slurm/2.2.7
