@@ -66,3 +66,4 @@ setenv NCE_COMPUTE_CORES 12
 setenv NCE_COMPUTE_SLOTS 24
 # default MPI mode
 setenv NCE_COMPUTE_MPI mpi/ompi
+setenv NCE_HOSTID BUDAPEST
