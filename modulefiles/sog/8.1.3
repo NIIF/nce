@@ -1,0 +1,57 @@
+#%Module1.0
+
+
+### errors
+# module-log error null
+
+### globals
+set module  [module-info name]
+set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
+set release [lrange [split $module {/}] end end]
+
+if [info exists env(NCE_PACKAGES)] {
+  set nce_pkgs $env(NCE_PACKAGES)
+} else {
+  puts stderr "Error: NCE_PACKAGES not set"
+  break
+}
+
+set approot $nce_pkgs/$module
+set appname "Son of Grid Engine"
+set appdesc "Son of Grid Engine 8.1.3"
+set appurl  "https://arc.liv.ac.uk/SGE/"
+set arch lx-amd64
+set license GPL
+
+### help
+proc ModulesHelp { } {
+  global appname release appdesc appurl license
+  puts stderr "Application : $appname"
+  puts stderr "Description : $appdesc"
+  puts stderr "License     : $license"
+  puts stderr "URL         : $appurl"
+}
+
+module-whatis "$appname"
+
+### conflict
+if [info exists env(APP_SOG)] {
+  set current $env(APP_SOG)
+} else {
+  set current $module
+}
+if { $module != $current } {
+  if { [ is-loaded $current ] } {
+    module unload $current
+  }
+}
+
+### env
+setenv APP_SOG $module
+setenv APP_SOG_HOME $approot
+setenv APP_SOG_ARCH $arch
+setenv SGE_ROOT $approot
+prepend-path PATH $approot/bin/$arch
+prepend-path LD_LIBRARY_PATH $approot/lib/$arch
+prepend-path LD_RUN_PATH $approot/lib/$arch
+prepend-path MANPATH $approot/share/man
