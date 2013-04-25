@@ -1,0 +1,150 @@
+#!/bin/bash
+gbn=$(basename ${BASH_SOURCE})
+gdn=$(dirname ${BASH_SOURCE})
+rc="${gdn}/.${gbn}rc.$$"
+
+function help/sgemon() {
+  cat <<EOF
+
+Usage: sgemon -j <JOBID>
+
+EOF
+  exit 1
+}
+
+function sgemon/stop() {
+  if test -r "${rc}" ; then
+    rm -f "${rc}"
+  fi
+  exit 1
+}
+trap sgemon/stop INT TERM EXIT
+
+
+function sgemon/nodes() {
+  # shift
+  local _s=${1:-1}
+  awk -v s=${_s} '{ a=substr($0,2); split(a,b,"S");}
+  END {
+    lb=length(b)
+    for(i=1;i<=lb;++i) {
+      # print i
+      # print b[i]
+      if(match(b[i],/c+/)) {
+        print i+s;
+      }
+    }
+  }'
+}
+
+function sgemon/cpus() {
+  # shift
+  local _s=${1:-1}
+  awk -v s=${_s} '{ a=substr($0,2); split(a,b,"S");}
+  END {
+    lb=length(b)
+    for(i=1;i<=lb;++i) {
+      # print i
+      # print b[i]
+      split(b[i],c,"");
+      lc=length(c);
+      for(j=1;j<=lc;++j)
+        if(match(c[j],/c/)) {
+          print (i+s)*6+j-1;
+        }
+    }
+  }'
+}
+
+
+function sgemon/binding() {
+  qstat -j ${1} -cb | \
+  grep binding | \
+  grep SC | \
+  awk '{print $3}'
+}
+
+function sgemon/seq() {
+  seq ${1:-0} ${2:-1}
+}
+
+### args
+_g=false
+_t="nodes"
+_h="uv"
+while getopts hgn:c:m: o; do
+  case "$o" in
+    g) _g=true
+    ;;
+    n)
+      _j=$OPTARG
+      _t="nodes"
+      ids=$(sgemon/binding ${_j} | sgemon/nodes)
+    ;;
+
+    m)
+      _j=$OPTARG
+      _t="mems"
+      ids=$(sgemon/binding ${_j} | sgemon/nodes)
+    ;;
+
+    c)
+      _j=$OPTARG
+      _t="cpus"
+      ids=$(sgemon/binding ${_j} | sgemon/cpus)
+    ;;
+    h|*) help/sgemon;;
+  esac
+done
+
+if ! ${_g} ; then
+  echo "$ids"
+  exit 0
+fi
+
+cat > "${rc}" << EOF
+#kmchart
+# run: pmchart -c uv.boot
+version 1
+chart style plot antialiasing on
+EOF
+case "${_t}" in
+  nodes)
+    # echo "Nodes for job ${_j}: $ids"
+    sgemon/binding ${_j} | \
+    sgemon/nodes | \
+    awk -v h=${_h} '{
+    print "plot color #ff0000 host",h,"metric kernel.pernode.cpu.sys instance node" $0
+    print "plot color #00ff00 host",h,"metric kernel.pernode.cpu.user instance node" $0
+    print "plot color #ffff00 host",h,"metric kernel.pernode.cpu.idle instance node" $0
+    print "plot color #0000ff host",h,"metric kernel.pernode.cpu.wait.total instance node" $0
+    }' >>  "${rc}"
+  ;;
+
+  mems)
+    # echo "Nodes for job ${_j}: $ids"
+    sgemon/binding ${_j} | \
+    sgemon/nodes | \
+    awk -v h=${_h} '{
+    print "plot color #ff0000 host",h,"metric mem.numa.util.used instance node" $0
+    print "plot color #00ff00 host",h,"metric mem.numa.util.free instance node" $0
+    print "plot color #ffff00 host",h,"metric mem.numa.util.active instance node" $0
+    print "plot color #0000ff host",h,"metric mem.numa.util.inactive instance node" $0
+    }' >>  "${rc}"
+  ;;
+
+  cpus)
+    # echo "CPUs for job ${_j}: $ids"
+    sgemon/binding ${_j} | \
+    sgemon/cpus | \
+    awk -v h=${_h} '{
+    print "plot color #ff0000 host",h,"metric kernel.percpu.cpu.sys  instance cpu" $0
+    print "plot color #00ff00 host",h,"metric kernel.percpu.cpu.user instance cpu" $0
+    print "plot color #ffff00 host",h,"metric kernel.percpu.cpu.idle instance cpu" $0
+    print "plot color #0000ff host",h,"metric kernel.percpu.cpu.wait.total instance cpu" $0
+    }' >>  "${rc}"
+  ;;
+
+esac
+
+pmchart -c "${rc}"

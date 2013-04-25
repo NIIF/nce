@@ -1,0 +1,24 @@
+#kmchart
+# run: pmchart -c uv.boot
+version 1
+chart style plot antialiasing on
+plot color #ff0000 host uv metric kernel.percpu.cpu.sys  instance "cpu0"
+plot color #00ff00 host uv metric kernel.percpu.cpu.user instance "cpu0"
+plot color #ffff00 host uv metric kernel.percpu.cpu.idle instance "cpu0"
+plot color #0000ff host uv metric kernel.percpu.cpu.wait.total instance "cpu0"
+plot color #ff0000 host uv metric kernel.percpu.cpu.sys  instance "cpu1"
+plot color #00ff00 host uv metric kernel.percpu.cpu.user instance "cpu1"
+plot color #ffff00 host uv metric kernel.percpu.cpu.idle instance "cpu1"
+plot color #0000ff host uv metric kernel.percpu.cpu.wait.total instance "cpu1"
+plot color #ff0000 host uv metric kernel.percpu.cpu.sys  instance "cpu2"
+plot color #00ff00 host uv metric kernel.percpu.cpu.user instance "cpu2"
+plot color #ffff00 host uv metric kernel.percpu.cpu.idle instance "cpu2"
+plot color #0000ff host uv metric kernel.percpu.cpu.wait.total instance "cpu2"
+plot color #ff0000 host uv metric kernel.percpu.cpu.sys  instance "cpu3"
+plot color #00ff00 host uv metric kernel.percpu.cpu.user instance "cpu3"
+plot color #ffff00 host uv metric kernel.percpu.cpu.idle instance "cpu3"
+plot color #0000ff host uv metric kernel.percpu.cpu.wait.total instance "cpu3"
+plot color #ff0000 host uv metric kernel.percpu.cpu.sys  instance "cpu4"
+plot color #00ff00 host uv metric kernel.percpu.cpu.user instance "cpu4"
+plot color #ffff00 host uv metric kernel.percpu.cpu.idle instance "cpu4"
+plot color #0000ff host uv metric kernel.percpu.cpu.wait.total instance "cpu4"

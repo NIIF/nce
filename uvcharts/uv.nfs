@@ -1,0 +1,22 @@
+#kmchart
+# run: pmchart -c uv.pmchart
+version 1
+chart style plot antialiasing on
+plot color #ff0000 host uv metric kernel.pernode.cpu.sys  instance "node0"
+plot color #00ff00 host uv metric kernel.pernode.cpu.user instance "node0"
+plot color #ffff00 host uv metric kernel.pernode.cpu.idle instance "node0"
+plot color #ff0000 host uv metric kernel.pernode.cpu.sys  instance "node1"
+plot color #00ff00 host uv metric kernel.pernode.cpu.user instance "node1"
+plot color #ffff00 host uv metric kernel.pernode.cpu.idle instance "node1"
+plot color #ff0000 host uv metric kernel.pernode.cpu.sys  instance "node2"
+plot color #00ff00 host uv metric kernel.pernode.cpu.user instance "node2"
+plot color #ffff00 host uv metric kernel.pernode.cpu.idle instance "node2"
+plot color #ff0000 host uv metric kernel.pernode.cpu.sys  instance "node3"
+plot color #00ff00 host uv metric kernel.pernode.cpu.user instance "node3"
+plot color #ffff00 host uv metric kernel.pernode.cpu.idle instance "node3"
+plot color #ff0000 host uv metric kernel.pernode.cpu.sys  instance "node4"
+plot color #00ff00 host uv metric kernel.pernode.cpu.user instance "node4"
+plot color #ffff00 host uv metric kernel.pernode.cpu.idle instance "node4"
+plot color #ff0000 host uv metric kernel.pernode.cpu.sys  instance "node5"
+plot color #00ff00 host uv metric kernel.pernode.cpu.user instance "node5"
+plot color #ffff00 host uv metric kernel.pernode.cpu.idle instance "node5"

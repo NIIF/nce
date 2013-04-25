@@ -1,0 +1,8 @@
+#kmchart
+# run: pmchart -c uv.boot
+version 1
+chart style plot antialiasing on
+plot color #ff0000 host uv metric kernel.pernode.cpu.sys  instance "node0"
+plot color #00ff00 host uv metric kernel.pernode.cpu.user instance "node0"
+plot color #ffff00 host uv metric kernel.pernode.cpu.idle instance "node0"
+plot color #0000ff host uv metric kernel.pernode.cpu.wait.total instance "node0"
