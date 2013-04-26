@@ -65,6 +65,7 @@ setenv NCE_COMPUTE_CORES 6
 setenv NCE_COMPUTE_SLOTS 12
 # default MPI mode
 setenv NCE_COMPUTE_MPI mpi/mpt
+setenv NCE_HOSTID DEBRECEN
 
 ### sgi
 # module load slurm/2.2.7
