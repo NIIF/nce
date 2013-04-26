@@ -1,7 +1,7 @@
 #!/bin/bash
 gbn=$(basename ${BASH_SOURCE})
 gdn=$(dirname ${BASH_SOURCE})
-rc="${gdn}/.${gbn}rc.$$"
+rc="${HOME}/.${gbn}rc.$$"
 
 function help/sgemon() {
   cat <<EOF
