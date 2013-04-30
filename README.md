@@ -3,20 +3,6 @@ NIIF Common Environment is a Modules based shell environment tree.
 
 A NIIF általános környezet egy Modules alapú shell környezet fa.
 
-### Install
-Install NCE into a shared directory and link to `/opt/nce`
-
-    ln -s <INSTALL DIRECTORY>/nce /opt/nce
-
-### Usage
-Hook modules in you `$HOME/.bashrc`:
-
-    module use /opt/nce/modulefiles
-    module load nce/global
-    module load niif/<SITE>
-
-Where `niif/<SITE>` is the site specific initialization, currently `budapest, debrecen, pecs, szeged`.
-
 ### Használat
 A module környezetet a `$HOME/.bashrc` fájlban lehet aktiválni. Helyezzük el a következő sorokat az előbb fájl végére:
 
@@ -50,3 +36,46 @@ Az Intel alapú környezetre így válthatunk át:
 
     module load nce/niif/intel
 
+## NIIF Common Environment
+
+### Install
+Install NCE into a shared directory and link to `/opt/nce`
+
+    ln -s <INSTALL DIRECTORY>/nce /opt/nce
+
+### Usage
+Hook modules in you `$HOME/.bashrc`:
+
+    module use /opt/nce/modulefiles
+    module load nce/global
+    module load niif/<SITE>
+
+Where `niif/<SITE>` is the site specific initialization, currently `budapest, debrecen, pecs, szeged`.
+
+### PRACE PCPE compilance
+
+Tool      | Description  | Module Name | Level    | Priority | Comments
+--- | --- | ---
+bash      | BASH Shell   | NA          | required | normal   | default shell
+tcsh      | TC Shell     | NA          | required | normal   | not recommended
+OpenSSH   | Secure Shell | NA          | required | normal   |
+Emacs     | Emacs text editor | NA     | required | normal   |
+nedit     | Text editor  | nedit       | required | normal   |
+C         | C compiler   | c           | required | normal   | nce/niif/intel
+C++       | C++ compiler | c++         | required | normal   | nce/niif/intel
+Fortran   | Fortran compiler | fortran | required | normal   | nce/niif/intel
+Java      | Java compiler | java       | required | normal   | jre
+Perl      | PERL         | NA          | required | normal   |
+Python    | Python       | NA          | required | normal   |
+TCL       | TCL          | NA          | required | normal   | 
+TK        | TCL GUI toolkit | NA       | required | normal   | 
+gmake     | GNU Make     | NA          | required | normal   |
+MPI       | MPI          | mpi         | required | normal   | openmpi
+BLACS     | BLACS        | blacs       | required | normal   |
+BLAS      | BLAS         | blas    required    normal  Usually provided in vendor libraries: LibSci, ESSL, MKL, ACML
+LAPACK  Linear Algebra Package  lapack  required    normal  Sometimes provided in vendor libraries: LibSci, ESSL
+ScaLAPACK   Scalar Linear Algebra Package   scalapack   required    normal  Sometimes provided in vendor libraries: LibSci, ESSL
+FFTW 2  Fastest Fourier Transfer in the West (v2)   fftw2   required    normal   
+FFTW 3  Fastest Fourier Transfer in the West (v3)   fftw3   required    normal   
+HDF5    Hierarchical Data Format    hdf5    required    normal   
+NetCDF  Network Common Data Format  netcdf  required    normal
