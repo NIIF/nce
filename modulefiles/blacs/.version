@@ -1,2 +1,2 @@
 #%Module1.0
-set ModulesVersion "openmpi-1.6.3-mpi"
+set ModulesVersion "openmpi-1.6.3-intel"
