@@ -72,10 +72,10 @@ TK        | TCL GUI toolkit | NA       | required | normal   |
 gmake     | GNU Make     | NA          | required | normal   |
 MPI       | MPI          | mpi         | required | normal   | openmpi
 BLACS     | BLACS        | blacs       | required | normal   |
-BLAS      | BLAS         | blas    required    normal  Usually provided in vendor libraries: LibSci, ESSL, MKL, ACML
-LAPACK  Linear Algebra Package  lapack  required    normal  Sometimes provided in vendor libraries: LibSci, ESSL
-ScaLAPACK   Scalar Linear Algebra Package   scalapack   required    normal  Sometimes provided in vendor libraries: LibSci, ESSL
-FFTW 2  Fastest Fourier Transfer in the West (v2)   fftw2   required    normal   
-FFTW 3  Fastest Fourier Transfer in the West (v3)   fftw3   required    normal   
-HDF5    Hierarchical Data Format    hdf5    required    normal   
-NetCDF  Network Common Data Format  netcdf  required    normal
+BLAS      | BLAS         | blas        | required | normal   | acml
+LAPACK    | LAPACK       | lapack      | required | normal   | acml
+ScaLAPACK | ScaLAPACK    | scalapack   | required | normal   | scalapack
+FFTW 2    | FFTW v2      | fftw2       | required | normal   | not provided
+FFTW 3    | FFTW v3      | fftw3       | required | normal   | 
+HDF5      | HDF          | hdf5        | required | normal   |
+NetCDF    | NetCDF       | netcdf      | required | normal   |
