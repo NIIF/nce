@@ -2,4 +2,4 @@
 
 module load intel/2011_sp1
 # module load openmpi/1.6.3-intel
-module load netcdf/4.2.1.1-intel
+# module load netcdf/4.2.1.1-intel

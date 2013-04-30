@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo ""
+cat <<EOF
+Üdvözöljük a $NCE_HOSTID-i HPC állomáson / Welcome at $NCE_HOSTID HPC Site
+--------------------------------------------------------------------------------
+Gép típusa / Machine type: $NCE_COMPUTE_TYPE
+CPU-k száma node-onként / No. of CPUs per node: $NCE_COMPUTE_SOCKETS
+Magok száma CPU-nként / No. of Cores per CPU:   $NCE_COMPUTE_CORES
+
+Az ütemező jenlegi terhelése / Scheduler Load
+EOF
+qstat -g c
+echo ""

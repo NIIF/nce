@@ -1,3 +1,2 @@
 #%Module1.0
-# placeholder nedit is provided by the OS
 module load nce/niif/intel
