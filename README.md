@@ -70,11 +70,11 @@ Python    | Python       | NA          | required | normal   |
 TCL       | TCL          | NA          | required | normal   | 
 TK        | TCL GUI toolkit | NA       | required | normal   | 
 gmake     | GNU Make     | NA          | required | normal   |
-MPI       | MPI          | mpi         | required | normal   | openmpi
+MPI       | MPI          | mpi         | required | normal   | openmpi(intel)
 BLACS     | BLACS        | blacs       | required | normal   |
 BLAS      | BLAS         | blas        | required | normal   | acml
 LAPACK    | LAPACK       | lapack      | required | normal   | acml
-ScaLAPACK | ScaLAPACK    | scalapack   | required | normal   | scalapack
+ScaLAPACK | ScaLAPACK    | scalapack   | required | normal   | scalapack(intel)
 FFTW 2    | FFTW v2      | fftw2       | required | normal   | not provided
 FFTW 3    | FFTW v3      | fftw3       | required | normal   | 
 HDF5      | HDF          | hdf5        | required | normal   |
