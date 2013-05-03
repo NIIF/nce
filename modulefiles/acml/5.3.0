@@ -62,6 +62,7 @@ prepend-path -d { } NCE_FFLAGS -I$approot/$release/$subversion/include
 # shared
 append-path -d { } NCE_LDFLAGS -L$approot/$release/$subversion/lib
 append-path -d { } NCE_LDFLAGS -lacml_mp
+
 # append-path -d { } NCE_LDFLAGS -lcblas
 
 # static
