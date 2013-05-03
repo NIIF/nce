@@ -57,15 +57,15 @@ setenv LIB_BLACS_HOME $approot
 # prepend-path -d { } NCE_CFLAGS -I$approot/include
 # prepend-path -d { } NCE_FFLAGS -I$approot/include
 # shared
-append-path -d { } NCE_LDFLAGS $approot/lib/blacsCinit_MPI-amd64-0.a
-append-path -d { } NCE_LDFLAGS $approot/lib/blacsF77init_MPI-amd64-0.a
-append-path -d { } NCE_LDFLAGS $approot/lib/blacs_MPI-amd64-0.a
+prepend-path -d { } NCE_LDFLAGS $approot/lib/blacsCinit_MPI-amd64-0.a
+prepend-path -d { } NCE_LDFLAGS $approot/lib/blacsF77init_MPI-amd64-0.a
+prepend-path -d { } NCE_LDFLAGS $approot/lib/blacs_MPI-amd64-0.a
 
-append-path -d { } NCE_BLACS_LDFLAGS $approot/lib/blacsCinit_MPI-amd64-0.a
-append-path -d { } NCE_BLACS_LDFLAGS $approot/lib/blacsF77init_MPI-amd64-0.a
-append-path -d { } NCE_BLACS_LDFLAGS $approot/lib/blacs_MPI-amd64-0.a
+prepend-path -d { } NCE_BLACS_LDFLAGS $approot/lib/blacsCinit_MPI-amd64-0.a
+prepend-path -d { } NCE_BLACS_LDFLAGS $approot/lib/blacsF77init_MPI-amd64-0.a
+prepend-path -d { } NCE_BLACS_LDFLAGS $approot/lib/blacs_MPI-amd64-0.a
 
 # static
-append-path -d { } NCE_STATIC_LDFLAGS $approot/lib/blacsCinit_MPI-amd64-0.a
-append-path -d { } NCE_STATIC_LDFLAGS $approot/lib/blacsF77init_MPI-amd64-0.a
-append-path -d { } NCE_STATIC_LDFLAGS $approot/lib/blacs_MPI-amd64-0.a
+prepend-path -d { } NCE_STATIC_LDFLAGS $approot/lib/blacsCinit_MPI-amd64-0.a
+prepend-path -d { } NCE_STATIC_LDFLAGS $approot/lib/blacsF77init_MPI-amd64-0.a
+prepend-path -d { } NCE_STATIC_LDFLAGS $approot/lib/blacs_MPI-amd64-0.a
