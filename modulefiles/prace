@@ -24,7 +24,7 @@ setenv PRACE_SCRATCH "/scratch/$env(USER)"
 # module load c++
 
 ### MPI
-module load openmpi
+# module load openmpi
 
 ### acml + scalapack
 module load acml

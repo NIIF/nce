@@ -66,3 +66,6 @@ setenv NCE_COMPUTE_CORES 12
 setenv NCE_COMPUTE_SLOTS 48
 # default MPI mode
 setenv NCE_COMPUTE_MPI mpi/ompi
+
+module load nce/niif/intel
+module load openmpi
