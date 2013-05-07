@@ -1,0 +1,72 @@
+#%Module1.0
+
+module-whatis "Initialisation of the PRACE Common Production (PCPE) environment."
+
+# Initialise the environment variable for the architecture
+setenv PRACE_ARCH "HP_Linux_Opteron_6128"
+
+# Initialise the environment variables for file systems
+set GROUP [exec id -g -n]
+setenv PRACE_STORE "/archive/$GROUP/$env(USER)"
+setenv PRACE_SCRATCH "/scratch/$env(USER)"
+
+#setenv PRACE_HOME "/prace/[site acronym]/home/$GROUP/$env(USER)"
+#setenv PRACE_DATA "/prace/[site acronym]/data/$GROUP/$env(USER)
+
+#Initialise empty environment variables
+### nce
+module load nce/global
+module load niif/budapest
+
+### compilers
+module load fortran
+module load c
+module load c++
+
+### MPI
+module load mpi
+
+### acml + scalapack
+module load blas
+module load lapack
+module load scalapack
+
+### fftw
+module load fftw3
+
+### netcdf and hdf5
+module load netcdf
+module load hdf5
+
+proc ModulesHelp {} {
+  global ModulefileVersion
+
+  puts stderr "
+**** PRACE Common Production Environment (PCPE) ****\n
+Initialisation of the PRACE common production environment. This 
+allows you to assume that the following tools/libraries are available
+by default in your PATH/environment.
+
+ * Fortran, C, C++ Compilers
+ * MPI
+ * BLAS, LAPACK, BLACS, ScaLAPACK
+ * FFTW
+ * HDF5, NetCDF
+ 
+The compiler commands on are:
+
+ * mpiif90 - Fortran compiler
+ * mpiicc  - C compiler
+ * mpiic++ - C++ compiler
+
+For more information on the PCPE please see the documentation at:
+
+http://www.prace-ri.eu
+
+For help using this system, please see Local User Guide available at:
+
+http://url/to/local/userguide
+"
+
+  return 0
+}
