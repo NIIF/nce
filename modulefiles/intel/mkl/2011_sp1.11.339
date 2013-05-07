@@ -47,10 +47,12 @@ setenv MKLROOT $approot/${app}_${release}/mkl
 prepend-path LD_LIBRARY_PATH $approot/${app}_${release}/mkl/lib/$arch
 prepend-path LD_RUN_PATH $approot/${app}_${release}/mkl/lib/$arch
 
+### nce
 prepend-path -d { } NCE_CFLAGS -I$approot/${app}_${release}/mkl/include
 prepend-path -d { } NCE_FFLAGS -I$approot/${app}_${release}/mkl/include
-# shared
 append-path -d { } NCE_LDFLAGS -L$approot/${app}_${release}/mkl/lib/$arch
-# append-path -d { } NCE_LDFLAGS
-# static
-# append-path -d { } NCE_STATIC_LDFLAGS
+
+### prace
+prepend-path -d { } PRACE_CFLAGS -I$approot/${app}_${release}/mkl/include
+prepend-path -d { } PRACE_FFLAGS -I$approot/${app}_${release}/mkl/include
+append-path -d { } PRACE_LDFLAGS -L$approot/${app}_${release}/mkl/lib/$arch

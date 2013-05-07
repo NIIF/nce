@@ -54,8 +54,11 @@ prepend-path MANPATH $approot/share/man
 
 prepend-path -d { } NCE_CFLAGS -I$approot/include
 prepend-path -d { } NCE_FFLAGS -I$approot/include
-# shared
 append-path -d { } NCE_LDFLAGS -L$approot/$release/lib
 append-path -d { } NCE_LDFLAGS -lnetcdf
-# static
 append-path -d { } NCE_STATIC_LDFLAGS $approot/lib/libnetcdf.a
+
+prepend-path -d { } PRACE_CFLAGS -I$approot/include
+prepend-path -d { } PRACE_FFLAGS -I$approot/include
+append-path -d { } PRACE_LDFLAGS -L$approot/$release/lib
+append-path -d { } PRACE_LDFLAGS -lnetcdf
