@@ -73,5 +73,5 @@ setenv NCE_OFLAGS "-O2 -xSSE2"
 
 ### default modules
 # module load nce/niif/gnu
-# module load nce/niif/intel
+module load nce/niif/intel
 # module load acml

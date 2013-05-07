@@ -15,24 +15,23 @@ setenv PRACE_SCRATCH "/scratch/$env(USER)"
 
 #Initialise empty environment variables
 ### nce
-module load nce/global
-module load niif/budapest
+# module load nce/global
+# module load niif/budapest
 
 ### compilers
-module load fortran
-module load c
-module load c++
+# module load fortran
+# module load c
+# module load c++
 
 ### MPI
-module load mpi
+module load openmpi
 
 ### acml + scalapack
-module load blas
-module load lapack
+module load acml
 module load scalapack
 
 ### fftw
-module load fftw3
+module load fftw
 
 ### netcdf and hdf5
 module load netcdf
