@@ -55,7 +55,7 @@ Where `niif/<SITE>` is the site specific initialization, currently `budapest, de
 ### PRACE PCPE compilance
 
 Tool      | Description  | Module Name | Level    | Priority | Comments
---- | --- | ---
+--- | --- | --- | --- | --- | ---
 bash      | BASH Shell   | NA          | required | normal   | default shell
 tcsh      | TC Shell     | NA          | required | normal   | not recommended
 OpenSSH   | Secure Shell | NA          | required | normal   |
