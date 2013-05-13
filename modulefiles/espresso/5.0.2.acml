@@ -19,7 +19,7 @@ if [info exists env(NCE_PACKAGES)] {
 
 set approot $nce_pkgs/$program
 set appname "Espresso"
-set appdesc "Quantum Espresso"
+set appdesc "Quantum Espresso with AMD ACML"
 set appurl  "http://www.quantum-espresso.org/"
 set license GPL
 
