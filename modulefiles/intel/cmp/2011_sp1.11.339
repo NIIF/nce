@@ -70,3 +70,6 @@ append-path -d { } PRACE_LDFLAGS -L$approot/${app}_${release}/compiler/lib/$arch
 
 append-path -d { } NCE_LDFLAGS -liomp5
 append-path -d { } PRACE_LDFLAGS -liomp5
+
+append-path -d { } NCE_LDFLAGS -limf
+append-path -d { } PRACE_LDFLAGS -limf
