@@ -1,0 +1,38 @@
+#!/bin/bash
+
+#
+# http://www.fhgfs.com/wiki/wikka.php?wakka=StorageServerTuning
+#
+
+# TODO: Virtual memory settings
+
+nr_requests=4096
+read_ahead_kb=4096
+
+
+echo "Scanning PVs..."
+pvs=$(pvdisplay | \
+grep 'PV Name' | \
+awk '{print $3}' | \
+sed s/.*\\///)
+
+echo ${pvs}
+
+read -p "Enable deadline IO scheduler?"
+for i in  ${pvs} ; do
+  echo deadline > cat /sys/block/${i}/queue/scheduler
+done
+
+echo ""
+echo "${nr_requests}"
+read -p "Increase the number of schedulable requests?"
+for i in  ${pvs} ; do
+  echo ${nr_requests} > cat /sys/block/${i}/queue/nr_requests
+done
+
+echo ""
+echo "${read_ahead_kb}"
+read -p "Increase the maximum amount of read-ahead data?"
+for i in  ${pvs} ; do
+  echo ${read_ahead_kb} > cat /sys/block/${i}/queue/read_ahead_kb
+done

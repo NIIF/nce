@@ -1,0 +1,36 @@
+#!/bin/bash
+
+function help/rsync_dirs() {
+  cat <<EOF
+
+Usage: $0 source destination
+
+EOF
+  exit 1
+}
+
+### args
+_src=${1}
+shift
+_dst=${1}
+shift
+_opts=$*
+
+### check
+for i in "${_src}" "${_dst}" ; do
+  if ! test -d "${i}" ; then
+    echo "Not a directory: ${i}"
+    help/rsync_dirs
+  fi
+done
+
+# -h --progress
+### main
+cd "${_src}"
+ls
+echo ""
+read -p "Press Enter to continue or Ctrl-C to abort!"
+for i in * ; do
+  echo -e "\nSyncing ${i}: "
+  time rsync -aAX ${_opts} "${i}" "${_dst}"
+done

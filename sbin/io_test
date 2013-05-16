@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#
+# http://www.cyberciti.biz/tips/linux-filesystem-benchmarking-with-iozone.html
+#
+
+iozone=/root/iozone3_373/src/current/iozone
+
+${iozone} -R -l 5 -u 5 -r 4k -s 100m -F /home/f1 /home/f2 /home/f3 /home/f4 /home/f5 | \
+tee -a /tmp/iozone_results_home.txt
