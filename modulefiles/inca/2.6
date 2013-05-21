@@ -1,0 +1,52 @@
+#%Module1.0
+
+### errors
+# module-log error null
+
+### globals
+set module  [module-info name]
+set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
+set release [lrange [split $module {/}] end end]
+
+if [info exists env(NCE_PACKAGES)] {
+  set nce_pkgs $env(NCE_PACKAGES)
+} else {
+  puts stderr "Error: NCE_PACKAGES not set"
+  break
+}
+
+set approot $nce_pkgs/$module
+set appname "INCA"
+set appdesc "INCA 2.6"
+set appurl  "http://inca.sdsc.edu/releases/2.6/guide/userguide.html"
+set license INCA
+
+### help
+proc ModulesHelp { } {
+  global appname release appdesc appurl license
+  puts stderr "Application : $appname"
+  puts stderr "Description : $appdesc"
+  puts stderr "License     : $license"
+  puts stderr "URL         : $appurl"
+}
+
+module-whatis "$appname"
+
+### conflict
+if [info exists env(APP_INCA)] {
+  set current $env(APP_INCA)
+} else {
+  set current $module
+}
+if { $module != $current } {
+  if { [ is-loaded $current ] } {
+    module unload $current
+  }
+}
+
+### env
+setenv APP_INCA $module
+setenv APP_INCA_HOME $approot
+setenv INCA_RM_HOME $approot
+prepend-path PATH $approot/bin
+prepend-path PATH $approot/sbin
