@@ -30,10 +30,11 @@ if test ${_uid} -ge ${uid_limit} ; then
   # and not member of any privileged group
   _is=$(limits/intersect "${_groups}" "${sysops}")
   if test -z "${_is}" ; then
-    ulimit -l ${mem_limit}
+    # ulimit -l ${mem_limit}
     ulimit -m ${mem_limit}
     ulimit -v ${mem_limit}
     ulimit -n ${open_files}
     ulimit -u ${open_files}
+    ulimit -c 0
   fi
 fi
