@@ -1,0 +1,42 @@
+#!/bin/bash
+
+gnu_parallel=/opt/nce/bin/parallel/parallel
+
+function help/rsync_dirs() {
+  cat <<EOF
+
+Usage: $0 source destination
+
+EOF
+  exit 1
+}
+
+### args
+_thrds=${1:-3}
+shift
+_src=${1}
+shift
+_dst=${1}
+shift
+_opts=$*
+
+### check
+for i in "${_src}" "${_dst}" ; do
+  if ! test -d "${i}" ; then
+    echo "Not a directory: ${i}"
+    help/rsync_dirs
+  fi
+done
+
+# -h --progress
+### main
+cd "${_src}"
+ls
+echo ""
+echo "No. of rsync threads: ${_thrds}"
+echo "Source: ${_src}"
+echo "Destination: ${_dst}"
+echo ""
+read -p "Press Enter to continue or Ctrl-C to abort!"
+ls -1 . | \
+${gnu_parallel} -j ${_thrds} rsync -aAX {} ${_dst}
