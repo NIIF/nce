@@ -1,0 +1,13 @@
+#!/bin/bash
+
+read -p "Activate volume groups?"
+vgchange -ay /dev/vg_home
+vgchange -ay /dev/vg_scratch
+
+/opt/nce/sbin/io_tune
+
+read -p "Mount home?"
+mount /home
+
+read -p "Mount scratch?"
+mount /scratch
