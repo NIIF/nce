@@ -16,10 +16,10 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "Python 2"
-set appdesc "Python 2.7.3"
-set appurl  "http://www.python.org/"
-set license GPL
+set appname "Cmake"
+set appdesc "Cmake 2.8.11"
+set appurl  "http://www.cmake.org/"
+set license Kitware
 
 ### help
 proc ModulesHelp { } {
@@ -33,8 +33,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(APP_PYTHON)] {
-  set current $env(APP_PYTHON)
+if [info exists env(LIB_CMAKE)] {
+  set current $env(LIB_CMAKE)
 } else {
   set current $module
 }
@@ -45,16 +45,9 @@ if { $module != $current } {
 }
 
 ### env
-setenv APP_PYTHON $module
-setenv APP_PYTHON_HOME $approot
+setenv LIB_CMAKE $module
+setenv LIB_CMAKE_HOME $approot
 prepend-path PATH $approot/bin
-prepend-path MANPATH $approot/share/man
-
-prepend-path PKG_CONFIG_PATH $approot/lib/pkgconfig
-
-setenv PYTHONHOME $approot
-
-### dep
-
-module load gmp mpfr mpc gcc
+prepend-path MANPATH $approot/man
+# prepend-path LD_LIBRARY_PATH $approot/lib
 

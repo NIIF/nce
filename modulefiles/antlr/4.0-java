@@ -1,7 +1,7 @@
 #%Module1.0
 
 ### errors
-# module-log error null
+module-log error null
 
 ### globals
 set module  [module-info name]
@@ -16,10 +16,9 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "Python 2"
-set appdesc "Python 2.7.3"
-set appurl  "http://www.python.org/"
-set license GPL
+set appname "ANTLR"
+set appdesc "ANTLR 4.0-java"
+set appurl  "http://www.antlr.org/"
 
 ### help
 proc ModulesHelp { } {
@@ -33,8 +32,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(APP_PYTHON)] {
-  set current $env(APP_PYTHON)
+if [info exists env(NCE_ANTLR)] {
+  set current $env(NCE_ANTLR
 } else {
   set current $module
 }
@@ -45,16 +44,7 @@ if { $module != $current } {
 }
 
 ### env
-setenv APP_PYTHON $module
-setenv APP_PYTHON_HOME $approot
-prepend-path PATH $approot/bin
-prepend-path MANPATH $approot/share/man
+setenv NCE_ANTLR $module
+setenv NCE_ANTLR_HOME $approot
 
-prepend-path PKG_CONFIG_PATH $approot/lib/pkgconfig
-
-setenv PYTHONHOME $approot
-
-### dep
-
-module load gmp mpfr mpc gcc
-
+append-path -d {:} CLASSPATH $approot/antlr-4.0-complete.jar

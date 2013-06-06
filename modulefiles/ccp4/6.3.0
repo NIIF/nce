@@ -1,7 +1,7 @@
 #%Module1.0
 
 ### errors
-# module-log error null
+module-log error null
 
 ### globals
 set module  [module-info name]
@@ -16,9 +16,9 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "Python 2"
-set appdesc "Python 2.7.3"
-set appurl  "http://www.python.org/"
+set appname "CCP4"
+set appdesc "CCP4 6.3.0"
+set appurl  "http://www.ccp4.ac.uk"
 set license GPL
 
 ### help
@@ -28,13 +28,15 @@ proc ModulesHelp { } {
   puts stderr "Description : $appdesc"
   puts stderr "License     : $license"
   puts stderr "URL         : $appurl"
+  puts stderr "Init script : /opt/nce/packages/global/ccp4/6.3/ccp4-6.3.0/setup-scripts/ccp4.setup-sh"
+
 }
 
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(APP_PYTHON)] {
-  set current $env(APP_PYTHON)
+if [info exists env(NCE_CCP4)] {
+  set current $env(NCE_CCP4)
 } else {
   set current $module
 }
@@ -45,16 +47,12 @@ if { $module != $current } {
 }
 
 ### env
-setenv APP_PYTHON $module
-setenv APP_PYTHON_HOME $approot
-prepend-path PATH $approot/bin
-prepend-path MANPATH $approot/share/man
+setenv NCE_PROCPS $module
+setenv NCE_PROCPS_HOME $approot
+setenv CCP4_MASTER /opt/nce/packages/global/ccp4/6.3
+setenv CCP4I_TCLTK /opt/nce/packages/global/ccp4/6.3/ccp4-6.3.0/bin
 
-prepend-path PKG_CONFIG_PATH $approot/lib/pkgconfig
-
-setenv PYTHONHOME $approot
-
-### dep
-
-module load gmp mpfr mpc gcc
+prepend-path PATH /opt/nce/packages/global/ccp4/6.3/ccp4-6.3.0/bin
+prepend-path LD_LIBRARY_PATH $approot/lib
+prepend-path MANPATH $approot/man
 

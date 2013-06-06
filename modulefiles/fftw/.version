@@ -1,2 +1,2 @@
 #%Module1.0
-set ModulesVersion "3.3.3-intel"
+set ModulesVersion "3.3.3-gnu"

@@ -1,4 +1,4 @@
-##%Module1.0
+#%Module1.0
 
 ### errors
 # module-log error null
@@ -16,10 +16,10 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "FFTW"
-set appdesc "FFTW 3.3.3"
-set appurl  "http://www.fftw.org"
-set license GNU
+set appname "Oracle Berkeley DB"
+set appdesc "Oracle Berkeley DB 5.3.21"
+set appurl  "http://www.oracle.com/technetwork/products/berkeleydb/overview/index.html"
+set license GPL
 
 ### help
 proc ModulesHelp { } {
@@ -33,8 +33,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(LIB_FFTW)] {
-  set current $env(LIB_FFTW)
+if [info exists env(BERKELEY_DB)] {
+  set current $env(BERKELEY_DB)
 } else {
   set current $module
 }
@@ -45,21 +45,10 @@ if { $module != $current } {
 }
 
 ### env
-setenv LIB_FFTW $module
-setenv LIB_FFTW_HOME $approot
+setenv BERKELEY_DB $module
+setenv BERKELEY_DB $approot
 prepend-path PATH $approot/bin
-prepend-path MANPATH $approot/share/man
+prepend-path PATH $approot/sbin
 prepend-path LD_LIBRARY_PATH $approot/lib
 prepend-path LD_RUN_PATH $approot/lib
-prepend-path PKG_CONFIG_PATH $approot/lib/pkgconfig
 
-prepend-path -d { } NCE_CFLAGS -I$approot/include
-prepend-path -d { } NCE_FFLAGS -I$approot/include
-append-path -d { } NCE_LDFLAGS -L$approot/lib
-append-path -d { } NCE_LDFLAGS -lfftw3
-append-path -d { } NCE_STATIC_LDFLAGS $approot/lib/libfftw3.a
-
-prepend-path -d { } PRACE_CFLAGS -I$approot/include
-prepend-path -d { } PRACE_FFLAGS -I$approot/include
-append-path -d { } PRACE_LDFLAGS -L$approot/lib
-append-path -d { } PRACE_LDFLAGS -lfftw3
