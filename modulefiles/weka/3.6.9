@@ -16,9 +16,9 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "ANTLR"
-set appdesc "ANTLR 4.0-java"
-set appurl  "http://www.antlr.org/"
+set appname "WEKA"
+set appdesc "WEKA 3.6.9"
+set appurl  "http://sourceforge.net/projects/weka/"
 
 ### help
 proc ModulesHelp { } {
@@ -32,8 +32,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(NCE_ANTLR)] {
-  set current $env(NCE_ANTLR)
+if [info exists env(NCE_WEKA)] {
+  set current $env(NCE_WEKA)
 } else {
   set current $module
 }
@@ -44,7 +44,13 @@ if { $module != $current } {
 }
 
 ### env
-setenv NCE_ANTLR $module
-setenv NCE_ANTLR_HOME $approot
+setenv NCE_WEKA $module
+setenv NCE_WEKA_HOME $approot
 
-append-path -d {:} CLASSPATH $approot/antlr-4.0-complete.jar
+append-path -d {:} CLASSPATH $approot/remoteExperimentServer.jar
+append-path -d {:} CLASSPATH $approot/weka.jar
+append-path -d {:} CLASSPATH $approot/weka-src.jar
+
+### dep
+
+module load jdk

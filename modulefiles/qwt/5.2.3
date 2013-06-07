@@ -16,9 +16,9 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "ANTLR"
-set appdesc "ANTLR 4.0-java"
-set appurl  "http://www.antlr.org/"
+set appname "QWT"
+set appdesc "QWT 5.2.3"
+set appurl  "http://qwt.sourceforge.net/"
 
 ### help
 proc ModulesHelp { } {
@@ -32,8 +32,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(NCE_ANTLR)] {
-  set current $env(NCE_ANTLR)
+if [info exists env(NCE_QWT)] {
+  set current $env(NCE_QWT)
 } else {
   set current $module
 }
@@ -44,7 +44,16 @@ if { $module != $current } {
 }
 
 ### env
-setenv NCE_ANTLR $module
-setenv NCE_ANTLR_HOME $approot
+setenv NCE_QWT $module
+setenv NCE_QWT_HOME $approot
+setenv QWT_ROOT $approot
 
-append-path -d {:} CLASSPATH $approot/antlr-4.0-complete.jar
+prepend-path LD_LIBRARY_PATH $approot/lib
+prepend-path -d { } NCE_CFLAGS -I$approot/include
+prepend-path -d { } CFLAGS -I$approot/include
+#prepend-path QT_PLUGIN_PATH $approot/plugins
+prepend-path MANPATH $approot/doc/man
+
+### deps
+
+module load gcc

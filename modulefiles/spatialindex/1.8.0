@@ -16,9 +16,9 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "ANTLR"
-set appdesc "ANTLR 4.0-java"
-set appurl  "http://www.antlr.org/"
+set appname "spatialindex"
+set appdesc "spatialindex 1.8.0"
+set appurl  "http://download.osgeo.org/libspatialindex"
 
 ### help
 proc ModulesHelp { } {
@@ -32,8 +32,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(NCE_ANTLR)] {
-  set current $env(NCE_ANTLR)
+if [info exists env(NCE_SPATIALINDEX)] {
+  set current $env(NCE_SPATIALINDEX)
 } else {
   set current $module
 }
@@ -44,7 +44,14 @@ if { $module != $current } {
 }
 
 ### env
-setenv NCE_ANTLR $module
-setenv NCE_ANTLR_HOME $approot
+setenv NCE_SPATIALINDEX $module
+setenv NCE_SPATIALINDEX_HOME $approot
 
-append-path -d {:} CLASSPATH $approot/antlr-4.0-complete.jar
+prepend-path LD_LIBRARY_PATH $approot/lib
+prepend-path -d { } NCE_CFLAGS -I$approot/include
+prepend-path -d { } CFLAGS -I$approot/include
+prepend-path PKG_CONFIG_PATH $approot/lib/pkgconfig
+
+### deps
+
+module load gcc

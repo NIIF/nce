@@ -16,9 +16,9 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "ANTLR"
-set appdesc "ANTLR 4.0-java"
-set appurl  "http://www.antlr.org/"
+set appname "BISON"
+set appdesc "BISON 2.4"
+set appurl  "http://www.gnu.org/software/bison/"
 
 ### help
 proc ModulesHelp { } {
@@ -32,8 +32,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(NCE_ANTLR)] {
-  set current $env(NCE_ANTLR)
+if [info exists env(NCE_BISON)] {
+  set current $env(NCE_BISON)
 } else {
   set current $module
 }
@@ -44,7 +44,15 @@ if { $module != $current } {
 }
 
 ### env
-setenv NCE_ANTLR $module
-setenv NCE_ANTLR_HOME $approot
+setenv NCE_BISON $module
+setenv NCE_BISON_HOME $approot
 
-append-path -d {:} CLASSPATH $approot/antlr-4.0-complete.jar
+prepend-path PATH $approot/bin
+prepend-path LD_LIBRARY_PATH $approot/lib
+prepend-path MANPATH $approot/share/man
+prepend-path -d { } NCE_CFLAGS -I$approot/include
+prepend-path -d { } CFLAGS -I$approot/include
+
+### deps
+
+module load gcc
