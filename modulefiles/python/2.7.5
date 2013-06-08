@@ -17,7 +17,7 @@ if [info exists env(NCE_PACKAGES)] {
 
 set approot $nce_pkgs/$module
 set appname "Python 2"
-set appdesc "Python 2.7.3"
+set appdesc "Python 2.7.5"
 set appurl  "http://www.python.org/"
 set license GPL
 
@@ -51,8 +51,8 @@ prepend-path PATH $approot/bin
 prepend-path MANPATH $approot/share/man
 prepend-path LD_LIBRARY_PATH $approot/lib
 prepend-path PKG_CONFIG_PATH $approot/lib/pkgconfig
-prepend-path -d { } NCE_CFLAGS -I$approot/include
-prepend-path -d { } CFLAGS -I$approot/include
+prepend-path -d { } NCE_CFLAGS -I$approot/include/python2.7
+prepend-path -d { } CFLAGS -I$approot/include/python2.7
 
 setenv PYTHONHOME $approot
 
