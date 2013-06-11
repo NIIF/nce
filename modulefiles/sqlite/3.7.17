@@ -33,7 +33,7 @@ module-whatis "$appname"
 
 ### conflict
 if [info exists env(NCE_SQLITE)] {
-  set current $env(NCE_SQLITE
+  set current $env(NCE_SQLITE)
 } else {
   set current $module
 }

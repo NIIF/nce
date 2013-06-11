@@ -1,7 +1,7 @@
 #%Module1.0
 
 ### errors
-# module-log error null
+module-log error null
 
 ### globals
 set module  [module-info name]
@@ -16,10 +16,9 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "Python 2"
-set appdesc "Python 2.7.5"
-set appurl  "http://www.python.org/"
-set license GPL
+set appname "MAXIMA"
+set appdesc "MAXIMA 5.30"
+set appurl  "http://sourceforge.net/projects/maxima/"
 
 ### help
 proc ModulesHelp { } {
@@ -33,8 +32,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(APP_PYTHON)] {
-  set current $env(APP_PYTHON)
+if [info exists env(NCE_MAXIMA)] {
+  set current $env(NCE_MAXIMA)
 } else {
   set current $module
 }
@@ -45,20 +44,15 @@ if { $module != $current } {
 }
 
 ### env
-setenv APP_PYTHON $module
-setenv APP_PYTHON_HOME $approot
+setenv NCE_MAXIMA $module
+setenv NCE_MAXIMA_HOME $approot
+
 prepend-path PATH $approot/bin
-prepend-path MANPATH $approot/share/man
-prepend-path MANPATH $approot/man
 prepend-path LD_LIBRARY_PATH $approot/lib
-prepend-path PKG_CONFIG_PATH $approot/lib/pkgconfig
-prepend-path -d { } NCE_CFLAGS -I$approot/include/python2.7
-prepend-path -d { } CFLAGS -I$approot/include/python2.7
+prepend-path MANPATH $approot/share/man
+prepend-path -d { } NCE_CFLAGS -I$approot/include
+prepend-path -d { } CFLAGS -I$approot/include
 
-setenv PYTHONHOME $approot
+### deps
 
-### dep
-
-#module load gmp mpfr mpc gcc
-module load gcc
-
+module load gcc ecl
