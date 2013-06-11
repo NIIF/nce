@@ -1,14 +1,21 @@
 #%Module1.0
 
 ### errors
-# module-log error null
+module-log error null
 
 ### globals
 set module  [module-info name]
 set program [string map {" " "/"} [lrange [split $module {/}] end-1 end-1]]
 set release [lrange [split $module {/}] end end]
 
-set approot /opt/sgi
+if [info exists env(NCE_PACKAGES)] {
+  set nce_pkgs $env(NCE_PACKAGES)
+} else {
+  puts stderr "Error: NCE_PACKAGES not set"
+  break
+}
+
+set approot $nce_pkgs/$module
 set appname "SGI MPT (MPI)"
 set appdesc "SGI Message Passing Toolkit 2.04 (MPT)"
 set appurl  "http://techpubs.sgi.com/library/tpl/cgi-bin/browse.cgi?cmd=toc&coll=linux&db=bks&pth=/SGI_Developer/MPT_UG"
@@ -39,19 +46,20 @@ if { $module != $current } {
 
 ### env
 setenv NCE_MPI $module
-setenv SGI_MPT_HOME $approot/$program/mpt-$release
+setenv SGI_MPT_HOME $approot
 
-prepend-path LD_LIBRARY_PATH $approot/$program/mpt-$release/lib
-prepend-path LD_RUN_PATH $approot/$program/mpt-$release/lib
-prepend-path PATH $approot/$program/mpt-$release/bin
-prepend-path MANPATH $approot/$program/mpt-$release/man
+prepend-path LD_LIBRARY_PATH $approot/lib
+prepend-path LD_RUN_PATH $approot/lib
+prepend-path PATH $approot/bin
+prepend-path MANPATH $approot/man
 
-setenv MPI_ROOT $approot/$program/mpt-$release
+setenv MPI_ROOT $approot
 
-prepend-path -d { } NCE_CFLAGS -I$approot/$program/mpt-$release/include
-prepend-path -d { } NCE_FFLAGS -I$approot/$program/mpt-$release/include
+prepend-path -d { } NCE_CFLAGS -I$approot/include
+prepend-path -d { } NCE_FFLAGS -I$approot/include
 # shared
-append-path -d { } NCE_LDFLAGS -L$approot/$program/mpt-$release/lib
+append-path -d { } NCE_LDFLAGS -L$approot/lib
 append-path -d { } NCE_LDFLAGS -lmpi
 # static
 # append-path -d { } NCE_STATIC_LDFLAGS
+
