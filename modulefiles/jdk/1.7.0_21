@@ -47,6 +47,8 @@ if { $module != $current } {
 ### env
 setenv JAVA_JRE $module
 setenv JAVA_HOME $approot/$release
+setenv JAVA_ROOT $approot/$release
+setenv JAVA_BINDIR $approot/$release/bin
 setenv JRE_HOME $approot/$release/jre
 
 prepend-path PATH $approot/$release/jre/bin
