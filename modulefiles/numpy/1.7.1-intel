@@ -1,6 +1,8 @@
 #%Module1.0
 
 # http://software.intel.com/en-us/articles/numpyscipy-with-intel-mkl
+# python setup.py build --compiler=intelem --fcompiler=intelem install --prefix=/opt/nce/packages/global/numpy/1.7.1-intel/
+
 
 ### errors
 # module-log error null
