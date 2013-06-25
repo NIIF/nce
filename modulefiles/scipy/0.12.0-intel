@@ -1,8 +1,10 @@
 #%Module1.0
 
 # http://software.intel.com/en-us/articles/numpyscipy-with-intel-mkl
-# python setup.py config --compiler=intelem --fcompiler=intelem
 
+# python setup.py clean
+# python setup.py build --compiler=intelem --fcompiler=intelem
+# python setup.py install --prefix=/opt/nce/packages/global/scipy/0.12.0-intel
 
 ### errors
 # module-log error null
