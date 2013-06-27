@@ -1,5 +1,11 @@
 #%Module1.0
 
+# http://software.intel.com/en-us/articles/numpyscipy-with-intel-mkl
+
+# python setup.py clean
+# python setup.py build --compiler=intelem --fcompiler=intelem
+# python setup.py install --prefix=/opt/nce/packages/global/scipy/0.12.0-intel
+
 ### errors
 # module-log error null
 
@@ -16,10 +22,10 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$program
-set appname "JRE"
-set appdesc "JRE 1.7.0 21"
-set appurl  "https://www.java.com/en/"
-set license Oracle
+set appname "Scipy"
+set appdesc "Scipy 0.12.0"
+set appurl  "http://www.scipy.org/"
+set license GPL
 
 ### help
 proc ModulesHelp { } {
@@ -33,8 +39,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(JAVA_JDK)] {
-  set current $env(JAVA_JDK)
+if [info exists env(LIB_SCIPY)] {
+  set current $env(LIB_SCIPY)
 } else {
   set current $module
 }
@@ -45,11 +51,8 @@ if { $module != $current } {
 }
 
 ### env
-setenv JAVA_JRE $module
-setenv JAVA_HOME $approot/$release
-setenv JAVA_ROOT $approot/$release
-setenv JAVA_BINDIR $approot/$release/bin
-setenv JRE_HOME $approot/$release/jre
+setenv LIB_SCIPY $module
+setenv NUMPY_HOME $approot/$release
 
-prepend-path PATH $approot/$release/jre/bin
 prepend-path PATH $approot/$release/bin
+prepend-path PYTHONPATH $approot/$release/lib/python2.7/site-packages/

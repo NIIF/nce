@@ -1,7 +1,7 @@
 #%Module1.0
 
 ### errors
-# module-log error null
+module-log error null
 
 ### globals
 set module  [module-info name]
@@ -15,11 +15,11 @@ if [info exists env(NCE_PACKAGES)] {
   break
 }
 
-set approot $nce_pkgs/$program
-set appname "JRE"
-set appdesc "JRE 1.7.0 21"
-set appurl  "https://www.java.com/en/"
-set license Oracle
+set approot $nce_pkgs/$module
+set appname "GNU Compilers"
+set appdesc "GNU Compilers 4.6.4"
+set appurl  "http://gcc.gnu.org/"
+set license GPL
 
 ### help
 proc ModulesHelp { } {
@@ -33,8 +33,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(JAVA_JDK)] {
-  set current $env(JAVA_JDK)
+if [info exists env(GCC_COMPILER)] {
+  set current $env(GCC_COMPILER)
 } else {
   set current $module
 }
@@ -45,11 +45,17 @@ if { $module != $current } {
 }
 
 ### env
-setenv JAVA_JRE $module
-setenv JAVA_HOME $approot/$release
-setenv JAVA_ROOT $approot/$release
-setenv JAVA_BINDIR $approot/$release/bin
-setenv JRE_HOME $approot/$release/jre
+setenv GCC_COMPILER $module
+setenv GCC_COMPILER_HOME $approot
+setenv GCC_TC $approot
 
-prepend-path PATH $approot/$release/jre/bin
-prepend-path PATH $approot/$release/bin
+prepend-path PATH $approot/bin
+prepend-path LD_LIBRARY_PATH $approot/lib64
+
+# prepend-path -d { } NCE_CFLAGS -I$approot/include
+# prepend-path -d { } NCE_FFLAGS -I$approot/include
+# shared
+append-path -d { } NCE_LDFLAGS -L$approot/lib64
+# append-path -d { } NCE_LDFLAGS
+# static
+# append-path -d { } NCE_STATIC_LDFLAGS

@@ -15,11 +15,11 @@ if [info exists env(NCE_PACKAGES)] {
   break
 }
 
-set approot $nce_pkgs/$program
-set appname "JRE"
-set appdesc "JRE 1.7.0 21"
-set appurl  "https://www.java.com/en/"
-set license Oracle
+set approot $nce_pkgs/$module
+set appname "SuiteSparse"
+set appdesc "SuiteSparse 4.2.1"
+set appurl  "https://www.cise.ufl.edu/research/sparse/SuiteSparse/"
+set license GNU
 
 ### help
 proc ModulesHelp { } {
@@ -33,8 +33,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(JAVA_JDK)] {
-  set current $env(JAVA_JDK)
+if [info exists env(LIB_SUITESPARSE)] {
+  set current $env(LIB_SUITESPARSE)
 } else {
   set current $module
 }
@@ -45,11 +45,15 @@ if { $module != $current } {
 }
 
 ### env
-setenv JAVA_JRE $module
-setenv JAVA_HOME $approot/$release
-setenv JAVA_ROOT $approot/$release
-setenv JAVA_BINDIR $approot/$release/bin
-setenv JRE_HOME $approot/$release/jre
+setenv LIB_SUITESPARSE $module
+setenv LIB_SUITESPARSE_HOME $approot
+prepend-path LD_LIBRARY_PATH $approot/lib
+prepend-path LD_RUN_PATH $approot/lib
 
-prepend-path PATH $approot/$release/jre/bin
-prepend-path PATH $approot/$release/bin
+prepend-path -d { } NCE_CFLAGS -I$approot/include
+prepend-path -d { } NCE_FFLAGS -I$approot/include
+append-path -d { } NCE_LDFLAGS -L$approot/lib
+
+prepend-path -d { } PRACE_CFLAGS -I$approot/include
+prepend-path -d { } PRACE_FFLAGS -I$approot/include
+append-path -d { } PRACE_LDFLAGS -L$approot/lib

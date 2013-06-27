@@ -9,7 +9,12 @@ set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
 set release [lrange [split $module {/}] end end]
 
 ### eszr
-set approot /opt/$program
+if [info exists env(NCE_ROOT)] {
+  set approot $env(NCE_ROOT)
+} else {
+  set approot /opt/$program
+}
+
 set appname "nce global"
 set appdesc "NIIF Common Environment for global access"
 set appurl  ""
