@@ -55,4 +55,4 @@ setenv LIB_ASE $module
 setenv ASE_HOME $approot/$release
 
 prepend-path PATH $approot/$release/tools
-prepend-path PYTHONPATH $approot/$release/ase
+prepend-path PYTHONPATH $approot/$release/lib
