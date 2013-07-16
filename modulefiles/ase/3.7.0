@@ -1,0 +1,58 @@
+#%Module1.0
+
+# https://wiki.fysik.dtu.dk/ase
+
+# TEST: module load python scipy
+# import scipy
+# scipy.test()
+
+### errors
+# module-log error null
+
+### globals
+set module  [module-info name]
+set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
+set release [lrange [split $module {/}] end end]
+
+if [info exists env(NCE_PACKAGES)] {
+  set nce_pkgs $env(NCE_PACKAGES)
+} else {
+  puts stderr "Error: NCE_PACKAGES not set"
+  break
+}
+
+set approot $nce_pkgs/$program
+set appname "ASE"
+set appdesc "ASE 3.7.0"
+set appurl  "https://wiki.fysik.dtu.dk/ase"
+set license GPL
+
+### help
+proc ModulesHelp { } {
+  global appname release appdesc appurl license
+  puts stderr "Application : $appname"
+  puts stderr "Description : $appdesc"
+  puts stderr "License     : $license"
+  puts stderr "URL         : $appurl"
+}
+
+module-whatis "$appname"
+
+### conflict
+if [info exists env(LIB_ASE)] {
+  set current $env(LIB_ASE)
+} else {
+  set current $module
+}
+if { $module != $current } {
+  if { [ is-loaded $current ] } {
+    module unload $current
+  }
+}
+
+### env
+setenv LIB_ASE $module
+setenv ASE_HOME $approot/$release
+
+prepend-path PATH $approot/$release/tools
+prepend-path PYTHONPATH $approot/$release/ase
