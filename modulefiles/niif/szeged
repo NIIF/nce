@@ -68,4 +68,5 @@ setenv NCE_COMPUTE_SLOTS 48
 setenv NCE_COMPUTE_MPI mpi/ompi
 
 module load nce/niif/intel
-module load openmpi
+#module load openmpi
+setenv NCE_HOSTID SZEGED
