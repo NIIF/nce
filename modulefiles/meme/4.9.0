@@ -19,6 +19,7 @@ set approot $nce_pkgs/$module
 set appname "MEME"
 set appdesc "MEME 4.9.0 PRE-PATCHED"
 set appurl  "http://meme.nbcr.net/meme/"
+set license "GNU GPL version 3"
 
 ### help
 proc ModulesHelp { } {
