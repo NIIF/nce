@@ -1,0 +1,53 @@
+#%Module1.0
+
+### errors
+# module-log error null
+
+### globals
+set module  [module-info name]
+set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
+set release [lrange [split $module {/}] end end]
+
+### eszr
+if [info exists env(NCE_PACKAGES)] {
+  set nce_pkgs $env(NCE_PACKAGES)
+} else {
+  puts stderr "Error: NCE_PACKAGES not set"
+  break
+}
+
+set approot $nce_pkgs/$program
+set appname "MOPAC 2012"
+set appdesc "MOPAC 2012 13.143L"
+set appurl  "http://openmopac.net/MOPAC2012.html"
+set license "http://openmopac.net/Manual/trouble_shooting.html#License Issues"
+
+### help
+proc ModulesHelp { } {
+  global appname release appdesc appurl license
+  puts stderr "Application : $appname"
+  puts stderr "Description : $appdesc"
+  puts stderr "License     : $license"
+  puts stderr "URL         : $appurl"
+}
+
+module-whatis "$appname"
+
+### conflict
+if [info exists env(APP_MOPAC)] {
+  set current $env(APP_MOPAC)
+} else {
+  set current $module
+}
+if { $module != $current } {
+  if { [ is-loaded $current ] } {
+    module unload $current
+  }
+}
+
+### env
+setenv APP_MOPAC $module
+setenv APP_MOPAC_HOME $approot/$release
+
+prepend-path PATH $approot/$release/bin
+setenv MOPAC_LICENSE $approot/$release/bin
