@@ -47,9 +47,9 @@ if { $module != $current } {
 ### env
 setenv NCE_SCALASCA $module
 setenv NCE_SCALASCA_HOME $approot
-setenv CC=icc
-setenv F90=ifort
-setenv CXX=icpc
+setenv CC icc
+setenv F90 ifort
+setenv CXX icpc
 
 prepend-path PATH $approot/bin
 prepend-path LD_LIBRARY_PATH $approot/lib
