@@ -1,4 +1,6 @@
 
+if ! $(groups | grep 'wheel\|root' &>/dev/null); then
+
 if ! test -r "/etc/NCE_SYSTEM" ; then
   echo "Set /etc/NCE_SYSTEM"
 else
@@ -17,4 +19,6 @@ fi
 
 if ! test -z "${NCE_DEFAULT_MPI}" ; then
   module load ${NCE_DEFAULT_MPI}
+fi
+
 fi
