@@ -17,9 +17,9 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$program
-set appname "Mathematica"
-set appdesc "9.0.1"
-set appurl  "http://www.wolfram.com/mathematica/"
+set appname "Comsol"
+set appdesc "4.3b"
+set appurl  "http://www.comsol.com/"
 set license "Commercial"
 
 ### help
@@ -34,8 +34,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(NCE_MATHEMATICA)] {
-  set current $env(NCE_MATHEMATICA)
+if [info exists env(NCE_COMSOL)] {
+  set current $env(NCE_COMSOL)
 } else {
   set current $module
 }
@@ -46,10 +46,10 @@ if { $module != $current } {
 }
 
 ### env
-setenv NCE_MATHEMATICA $module
-setenv NCE_MATHEMATICA_HOME $approot/$release
+setenv NCE_COMSOL $module
+setenv NCE_COMSOL_HOME $approot/$release
 
 prepend-path PATH $approot/$release/bin
-prepend-path LD_LIBRARY_PATH /usr/share/gridengine/lib
+prepend-path LD_LIBRARY_PATH $approot/$release/glnxa64
 
-append-path -d {:} CLASSPATH /usr/share/gridengine/lib/DetectJvmLibrary.jar:/usr/share/gridengine/lib/drmaa.jar:/usr/share/gridengine/lib/jgdi.jar:/usr/share/gridengine/lib/JSV.jar:/usr/share/gridengine/lib/juti.jar
+
