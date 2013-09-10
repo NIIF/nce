@@ -27,9 +27,13 @@ for s in $* ; do
   sonars=" $(basename $s)"
 done
 
+# http://serverfault.com/questions/480371/ipmitool-cant-find-dev-ipmi0-or-dev-ipmidev-0
+modprobe ipmi_devintf
+modprobe ipmi_si
+
 echo $$ > ${pid}
 
-# loop
+# main loop
 while true ; do
   for s in $sonars ; do
     ${metrics}/${s} $gmond

@@ -18,7 +18,12 @@ trap monitor/stop INT TERM EXIT
 
 echo $$ > ${pid}
 
-# loop
+# http://serverfault.com/questions/480371/ipmitool-cant-find-dev-ipmi0-or-dev-ipmidev-0
+modprobe ipmi_devintf
+modprobe ipmi_si
+
+
+# main loop
 while true ; do
   ${ipmi_scan} -c $gmond
   sleep  $timeout
