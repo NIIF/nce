@@ -79,3 +79,61 @@ FFTW 2    | FFTW v2      | fftw2       | required | normal   | not provided
 FFTW 3    | FFTW v3      | fftw3       | required | normal   | 
 HDF5      | HDF          | hdf5        | required | normal   |
 NetCDF    | NetCDF       | netcdf      | required | normal   |
+
+# SLURM ütemező
+
+## Kötegelt használat
+### Egyszálú programok (nem array job)
+*Figyelem!* Egyszálú programok futtatására az un. *array job* mód való. Ha mégsem erre van szükségünk, akkor a következő job szkript alapot kell használnunk (`slurm.sh`):
+
+    #!/bin/bash
+    #SBATCH --job-name=serial
+    #SBATCH -n 32
+    #SBATCH -o slurm.out
+    srun envtest.sh
+
+ahol az `envtest.sh` szkript indítja el az egyszálú programot. A program kimenetét a `slurm.out` fájlban találjuk. Teszteléshez használjuk a következő egyszerű szkriptet:
+
+    #!/bin/bash
+    echo -n "$(hostname): "
+    echo "PROCID=$SLURM_PROCID  NODEID=$SLURM_NODEID  NNODES=$SLURM_NNODES  LOCALID=$SLURM_LOCALID      NPROCS=$SLURM_NPROCS  NTASKS=$SLURM_NTASKS"
+
+Az ütemező `SLURM` kezdetű shell változókat exportál a jobok számára. A `SLURM_PROCID` változóban található az adott szál azonosítószáma, ebben a példában (32 szál) 0-tól 31-ig. Az egyes szálak kimeneteit ennek segítségével lehet különböző fájlokba írni, pl.:
+
+    echo -n "$(hostname): " > out.$SLURM_PROCID
+
+[Bővebben](http://slurm.schedmd.com/quickstart.html)
+
+### Egyszálú, tömbfeladatok, *array job*
+[Tömbfeladatokra](http://slurm.schedmd.com/job_array.html) akkor van szükségünk, ha több egyszálú programot szeretnénk futtatni:
+
+    #!/bin/bash
+    #SBATCH --job-name=array
+    #SBATCH --array=1-32
+    srun envtest.sh
+
+Az egyedi azonosítót ilyenkor a `SLURM_ARRAY_TASK_ID` változó tartalmazza. A kimeneti fájlok `slurm_<JOB_ID>_<TASK_ID>.out` nevűek lesznek.
+
+### Párhuzamos futtatás
+#### OpenMP
+Az OpenMP (OMP) párhuzamosítás SMP gépeken működik, ezért maximum egy node-ot lehet lefoglani ilyen feladatok számára. Alapértelmezésben az OMP szálak száma a processzorok számával lesz egyenlő:
+
+    #!/bin/bash
+    #SBATCH --job-name=omp
+    #SBATCH -N 1
+    #SBATCH -o slurm.out
+    ./a.out
+
+Az [`a.out`](https://computing.llnl.gov/tutorials/openMP/samples/C/omp_hello.c) OMP program 24 szálon fog elindulni.
+
+#### MPI
+A Slurm az MPI könyvtárak nagy részét támogatja, ezért az MPI futtatókörnyezetet nem kell külön paraméterezni. MPI programok foglalásának alapegysége a node. A node-ok száma mellett meg kell adni az egy node-ra eső MPI processzek számát is:
+
+    #!/bin/bash
+    #SBATCH --job-name=mpi
+    #SBATCH -N 2
+    #SBATCH --ntasks-per-node=24
+    #SBATCH -o slurm.out
+    mpirun ./a.out
+
+Az [`a.out`](https://computing.llnl.gov/tutorials/mpi/samples/C/mpi_hello.c) OpenMPI-vel fordított program 2 node-on, összesen 48 szálon fog elindulni.
