@@ -1,0 +1,40 @@
+#!/bin/bash
+
+#adjust for the local environment
+source /usr/share/gridengine/default/common/settings.sh
+
+qstat -g c | awk '
+        BEGIN { sge_queue_globalstatistics_available=sge_queue_globalstatistics_aoACDS_state=sge_queue_globalstatistics_total=sge_queue_globalstatistics_cdsuE_state=sge_queue_globalstatistics_used=0; }
+        /^.*[0-9][0-9]/ { 
+            sge_queue_globalstatistics_available = sge_queue_globalstatistics_available + $5;
+            sge_queue_globalstatistics_aoACDS_state = sge_queue_globalstatistics_aoACDS_state + $7;
+            sge_queue_globalstatistics_total = sge_queue_globalstatistics_total + $6;
+            sge_queue_globalstatistics_cdsuE_state = sge_queue_globalstatistics_cdsuE_state + $8;
+            sge_queue_globalstatistics_used = sge_queue_globalstatistics_used + $3;
+
+            cmd="/usr/bin/gmetric --name sge_queue_"$1"_available --value "$5" --type uint16 --units slots";
+            system(cmd);
+            cmd="/usr/bin/gmetric --name sge_queue_"$1"_aoACDS_state --value "$7" --type uint16 --units slots";
+            system(cmd);
+            cmd="/usr/bin/gmetric --name sge_queue_"$1"_cdsuE_state --value "$8" --type uint16 --units slots";
+            system(cmd);
+            cmd="/usr/bin/gmetric --name sge_queue_"$1"_total --value "$6" --type uint16 --units slots";
+            system(cmd);
+            cmd="/usr/bin/gmetric --name sge_queue_"$1"_used --value "$3" --type uint16 --units slots";
+            system(cmd);
+            cmd="/usr/bin/gmetric --name sge_queue_"$1"_load --value "$2" --type float --units load";
+            system(cmd);
+        }
+    END {
+            cmd="/usr/bin/gmetric --name sge_queue_globalstatistics_available --value "sge_queue_globalstatistics_available" --type uint16 --units slots";
+            system(cmd);
+            cmd="/usr/bin/gmetric --name sge_queue_globalstatistics_aoACDS_state --value "sge_queue_globalstatistics_aoACDS_state" --type uint16 --units slots";
+            system(cmd);
+            cmd="/usr/bin/gmetric --name sge_queue_globalstatistics_cdsuE_state --value "sge_queue_globalstatistics_cdsuE_state" --type uint16 --units slots";
+            system(cmd);
+            cmd="/usr/bin/gmetric --name sge_queue_globalstatistics_total --value "sge_queue_globalstatistics_total" --type uint16 --units slots";
+            system(cmd);
+            cmd="/usr/bin/gmetric --name sge_queue_globalstatistics_used --value "sge_queue_globalstatistics_used" --type uint16 --units slots";
+            system(cmd);
+        }'
+
