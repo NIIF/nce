@@ -7,9 +7,9 @@ source /usr/share/gridengine/default/common/settings.sh
 
 qstat -u \* | awk '
         BEGIN { pending=running=error=0; }
-        /^[ 1-9][0-9]/ && ($5 ~ /^qw/)   { pending++; }
-        /^[ 1-9][0-9]/ && ($5 ~ /[rRt]/) { running++; }
-        /^[ 1-9][0-9]/ && ($5 ~ /E/ )    { error++;   }
+        ($5 ~ /^qw/)   { pending++; }
+        ($5 ~ /[rRt]/) { running++; }
+        ($5 ~ /E/ )    { error++;   }
     END {
                 cmd="/usr/bin/gmetric --name sge_pending --value "pending" --type uint16 --units jobs";
                 system(cmd); 
