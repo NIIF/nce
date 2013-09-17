@@ -75,3 +75,5 @@ setenv NCE_OFLAGS "-O2 -xSSE2"
 module load nce/niif/gnu
 module load nce/niif/intel
 module load openmpi
+module load sbank
+

@@ -81,6 +81,32 @@ HDF5      | HDF          | hdf5        | required | normal   |
 NetCDF    | NetCDF       | netcdf      | required | normal   |
 
 # SLURM ütemező
+A SLURM egy modern job ütemező, amely támogatja az interaktív és a kötegelt (batch) használatot is. Az ütemező állapotáról az `sjstat` paranccsal, a jobok állapotáról az `squeue -l` paranccsal kaphatunk információt.
+
+Minden job rendelkezik egy egyedi azonosítóval (`<JOBID>`), ennek ismeretében különböző műveleteket lehet elvégezni:
+
+- Job információ: `squeue -j <JOBID>`
+- Job leállitása: `scancel <JOBID>`
+
+Minden felhasználó egy vagy több projekt számla (account) tartozhat. Minden projekt számlához CPU óra időlimittel is rendelkezik. A szupergépeken csak a projektszámlák terhére lehet feladatokat futtatni, ezért nagyon fontos, hogy mindig állítsunk be időlimitet a jobokhoz. A projektek állapotáról a következő paranccsal kapunk információt:
+
+    sbank balance statement
+
+Az oszlopok jelentése a következő:
+
+1. felhasználó neve
+2. felhasználó CPU óra fogyasztása
+3. projekt neve
+4. projekt CPU óra fogyasztása
+5. projekt CPU óra limit
+6. a projekt hátralévő CPU órái
+
+Időlimitet a `--time days-hours:minutes` opcióval, a terhelendő projektszámlát pedig az `--account=projekt` opcióval kell megadni, pl.: batch jobok esetén a következő két opciónak szerepelnie kell:
+
+    #SBATCH --account=teszt
+    #SBATCH --time=1-20:10
+
+Ebben a példában a `teszt` projekt terhére egy 1 nap, 20 óra, 10 perc hosszú foglalást hozunk létre.
 
 ## Kötegelt használat
 ### Egyszálú programok (nem array job)
@@ -124,10 +150,14 @@ Az OpenMP (OMP) párhuzamosítás SMP gépeken működik, ezért maximum egy nod
     #SBATCH -o slurm.out
     ./a.out
 
-Az [`a.out`](https://computing.llnl.gov/tutorials/openMP/samples/C/omp_hello.c) OMP program 24 szálon fog elindulni.
+Az [`a.out`](https://computing.llnl.gov/tutorials/openMP/samples/C/omp_hello.c) OMP program 24 szálon fog elindulni. Amennyiben kevesebb szálra van szükségünk, akkor az `OMP_NUM_THREADS` változó értékét kell beállítani, pl.:
+
+    OMP_NUM_THREADS=12 ./a.out
+
+*Figyelem! Az ütemező ilyen esetben is 24 processzorral számolja az elfogyasztott CPU időt, ezért csak indokolt esetben változtassunk a szálak számán.*
 
 #### MPI
-A Slurm az MPI könyvtárak nagy részét támogatja, ezért az MPI futtatókörnyezetet nem kell külön paraméterezni. MPI programok foglalásának alapegysége a node. A node-ok száma mellett meg kell adni az egy node-ra eső MPI processzek számát is:
+A Slurm rendelkezik MPI támogatással, ezért az MPI futtatókörnyezetet nem kell külön paraméterezni. MPI programok foglalásának alapegysége a node. A node-ok száma mellett meg kell adni az egy node-ra eső MPI processzek számát is:
 
     #!/bin/bash
     #SBATCH --job-name=mpi
@@ -137,3 +167,8 @@ A Slurm az MPI könyvtárak nagy részét támogatja, ezért az MPI futtatókör
     mpirun ./a.out
 
 Az [`a.out`](https://computing.llnl.gov/tutorials/mpi/samples/C/mpi_hello.c) OpenMPI-vel fordított program 2 node-on, összesen 48 szálon fog elindulni.
+
+#### Maple
+
+
+#### MPI-OMP
