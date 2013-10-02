@@ -21,8 +21,8 @@ setenv PRACE_SERVICE_CONFIG "/opt/nce/packages/global/prace_service/prace_servic
 # Initialise empty environment variables
 
 ### nce
-# module load nce/global
-# module load niif/budapest
+module load nce/global
+module load niif/budapest
 
 ### compilers
 # module load fortran
