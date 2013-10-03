@@ -103,6 +103,7 @@ Az oszlopok jelentése a következő:
 
 Időlimitet a `--time days-hours:minutes` opcióval, a terhelendő projektszámlát pedig az `--account=projekt` opcióval kell megadni, pl.: batch jobok esetén a következő két opciónak szerepelnie kell:
 
+    #!/bin/bash
     #SBATCH --account=teszt
     #SBATCH --time=1-20:10
 
@@ -112,7 +113,6 @@ Ebben a példában a `teszt` projekt terhére egy 1 nap, 20 óra, 10 perc hossz�
 ### Egyszálú programok (nem array job)
 *Figyelem!* Egyszálú programok futtatására az un. *array job* mód való. Ha mégsem erre van szükségünk, akkor a következő job szkript alapot kell használnunk (`slurm.sh`):
 
-    #!/bin/bash
     #SBATCH --job-name=serial
     #SBATCH -n 32
     #SBATCH -o slurm.out
@@ -133,7 +133,6 @@ Az ütemező `SLURM` kezdetű shell változókat exportál a jobok számára. A 
 ### Egyszálú, tömbfeladatok, *array job*
 [Tömbfeladatokra](http://slurm.schedmd.com/job_array.html) akkor van szükségünk, ha több egyszálú programot szeretnénk futtatni:
 
-    #!/bin/bash
     #SBATCH --job-name=array
     #SBATCH --array=1-32
     srun envtest.sh
@@ -144,7 +143,6 @@ Az egyedi azonosítót ilyenkor a `SLURM_ARRAY_TASK_ID` változó tartalmazza. A
 #### OpenMP
 Az OpenMP (OMP) párhuzamosítás SMP gépeken működik, ezért maximum egy node-ot lehet lefoglani ilyen feladatok számára. Alapértelmezésben az OMP szálak száma a processzorok számával lesz egyenlő:
 
-    #!/bin/bash
     #SBATCH --job-name=omp
     #SBATCH -N 1
     #SBATCH -o slurm.out
@@ -169,6 +167,13 @@ A Slurm rendelkezik MPI támogatással, ezért az MPI futtatókörnyezetet nem k
 Az [`a.out`](https://computing.llnl.gov/tutorials/mpi/samples/C/mpi_hello.c) OpenMPI-vel fordított program 2 node-on, összesen 48 szálon fog elindulni.
 
 #### Maple
+A Maple párhuzamos verziójának szüksége van egy un. kontroll szerverre, ezt indítja el a `startserver` parancs. Ezek után a `joblauncher` indítja a párhuzamos feldolgozást.
 
+    #SBATCH --job-name=maple
+    #SBATCH -N 1
+    #SBATCH --ntasks-per-node=24
+    #SBATCH --licenses=maplegrid:1
+    ${MAPLE}/toolbox/Grid/bin/startserver
+    ${MAPLE}/toolbox/Grid/bin/joblauncher ${MAPLE}/toolbox/Grid/samples/Simple.mpl
 
 #### MPI-OMP
