@@ -47,6 +47,7 @@ if { $module != $current } {
 ### env
 setenv NCE_MPI $module
 setenv SGI_MPT_HOME $approot
+setenv MPI_MEMMAP_OFF 1
 
 prepend-path LD_LIBRARY_PATH $approot/lib
 prepend-path LD_RUN_PATH $approot/lib
