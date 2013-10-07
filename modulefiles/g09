@@ -1,0 +1,54 @@
+#%Module1.0
+
+### errors
+# module-log error null
+
+### globals
+set module  [module-info name]
+set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
+set release [lrange [split $module {/}] end end]
+
+### eszr
+if [info exists env(NCE_PACKAGES)] {
+  set nce_pkgs $env(NCE_PACKAGES)
+} else {
+  puts stderr "Error: NCE_PACKAGES not set"
+  break
+}
+
+set approot $nce_pkgs/$program
+set appname "Gaussian 09"
+set appdesc "Gaussian 09"
+set appurl  "http://www.gaussian.com/"
+set license "Commercial"
+
+### help
+proc ModulesHelp { } {
+  global appname release appdesc appurl license
+  puts stderr "Application : $appname"
+  puts stderr "Description : $appdesc"
+  puts stderr "License     : $license"
+  puts stderr "URL         : $appurl"
+}
+
+module-whatis "$appname"
+
+### conflict
+if [info exists env(APP_G09)] {
+  set current $env(APP_G09)
+} else {
+  set current $module
+}
+if { $module != $current } {
+  if { [ is-loaded $current ] } {
+    module unload $current
+  }
+}
+
+### env
+setenv APP_G09 $module
+setenv APP_G09_HOME /opt/nce/packages/global/g09
+setenv g09root /opt/nce/packages/global
+
+prepend-path PATH /opt/nce/packages/global/g09/bin
+
