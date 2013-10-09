@@ -1,0 +1,29 @@
+#!/bin/bash
+
+nce_dir="/opt/nce"
+module_dir="/opt/nce/modulefiles"
+package_dir="/opt/nce/packages/global"
+
+tmp=`mktemp`
+
+cd $nce_dir
+
+# recover deleted files
+git checkout $(git ls-files -d)
+
+# update to the latest repo
+git pull
+
+cd $module_dir
+
+for module in `find .`
+do
+   if [ ! -d "${package_dir}/${module}" ]
+   then
+     echo ${package_dir}/${module} >> $tmp
+   fi
+done
+
+# delete unnecessary modules
+cat $tmp | xargs -i rm {}
+rm $tmp
