@@ -31,5 +31,5 @@ done
 
 # delete unnecessary modules
 cat $tmp | xargs -i rm {}
-rm -f $tmp &> /dev/null
 
+rm  $tmp 
