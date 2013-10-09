@@ -9,7 +9,7 @@ tmp=`mktemp`
 cd $nce_dir
 
 # recover deleted files
-git checkout $(git ls-files -d)
+git checkout $(git ls-files -d) &> /dev/null
 
 # update to the latest repo
 git pull
@@ -20,10 +20,11 @@ for module in `find .`
 do
    if [ ! -d "${package_dir}/${module}" ]
    then
-     echo ${package_dir}/${module} >> $tmp
+     echo ${module_dir}/${module} >> $tmp
    fi
 done
 
 # delete unnecessary modules
 cat $tmp | xargs -i rm {}
-rm $tmp
+rm -df $tmp &> /dev/null
+
