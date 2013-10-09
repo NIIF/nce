@@ -18,6 +18,7 @@ if [info exists env(NCE_PACKAGES)] {
 set approot $nce_pkgs/$module
 set appname "PDT"
 set appdesc "PDT 3.19"
+set license "http://www.cs.uoregon.edu/research/pdt/home.php"
 set appurl  "http://www.cs.uoregon.edu/research/pdt/home.php"
 
 ### help

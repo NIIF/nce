@@ -18,6 +18,7 @@ if [info exists env(NCE_PACKAGES)] {
 set approot $nce_pkgs/$module
 set appname "BLAST"
 set appdesc "BLAST 2.2.28+"
+set license "http://blast.ncbi.nlm.nih.gov/"
 set appurl  "http://blast.ncbi.nlm.nih.gov/"
 
 ### help

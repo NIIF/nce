@@ -18,6 +18,7 @@ if [info exists env(NCE_PACKAGES)] {
 set approot $nce_pkgs/$module
 set appname "ANTLR"
 set appdesc "ANTLR 4.0-java"
+set license "BSD"
 set appurl  "http://www.antlr.org/"
 
 ### help

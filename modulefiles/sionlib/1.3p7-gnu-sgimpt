@@ -18,6 +18,7 @@ if [info exists env(NCE_PACKAGES)] {
 set approot $nce_pkgs/$module
 set appname "SIONlib"
 set appdesc "SIONlib 1.3p7, GNU compiler, SGI MPI (MPT)"
+set license "http://www.fz-juelich.de/ias/jsc/EN/Expertise/Support/Software//SIONlib/sionlib-release_node"
 set appurl  "http://www.fz-juelich.de/ias/jsc/EN/Expertise/Support/Software/SIONlib/_node.html"
 
 ### help

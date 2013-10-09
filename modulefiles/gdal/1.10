@@ -18,6 +18,7 @@ if [info exists env(NCE_PACKAGES)] {
 set approot $nce_pkgs/$module
 set appname "GDAL"
 set appdesc "GDAL 1.10"
+set license "MIT/X"
 set appurl  "http://www.osgeo.org/node/1354"
 
 ### help

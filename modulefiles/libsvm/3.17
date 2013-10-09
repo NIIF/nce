@@ -18,6 +18,7 @@ if [info exists env(NCE_PACKAGES)] {
 set approot $nce_pkgs/$module
 set appname "libsvm"
 set appdesc "libsvm 3.17"
+set license "the modified BSD license"
 set appurl  "http://www.csie.ntu.edu.tw/~cjlin/libsvm/"
 
 ### help
