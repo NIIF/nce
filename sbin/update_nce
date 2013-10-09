@@ -18,6 +18,11 @@ cd $module_dir
 
 for module in `find .`
 do
+   if [ -d ${module_dir}/${module} ]
+   then 
+      continue
+   fi
+
    if [ ! -d "${package_dir}/${module}" ]
    then
      echo ${module_dir}/${module} >> $tmp
@@ -26,5 +31,5 @@ done
 
 # delete unnecessary modules
 cat $tmp | xargs -i rm {}
-rm -df $tmp &> /dev/null
+rm -f $tmp &> /dev/null
 
