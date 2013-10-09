@@ -18,6 +18,7 @@ if [info exists env(NCE_PACKAGES)] {
 set approot $nce_pkgs/$module
 set appname "CLHEP"
 set appdesc "CLHEP 2.1.1.0"
+set license "clhep"
 set appurl  "http://proj-clhep.web.cern.ch/proj-clhep/"
 
 ### help
