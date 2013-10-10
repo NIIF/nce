@@ -49,10 +49,10 @@ if { $module != $current } {
 ### env
 setenv NCE_PROCPS $module
 setenv NCE_PROCPS_HOME $approot
-setenv CCP4_MASTER /opt/nce/packages/global/ccp4/6.3
-setenv CCP4I_TCLTK /opt/nce/packages/global/ccp4/6.3/ccp4-6.3.0/bin
+setenv CCP4_MASTER $approot/$release
+setenv CCP4I_TCLTK $approot/$release/ccp4-6.3.0/bin
 
-prepend-path PATH /opt/nce/packages/global/ccp4/6.3/ccp4-6.3.0/bin
+prepend-path PATH $approot/$release/ccp4-6.3.0/bin
 prepend-path LD_LIBRARY_PATH $approot/lib
 prepend-path MANPATH $approot/man
 
