@@ -1,8 +1,15 @@
 #!/bin/bash
 
-nce_dir="/opt/nce"
-module_dir="/opt/nce/modulefiles"
-package_dir="/opt/nce/packages/global"
+if [ -r "/etc/NCE_SYSTEM" ] && [ `cat /etc/NCE_SYSTEM` == "niif/pecs" ]
+then
+  nce_dir="/home/opt/nce"
+  module_dir="/home/opt/nce/modulefiles"
+  package_dir="/home/opt/nce/packages/global"
+else
+  nce_dir="/opt/nce"
+  module_dir="/opt/nce/modulefiles"
+  package_dir="/opt/nce/packages/global"
+fi
 
 tmp=`mktemp`
 
