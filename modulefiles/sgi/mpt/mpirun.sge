@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+#  PE_HOSTFILE=/tmp/pe_hostfile
+#  
+#  r2i3n8 2 debrecen.q@r2i3n8 UNDEFINED
+#  r2i3n6 3 debrecen.q@r2i3n8 UNDEFINED
+#  r2i3n5 5 debrecen.q@r2i3n8 UNDEFINED
+#
+#  Converting to this format
+#
+#  r2i3n8 2, r2i3n6 3, r2i3n5 5
+
+if [ -n "$PE_HOSTFILE" ] && [ -f "$PE_HOSTFILE" ] && [ "$1" = "-np" ] && [ -n "$2" ] && echo "$2" | grep -q '^[0-9]*$'
+then
+  hostlist=`awk '{printf("%s %s,", $1, $2)}' $PE_HOSTFILE`
+  hostlist=${hostlist/%,/}
+  shift; shift
+  mpirun.mpt $hostlist $@
+else
+  mpirun.mpt $@
+fi
