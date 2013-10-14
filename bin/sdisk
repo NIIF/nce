@@ -1,0 +1,8 @@
+#!/bin/bash
+if [ -z "$1" ] ; then
+  exit 1
+fi
+
+echo ""
+SACCT_FORMAT="MaxDiskRead,MaxDiskReadNode,AveDiskRead,MaxDiskWrite,MaxDiskWriteNode,AveDiskWrite" sacct -j ${1}.batch
+echo ""
