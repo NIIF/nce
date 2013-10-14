@@ -1,0 +1,31 @@
+#!/bin/bash
+
+### args
+_nodes="-N 1"
+_cores="-c $NCE_COMPUTE_SLOTS"
+_slots=""
+_time="00:30:00"
+
+while getopts N:c:n:t:h o; do
+  case "$o" in
+    N)
+      _nodes="-N $OPTARG"
+    ;;
+    c)
+      _cores="-c $OPTARG"
+    ;;
+    n)
+      _slots="-n $OPTARG"
+    ;;
+    t)
+      _time=$OPTARG
+    ;;
+    h|*)
+      sestimate/help
+    ;;
+  esac
+done
+
+_time="-t $(sbank time calc -t ${_time})"
+echo -n "Estimated CPU hours: "
+sbank time estimate ${_nodes} ${_cores} ${_slots} ${_time}

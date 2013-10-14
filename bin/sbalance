@@ -1,0 +1,6 @@
+#!/bin/bash
+echo ""
+echo "Scheduler Account Balance"
+echo "---------- ----------- + ---------------- ----------- + ------------- -----------"
+sbank balance statement
+echo ""
