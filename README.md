@@ -146,6 +146,7 @@ Az OpenMP (OMP) párhuzamosítás SMP gépeken működik, ezért maximum egy nod
     #SBATCH --job-name=omp
     #SBATCH -N 1
     #SBATCH -o slurm.out
+    export OMP_NUM_THREADS=$NCE_COMPUTE_SLOTS
     ./a.out
 
 Az [`a.out`](https://computing.llnl.gov/tutorials/openMP/samples/C/omp_hello.c) OMP program 24 szálon fog elindulni. Amennyiben kevesebb szálra van szükségünk, akkor az `OMP_NUM_THREADS` változó értékét kell beállítani, pl.:

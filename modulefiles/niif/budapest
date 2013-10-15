@@ -71,6 +71,9 @@ setenv NCE_HOSTID BUDAPEST
 ### default optimization flags
 setenv NCE_OFLAGS "-O2 -xSSE2"
 
+### omp default
+setenv OMP_NUM_THREADS 1
+
 ### default modules
 module load nce/niif/gnu
 module load nce/niif/intel
