@@ -4,5 +4,5 @@ if [ -z "$1" ] ; then
 fi
 
 echo ""
-SACCT_FORMAT="MaxDiskRead,MaxDiskReadNode,AveDiskRead,MaxDiskWrite,MaxDiskWriteNode,AveDiskWrite" sacct -j ${1}.batch
+SACCT_FORMAT="MaxDiskRead,MaxDiskReadNode,AveDiskRead,MaxDiskWrite,MaxDiskWriteNode,AveDiskWrite" sacct -j ${1}
 echo ""

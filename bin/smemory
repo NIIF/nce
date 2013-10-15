@@ -4,5 +4,5 @@ if [ -z "$1" ] ; then
 fi
 
 echo ""
-SACCT_FORMAT="MaxVMSize,MaxVMSizeNode,AveVMSize,MaxRSS,MaxRSSNode,AveRSS" sacct -j ${1}.batch
+SACCT_FORMAT="MaxVMSize,MaxVMSizeNode,AveVMSize,MaxRSS,MaxRSSNode,AveRSS" sacct -j ${1}
 echo ""
