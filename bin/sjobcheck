@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ -z "${1}" ] ; then
+  exit 1
+fi
+
+nodes=$(scontrol show job $1 | \
+        grep 'NodeList=cn' | \
+        awk -F= '{print $2}')
+
+p="CPU"
+for i in $(scontrol show hostname ${nodes}) ; do
+  p="${p}\\|${i}"
+done
+
+gstat -i masterhost -a -1 | grep "${p}"
