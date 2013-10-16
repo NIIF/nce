@@ -1,0 +1,4 @@
+#!/bin/bash
+echo ""
+scontrol show config | grep Licenses
+echo ""
