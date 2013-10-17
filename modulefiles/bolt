@@ -16,8 +16,8 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "GNU parallel and ppss"
-set appdesc "GNU parallel and ppss"
+set appname "Bolt"
+set appdesc "Speedy batch job submission script production tool from EPCC"
 set appurl  ""
 set license GPL
 
@@ -33,8 +33,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(APP_PARALLEL)] {
-  set current $env(APP_PARALLEL)
+if [info exists env(APP_BOLT)] {
+  set current $env(APP_BOLT)
 } else {
   set current $module
 }
@@ -45,7 +45,10 @@ if { $module != $current } {
 }
 
 ### env
-setenv APP_PARALLEL $module
-setenv APP_PARALLEL_HOME $approot
+setenv APP_BOLT $module
+setenv APP_BOLT_HOME $approot
 prepend-path PATH $approot/bin
 prepend-path MANPATH $approot/share/man
+prepend-path PYTHONPATH $approot/modules
+setenv BOLT_DIR $approot
+
