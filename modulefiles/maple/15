@@ -46,6 +46,7 @@ if { $module != $current } {
 }
 
 ### env
+setenv _JAVA_OPTIONS "-Xms1g -Xmx1g"
 setenv NCE_MAPLE $module
 setenv NCE_MAPLE_HOME $approot/$release
 setenv MAPLE $approot/$release
