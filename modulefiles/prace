@@ -43,6 +43,8 @@ module load fftw
 module load netcdf
 module load hdf5
 
+prepend-path PATH "/usr/bin"
+
 proc ModulesHelp {} {
   global ModulefileVersion
 
