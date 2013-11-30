@@ -7,17 +7,11 @@ setenv PRACE_ARCH "HP_Linux_Opteron_6128"
 
 # Initialise the environment variables for file systems
 
-try {
-    set GROUP [exec id -g -n]
-    set status 0
-} trap CHILDSTATUS {results options} {
-    set status [lindex [dict get $options -errorcode] 2]
-}
+set GROUP [exec id -g -n]
 
 setenv PRACE_STORE "/archive/$GROUP/$env(USER)"
 setenv PRACE_SCRATCH "/scratch/$env(USER)"
 setenv PRACE_SERVICE_CONFIG "/opt/nce/packages/global/prace_service/prace_service.config"
-
 
 #setenv PRACE_HOME "/prace/[site acronym]/home/$GROUP/$env(USER)"
 #setenv PRACE_DATA "/prace/[site acronym]/data/$GROUP/$env(USER)
@@ -49,8 +43,6 @@ module load fftw
 ### netcdf and hdf5
 module load netcdf
 module load hdf5
-
-prepend-path PATH "/usr/bin"
 
 proc ModulesHelp {} {
   global ModulefileVersion
