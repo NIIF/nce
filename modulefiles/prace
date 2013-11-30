@@ -7,7 +7,7 @@ setenv PRACE_ARCH "HP_Linux_Opteron_6128"
 
 # Initialise the environment variables for file systems
 
-set GROUP [exec id -g -n]
+#set GROUP [exec id -g -n]
 
 #setenv PRACE_STORE "/archive/$GROUP/$env(USER)"
 setenv PRACE_SCRATCH "/scratch/prace/$env(USER)"
