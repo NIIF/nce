@@ -6,7 +6,14 @@ module-whatis "Initialisation of the PRACE Common Production (PCPE) environment.
 setenv PRACE_ARCH "HP_Linux_Opteron_6128"
 
 # Initialise the environment variables for file systems
-set GROUP [exec id -g -n]
+
+try {
+    set GROUP [exec id -g -n]
+    set status 0
+} trap CHILDSTATUS {results options} {
+    set status [lindex [dict get $options -errorcode] 2]
+}
+
 setenv PRACE_STORE "/archive/$GROUP/$env(USER)"
 setenv PRACE_SCRATCH "/scratch/$env(USER)"
 setenv PRACE_SERVICE_CONFIG "/opt/nce/packages/global/prace_service/prace_service.config"
