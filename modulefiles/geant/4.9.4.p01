@@ -44,6 +44,8 @@ if { $module != $current } {
   }
 }
 
+set HOME $env(HOME)
+
 ### env
 setenv NCE_GEANT $module
 setenv NCE_GEANT_HOME $approot
@@ -56,11 +58,18 @@ prepend-path LD_LIBRARY_PATH $approot/lib/Linux-g++:$HOME/CLHEP/lib
 
 module load gcc
 
-
 ### init script
 
-set ret_val [catch { exec /bin/bash $approot/geant4/geant4.9.4.p01/env.sh }]
-set errc $errorCode
-set ret_val [lindex [split $errc " " ] 2]
-puts $ret_val
+set bashCommand {bash -c "$approot/geant4/geant4.9.4.p01/env.sh 2>&1 >/dev/null && export -p"}
+if [catch {*}${bashCommand} output] {
+    set errMsg "ERROR: Failed to run script."
+    append errMsg "\n" $output
+    error $errMsg
+}
 
+set vars [dict create]
+foreach line [split $output "\n"] {
+    regex -- {^declare -x ([[:alpha:]_]*)=\"(.*)\"$} $line dummy var val
+    global ::env
+    set ::env($var) $val
+}
