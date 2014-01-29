@@ -63,4 +63,7 @@ module load gcc
 setenv INIT_GEANT $approot/geant4/geant4.9.4.p01/env.sh
 set INIT_GEANT $approot/geant4/geant4.9.4.p01/env.sh
 
-puts "Please run this init script: . $INIT_GEANT"
+puts stdout "Please run this init script: . $INIT_GEANT"
+
+
+
