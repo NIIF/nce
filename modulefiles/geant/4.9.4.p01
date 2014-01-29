@@ -60,16 +60,4 @@ module load gcc
 
 ### init script
 
-set bashCommand {bash -c "$approot/geant4/geant4.9.4.p01/env.sh 2>&1 >/dev/null && export -p"}
-if [catch {${bashCommand} output } ] {
-    set errMsg "ERROR: Failed to run script."
-    append errMsg "\n" $output
-    error $errMsg
-}
-
-set vars [dict create]
-foreach line [split $output "\n"] {
-    regex -- {^declare -x ([[:alpha:]_]*)=\"(.*)\"$} $line dummy var val
-    global ::env
-    set ::env($var) $val
-}
+setenv INIT_GEANT $approot/geant4/geant4.9.4.p01/env.sh
