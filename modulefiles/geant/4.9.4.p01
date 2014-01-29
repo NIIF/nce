@@ -44,26 +44,20 @@ if { $module != $current } {
   }
 }
 
-set HOME $env(HOME)
-
-### env
-setenv NCE_GEANT $module
-setenv NCE_GEANT_HOME $approot
-setenv G4WORKDIR $HOME/g4work
-
-prepend-path PATH $approot/geant4/geant4.9.4.p01/bin
-prepend-path LD_LIBRARY_PATH $approot/lib/Linux-g++:$HOME/CLHEP/lib
-
-### deps
-
-module load gcc
-
 ### init script
 
 setenv INIT_GEANT $approot/geant4/geant4.9.4.p01/env.sh
 set INIT_GEANT $approot/geant4/geant4.9.4.p01/env.sh
+puts stdout ". $INIT_GEANT"
 
-puts stdout "Please run this init script: . $INIT_GEANT"
+### env
+setenv NCE_GEANT $module
+setenv NCE_GEANT_HOME $approot
 
+prepend-path PATH $approot/geant4/geant4.9.4.p01/bin
+prepend-path LD_LIBRARY_PATH $approot/geant4/geant4.9.4.p01/lib/Linux-g++
 
+### deps
+
+module load gcc
 
