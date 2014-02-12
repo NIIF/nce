@@ -71,6 +71,6 @@ setenv NCE_OFLAGS "-O2 -xSSE4.2"
 ### sgi
 # module load slurm/2.2.7
 
-module load intel/2013_sp1
+module load nce/niif/intel
 module load sgi/mpt/2.04
 
