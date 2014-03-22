@@ -13,7 +13,7 @@ _uid=$(id -u)
 _group=$(id -gn)
 _groups=$(id -Gn)
 
-function limits/intersect() {
+function limits_intersect() {
   local i
   local j
   for i in ${1} ; do
@@ -28,7 +28,7 @@ function limits/intersect() {
 # if has high uid (regular users)
 if test ${_uid} -ge ${uid_limit} ; then
   # and not member of any privileged group
-  _is=$(limits/intersect "${_groups}" "${sysops}")
+  _is=$(limits_intersect "${_groups}" "${sysops}")
   if test -z "${_is}" ; then
     # ulimit -l ${mem_limit}
     ulimit -m ${mem_limit}
