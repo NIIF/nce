@@ -48,11 +48,5 @@ if { $module != $current } {
 ### env
 setenv NCE_ORCA $module
 setenv NCE_ORCA_HOME $approot/$release
-setenv MAPLE $approot/$release
-prepend-path PATH $approot/$release/bin:$approot/$release
-
-### dep
-
-module load openmpi/1.6-open64
-
-
+setenv NCE_ORCA $approot/$release
+prepend-path PATH $approot/$release/bin
