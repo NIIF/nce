@@ -49,4 +49,9 @@ if { $module != $current } {
 setenv NCE_ORCA $module
 setenv NCE_ORCA_HOME $approot/$release
 setenv NCE_ORCA $approot/$release
-prepend-path PATH $approot/$release/bin
+prepend-path PATH $approot/$release/bin:$approot/$release
+prepend-path LD_LIBRARY_PATH $approot/$release/lib
+
+### dep
+
+module load openmpi/1.6-open64
