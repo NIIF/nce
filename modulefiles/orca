@@ -46,6 +46,6 @@ if { $module != $current } {
 
 ### env
 setenv NCE_ORCA $module
-setenv NCE_ORCA_HOME $approot/$release
-setenv NCE_ORCA $approot/$release
-prepend-path PATH $approot/$release/SUPPORT/bin
+setenv NCE_ORCA_HOME $approot/$module
+setenv NCE_ORCA $approot/$module
+prepend-path PATH $approot/$module/SUPPORT/bin
