@@ -16,7 +16,7 @@ if [info exists env(NCE_PACKAGES)] {
   break
 }
 
-set approot $nce_pkgs/$program
+set approot $nce_pkgs
 set appname "ORCA"
 set appurl  "http://cec.mpg.de/forum/"
 set license "http://cec.mpg.de/forum/license.html"
