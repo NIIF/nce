@@ -18,7 +18,6 @@ if [info exists env(NCE_PACKAGES)] {
 
 set approot $nce_pkgs/$program
 set appname "ORCA"
-set appdesc "2.9.1"
 set appurl  "http://cec.mpg.de/forum/"
 set license "http://cec.mpg.de/forum/license.html"
 
@@ -47,11 +46,6 @@ if { $module != $current } {
 
 ### env
 setenv NCE_ORCA $module
-setenv NCE_ORCA_HOME $approot/$release
-setenv NCE_ORCA $approot/$release
-prepend-path PATH $approot/$release/bin:$approot/$release
-prepend-path LD_LIBRARY_PATH $approot/$release/lib
-
-### dep
-
-module load openmpi/1.6-open64
+setenv NCE_ORCA_HOME $approot
+setenv NCE_ORCA $approot
+prepend-path PATH $approot/SUPPORT/bin
