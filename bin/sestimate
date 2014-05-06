@@ -6,6 +6,17 @@ _cores="-c $NCE_COMPUTE_SLOTS"
 _slots=""
 _time="00:30:00"
 
+function sestimate/help () {
+  cat <<END
+  Options:
+  -N <NODES>
+  -c <CORES>
+  -n <SLOTS>
+  -t <TIME>
+END
+  exit 0
+}
+
 while getopts N:c:n:t:h o; do
   case "$o" in
     N)
