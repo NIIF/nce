@@ -73,6 +73,7 @@ setenv NCE_HOSTID PÉCS
 # sgi
 module load nce/niif/intel
 module load sgi/mpt/2.04
+module load g09
 
 # uv defaults
 setenv MPI_MEMMAP_OFF 1
