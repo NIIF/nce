@@ -73,4 +73,5 @@ setenv NCE_OFLAGS "-O2 -xSSE4.2"
 
 module load nce/niif/intel
 module load sgi/mpt/2.04
+module load g09
 

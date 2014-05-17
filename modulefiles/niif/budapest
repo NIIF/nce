@@ -80,4 +80,5 @@ module load nce/niif/intel
 module load openmpi
 module load sbank
 module load maple/17
+module load g09
 
