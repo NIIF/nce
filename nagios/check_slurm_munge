@@ -1,0 +1,21 @@
+#!/bin/bash
+
+nagiosStateOk=0
+nagiosStateWarning=1
+nagiosStateCritical=2
+nagiosStateUnknown=3
+_exit=$nagiosStateOk
+
+_pid=$(ps ax | \
+       grep munge | \
+       grep -v grep | \
+       grep -v check | \
+       awk '{print $1}')
+
+if test -z "${_pid}" ; then
+  echo "ERROR: munge server is not running"
+  exit $nagiosStateCritical
+fi
+
+echo "OK: munge is running"
+exit $nagiosStateOk

@@ -1,0 +1,37 @@
+#!/bin/bash
+
+nagiosStateOk=0
+nagiosStateWarning=1
+nagiosStateCritical=2
+nagiosStateUnknown=3
+_exit=$nagiosStateOk
+
+_warn=${1:-20}
+_crit=50
+
+gstat -1 -i masterhost -a -l | \
+grep ^cn | \
+awk -v l=${_warn} -F, 'BEGIN{_exit=0} {
+if ($5 > l ) {
+  _exit=1;
+}
+} END{ exit _exit}'
+
+_exit=$?
+
+gstat -1 -i masterhost -a -l | \
+grep ^cn | \
+awk -v l=${_crit} -v e=${_exit} -F, 'BEGIN{_exit=e} {
+if ($5 > l ) {
+  _exit=2;
+}
+} END{ exit _exit}'
+
+_exit=$?
+if [ ${_exit} -gt 0 ] ; then
+  echo "WARNING: High system load on some compute hosts"
+else
+  echo "OK: System load is under treshold"
+fi
+
+exit ${_exit}
