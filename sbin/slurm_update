@@ -1,0 +1,13 @@
+#!/bin/bash
+
+yum -y update slurm slurm-sjobexit slurm-perlapi \
+              slurm-munge slurm-devel slurm-plugins \
+              slurm-slurmdbd slurm slurm-sql \
+              slurm-sjstat slurm-pam_slurm
+
+ssh loginnode yum -y update slurm-sjobexit slurm-devel slurm-munge \
+                            slurm-sjstat slurm-plugins slurm-perlapi \
+                            slurm-pam_slurm slurm
+
+# ssh gpu1 yum -y update munge
+# ssh gpu2 yum -y update munge

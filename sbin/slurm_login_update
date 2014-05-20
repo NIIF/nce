@@ -1,0 +1,5 @@
+#!/bin/bash
+
+yum -y update slurm-sjobexit slurm-devel slurm-munge \
+                            slurm-sjstat slurm-plugins slurm-perlapi \
+                            slurm-pam_slurm slurm

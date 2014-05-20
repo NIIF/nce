@@ -1,0 +1,76 @@
+#!/bin/bash
+
+parent=hungary
+dn='ou=projects,ou=hpc,o=niifi,o=niif,c=hu'
+server=directory.iif.hu
+# server=ldap.niif.hu
+
+function l2s/projects() {
+  if test -z "$1" ; then
+    ldapsearch -LLL -h ${server} -x -b ${dn} cn | \
+    grep "cn:" | \
+    cut -d ":" -f 2 | \
+    grep -v 'DEISA\|PRACE\|prace\|gaussian' | \
+    xargs echo
+  else
+    ldapsearch -LLL -h ${server} -x -b ${dn} cn | \
+    grep "cn:" | \
+    cut -d ":" -f 2 | \
+    grep -v 'DEISA\|PRACE\|prace\|gaussian' | \
+    grep $1 | \
+    xargs echo
+  fi
+}
+
+
+function l2s/create/accounts() {
+  local _projects=$(l2s/projects $*)
+  echo ${_projects}
+  echo ""
+  read -p "Do you want to add these accounts?"
+  local i
+  for i in ${_projects} ; do
+    sacctmgr -i add account $i Parent=$parent
+    sacctmgr -i modify account $i set GrpCPUMins=0
+  done
+}
+
+function l2s/create/users() {
+  local _projects=$(l2s/projects $*)
+  local _users
+  local i
+  local j
+  for i in ${_projects} ; do
+    _users=$(getent group $i | \
+             awk -F: '{print $4}')
+    if test -z "${_users}"; then
+      continue
+    fi
+    for j in $(echo $_users | sed s/,/\ /g | xargs echo) ; do
+      sacctmgr -i add user $j accounts=$i
+    done
+  done
+}
+
+
+### main
+cmd=$1
+shift
+
+case $cmd in
+  projects)
+    l2s/projects
+  ;;
+  accounts)
+    l2s/create/accounts $*
+  ;;
+  users)
+    l2s/create/users $*
+  ;;
+  account)
+    l2s/create/accounts $*
+  ;;
+  user)
+    l2s/create/users $*
+  ;;
+esac

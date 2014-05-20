@@ -1,0 +1,6 @@
+#!/bin/bash
+
+yum -y update munge
+ssh loginnode yum -y update munge
+ssh gpu1 yum -y update munge
+ssh gpu2 yum -y update munge

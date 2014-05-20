@@ -1,0 +1,11 @@
+#!/bin/bash
+action=restart
+pssh=/opt/nce/parallel-ssh/bin/pssh
+
+if test "${action}" = "restart"; then
+  # service slurm ${action}
+  # sleep 3
+  $pssh -H "$(nodeattr -n compute)" service slurm ${action}
+  ssh gpu1 service slurm ${action}
+  ssh gpu2 service slurm ${action}
+fi

@@ -1,0 +1,37 @@
+#!/bin/bash
+
+action=${1:-stop}
+pssh=/opt/nce/parallel-ssh/bin/pssh
+
+if test "${action}" = "stop"; then
+  $pssh -H "$(nodeattr -n compute)" service munge ${action}
+  service munge ${action}
+  ssh loginnode service munge ${action}
+  ssh gpu1 service munge ${action}
+  ssh gpu2 service munge ${action}
+fi
+
+
+if test "${action}" = "start"; then
+  service munge ${action}
+  ssh loginnode service munge ${action}
+  ssh gpu1 service munge ${action}
+  ssh gpu2 service munge ${action}
+  $pssh -H "$(nodeattr -n compute)" service munge ${action}
+fi
+
+if test "${action}" = "test"; then
+  for i in $(nodeattr -n compute); do
+    echo -n "$i "
+    munge -n | ssh $i "unmunge | grep STATUS"
+  done
+
+  echo -n "loginnode "
+  munge -n | ssh loginnode "unmunge | grep STATUS"
+
+  echo -n "gpu1 "
+  munge -n | ssh gpu1 "unmunge | grep STATUS"
+
+  echo -n "gpu2 "
+  munge -n | ssh gpu2 "unmunge | grep STATUS"
+fi
