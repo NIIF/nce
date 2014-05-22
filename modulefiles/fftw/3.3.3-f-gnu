@@ -62,6 +62,3 @@ append-path -d { } NCE_LDFLAGS -lfftw3
 append-path -d { } NCE_STATIC_LDFLAGS $approot/lib/libfftw3.a
 # append-path -d { } NCE_STATIC_LDFLAGS $approot/lib/libfftw3_omp.a
 
-# dep
-
-module load gcc
