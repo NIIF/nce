@@ -30,7 +30,8 @@ if ($3 > l ) {
 _exit=$?
 
 if [ ${_exit} -gt 0 ] ; then
-  echo "WRANING: High 15min load on some compute nodes"
+  echo "WARNING: High 15min load on some compute nodes"
+  _exit=$nagiosStateWarning
 else
   echo "OK: 15 min load is under treshold"
 fi
