@@ -30,6 +30,7 @@ if ($5 > l ) {
 _exit=$?
 if [ ${_exit} -gt 0 ] ; then
   echo "WARNING: High system load on some compute hosts"
+  _exit=$nagiosStateWarning
 else
   echo "OK: System load is under treshold"
 fi
