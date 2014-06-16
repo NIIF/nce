@@ -68,6 +68,9 @@ setenv NCE_COMPUTE_SLOTS 24
 setenv NCE_COMPUTE_MPI mpi/ompi
 setenv NCE_HOSTID BUDAPEST
 
+# default LC_NUMERIC on RedHat (this will solve awk problems)
+setenv LC_NUMERIC C
+
 ### default optimization flags
 setenv NCE_OFLAGS "-O2 -xSSE2"
 

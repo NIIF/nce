@@ -67,6 +67,9 @@ setenv NCE_COMPUTE_SLOTS 48
 # default MPI mode
 setenv NCE_COMPUTE_MPI mpi/ompi
 
+# default LC_NUMERIC on RedHat (this will solve awk problems)
+setenv LC_NUMERIC C
+
 module load nce/niif/intel
 module load cuda/5.0
 module load sbank/1.2
