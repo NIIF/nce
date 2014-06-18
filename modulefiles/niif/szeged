@@ -78,11 +78,6 @@ module load maple/15
 module load prace
 module load globus
 module load jdk
-module load python
-
-# CUDA 5.0 is not supporintg GCC 4.7 :(
-
-module unload gcc 
 
 
 #module load openmpi
