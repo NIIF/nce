@@ -76,11 +76,13 @@ module load sbank/1.2
 module load g09
 module load maple/15
 module load prace
-module load openmpi/1.6.3-gcc-4.7.2
-module load gcc
 module load globus
 module load jdk
 module load python
+
+# CUDA 5.0 is not supporintg GCC 4.7 :(
+
+module unload gcc 
 
 
 #module load openmpi
