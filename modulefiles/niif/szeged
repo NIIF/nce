@@ -79,3 +79,6 @@ module load openmpi/1.4.3
 
 #module load openmpi
 setenv NCE_HOSTID SZEGED
+
+### path
+prepend-path PATH /opt/nce/packages/global/prace_service

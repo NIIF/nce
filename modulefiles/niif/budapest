@@ -84,3 +84,6 @@ module load openmpi
 module load sbank
 module load maple/17
 
+### path
+
+prepend-path PATH /opt/nce/packages/global/prace_service
