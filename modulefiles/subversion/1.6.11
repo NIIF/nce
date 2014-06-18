@@ -17,7 +17,7 @@ if [info exists env(NCE_PACKAGES)] {
 
 set approot $nce_pkgs/$module
 set appname "Subversion"
-set appdesc "Subversion 1.6.11"
+set appdesc "Subversion 1.6.11, (PRACE compatible)"
 set appurl  "http://subversion.tigris.org/"
 set license GNU
 
