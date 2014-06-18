@@ -40,6 +40,8 @@ module load fftw
 module load netcdf
 module load hdf5
 
+module load subversion/1.6.11
+
 proc ModulesHelp {} {
   global ModulefileVersion
 
