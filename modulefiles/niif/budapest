@@ -85,3 +85,5 @@ module load sbank
 module load maple/17
 module load globus
 module load jdk
+module load python
+
