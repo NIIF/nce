@@ -21,10 +21,6 @@ setenv PRACE_HOME "$env(HOME)"
 
 # Initialise empty environment variables
 
-### nce
-module load nce/global
-module load niif/budapest
-
 ### compilers
 # module load fortran
 # module load c
