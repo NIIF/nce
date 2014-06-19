@@ -78,7 +78,7 @@ module load maple/15
 module load prace
 module load globus
 module load jdk
-
+module load cmake
 
 #module load openmpi
 setenv NCE_HOSTID SZEGED
