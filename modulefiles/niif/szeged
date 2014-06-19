@@ -75,8 +75,6 @@ module load cuda/5.0
 module load sbank/1.2
 module load g09
 module load maple/15
-module load prace
-module load globus
 module load jdk
 module load cmake
 
