@@ -54,8 +54,10 @@ prepend-path LD_RUN_PATH /usr/lib64
 prepend-path MANPATH /usr/share/man
 setenv GLOBUS_LOCATION /usr
 
-#setenv GLOBUS_TCP_PORT_RANGE "56000,56999" 
-#setenv GLOBUS_UDP_PORT_RANGE "56000,56999"
+setenv GLOBUS_TCP_PORT_RANGE "56000,56999"
+setenv GLOBUS_TCP_SOURCE_RANGE "56000,56999"
+setenv GLOBUS_TCP_PORT_RANGE "56000,56999" 
+setenv GLOBUS_UDP_PORT_RANGE "56000,56999"
 
 # prepend-path -d { } NCE_CFLAGS -I$approot/include
 # prepend-path -d { } NCE_FFLAGS -I$approot/include

@@ -44,6 +44,12 @@ if { $module != $current } {
   }
 }
 
+setenv GLOBUS_TCP_PORT_RANGE "56000,56999"
+setenv GLOBUS_TCP_SOURCE_RANGE "56000,56999"
+setenv GLOBUS_TCP_PORT_RANGE "56000,56999" 
+setenv GLOBUS_UDP_PORT_RANGE "56000,56999"
+
+
 ### env
 setenv GLOBUS_TOOLKIT $module
 setenv GLOBUS_LOCATION $approot

@@ -56,6 +56,11 @@ prepend-path MANPATH $approot/share/man
 prepend-path DYLD_LIBRARY_PATH $approot/lib
 setenv GLOBUS_LOCATION $approot
 
+setenv GLOBUS_TCP_PORT_RANGE "56000,56999"
+setenv GLOBUS_TCP_SOURCE_RANGE "56000,56999"
+setenv GLOBUS_TCP_PORT_RANGE "56000,56999" 
+setenv GLOBUS_UDP_PORT_RANGE "56000,56999"
+
 # prepend-path -d { } NCE_CFLAGS -I$approot/include
 # prepend-path -d { } NCE_FFLAGS -I$approot/include
 # shared
