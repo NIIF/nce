@@ -50,6 +50,7 @@ setenv ARC_LOCATION $approot
 prepend-path PATH $approot/bin:$approot/sbin
 prepend-path LD_LIBRARY_PATH $approot/lib:$approot/lib/arc
 prepend-path LD_RUN_PATH $approot/lib:$approot/lib/arc
+prepend-path MANPATH $approot/share/man
 
 ### dep
 
