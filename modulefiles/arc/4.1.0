@@ -13,8 +13,8 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "ARC"
-set appdesc "ARC middleware hedshot_porting"
+set appname "ARC middleware"
+set appdesc "ARC middleware 4.1.0"
 set appurl  "http://www.nordugrid.org/arc"
 set license "Apache License Version 2.0"
 
@@ -45,9 +45,12 @@ if { $module != $current } {
 setenv ARC_MIDDLEWARE $module
 setenv ARC_LOCATION $approot
 
-## path
+### path
 
 prepend-path PATH $approot/bin:$approot/sbin
 prepend-path LD_LIBRARY_PATH $approot/lib:$approot/lib/arc
 prepend-path LD_RUN_PATH $approot/lib:$approot/lib/arc
 
+### dep
+
+module load globus/4.2.1 xmlsec1/1.2.20 db/5.3.21
