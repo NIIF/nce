@@ -78,4 +78,4 @@ module load jdk
 module load python
 module load gcc
 module load cmake
-
+module load sbank/1.2
