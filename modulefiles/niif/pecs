@@ -78,6 +78,7 @@ module load jdk
 module load python
 module load gcc
 module load cmake
+module load arc
 
 # uv defaults
 setenv MPI_MEMMAP_OFF 1
