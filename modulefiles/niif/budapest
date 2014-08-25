@@ -86,3 +86,4 @@ module load maple/18
 module load jdk
 module load python
 module load cmake
+module load arc
