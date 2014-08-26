@@ -80,6 +80,7 @@ module load gcc
 module load cmake
 module load arc
 module load globus/4.2.1 xmlsec1/1.2.20 db/5.3.21
+module load maple
 
 # uv defaults
 setenv MPI_MEMMAP_OFF 1
