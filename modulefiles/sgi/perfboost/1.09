@@ -44,3 +44,4 @@ setenv SGI_PERFBOOST_HOME $approot/$module
 # path
 prepend-path PATH $approot/$module/bin
 prepend-path LD_LIBRARY_PATH $approot/$module/lib
+prepend-path MANPATH $approot/$module/man
