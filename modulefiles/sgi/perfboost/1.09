@@ -8,7 +8,7 @@ set module  [module-info name]
 set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
 set release [lrange [split $module {/}] end end]
 
-set approot /opt
+set approot $nce_pkgs/$module
 set appname "SGI MPI Perfboost"
 set appdesc "A wrapper library to run applications compiled against other MPI implementations"
 set appurl  "http://techpubs.sgi.com/library/tpl/cgi-bin/getdoc.cgi?coll=linux&db=bks&fname=/SGI_Developer/MPT_UG/ch06.html"
