@@ -72,7 +72,6 @@ setenv NCE_HOSTID PÉCS
 
 # sgi
 module load nce/niif/intel
-module load sgi/mpt/2.04
 module load g09
 module load jdk
 module load python
@@ -82,6 +81,8 @@ module load arc
 module load globus/4.2.1 xmlsec1/1.2.20 db/5.3.21
 module load maple
 module load sbank
+module load sgi/perfboost/1.09
+module load sgi/mpt/2.09
 
 # uv defaults
 setenv MPI_MEMMAP_OFF 1
