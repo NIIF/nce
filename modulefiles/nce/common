@@ -44,3 +44,7 @@ setenv PRACE_LDFLAGS ""
 # setenv OMP_NUM_THREADS 1
 # setenv GOTO_NUM_THREADS 1
 # setenv MKL_NUM_THREADS 1
+
+set home $env(HOME)
+set user $env(USER)
+setenv NCE_SHARED ${home}/shared/${user}
