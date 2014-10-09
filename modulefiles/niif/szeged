@@ -71,7 +71,7 @@ setenv NCE_COMPUTE_MPI mpi/ompi
 setenv LC_NUMERIC C
 
 module load nce/niif/intel
-module load cuda/5.0
+module load cuda/6.5.14
 module load sbank/1.2
 module load g09
 module load maple/18
