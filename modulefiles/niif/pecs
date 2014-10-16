@@ -75,7 +75,6 @@ module load nce/niif/intel
 module load g09
 module load jdk
 module load python
-module load gcc
 module load cmake
 module load arc
 module load globus/4.2.1 xmlsec1/1.2.20 db/5.3.21

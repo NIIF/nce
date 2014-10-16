@@ -76,7 +76,6 @@ module load sgi/mpt/2.09
 module load g09
 module load jdk
 module load python
-module load gcc
 module load cmake
 module load sbank/1.2
 module load arc
