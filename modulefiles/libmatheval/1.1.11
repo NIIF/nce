@@ -52,3 +52,8 @@ prepend-path LD_LIBRARY_PATH $approot/lib
 prepend-path LD_RUN_PATH $approot/lib
 prepend-path MANPATH $approot/share/man
 prepend-path PKG_CONFIG_PATH $approot/lib/pkgconfig
+
+
+### dep
+
+module load guile/1.8.0
