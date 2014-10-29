@@ -56,4 +56,4 @@ prepend-path PKG_CONFIG_PATH $approot/lib/pkgconfig
 
 ### dep
 
-module load guile/1.8.0
+module load guile/1.8.8
