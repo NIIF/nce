@@ -51,7 +51,7 @@ setenv APP_NAMD_HOME $approot
 setenv OMPI_MCA_btl "self,sm,tcp"
 setenv OMPI_MCA_mtl "^psm"
 
-prepend-path PATH $approot
+prepend-path PATH $approot/Linux-x86_64-icc
 prepend-path LD_LIBRARY_PATH $approot/lib
 prepend-path LD_RUN_PATH $approot/lib
 prepend-path LD_LIBRARY_PATH $approot
