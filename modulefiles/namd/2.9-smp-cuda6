@@ -50,6 +50,8 @@ setenv APP_NAMD_HOME $approot
 
 setenv OMPI_MCA_btl "self,sm,tcp"
 setenv OMPI_MCA_mtl "^psm"
+setenv OMPI_MCA_shmem_mmap_relocate_backing_file "-1"
+setenv OMPI_MCA_shmem_mmap_backing_file_base_dir "/dev/shm"
 
 prepend-path PATH $approot/Linux-x86_64-icc
 prepend-path LD_LIBRARY_PATH $approot/lib
@@ -60,3 +62,6 @@ prepend-path LD_RUN_PATH $approot
 ### dep
 
 module load openmpi/1.6.3-intel fftw/3.3.3-f-gnu
+
+
+
