@@ -81,5 +81,5 @@ setenv OMP_NUM_THREADS 1
 
 module load openmpi/1.8.3
 module load cuda/6.5
-
+module load nce/niif/intel
 
