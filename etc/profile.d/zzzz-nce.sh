@@ -4,9 +4,11 @@ if ! $(groups | grep 'wheel\|root' &>/dev/null); then
 if ! test -r "/etc/NCE_SYSTEM" ; then
   echo "Set /etc/NCE_SYSTEM"
 else
-	# clean
-	module unuse /usr/share/modules/modulefiles
+  # clean
+  module unuse /usr/share/modules/modulefiles
+  module unuse /etc/modulefiles
   module purge
+  export NCE_ROOT=/opt/nce
   module use /opt/nce/modulefiles
   module load nce/global
   module load $(cat /etc/NCE_SYSTEM)
