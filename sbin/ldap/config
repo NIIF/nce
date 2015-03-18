@@ -1,0 +1,3 @@
+uri=ldaps://ldap.niif.hu
+base="o=niifi,o=niif,c=hu"
+binddn="cn=login.budapest2.hpc.niif.hu,ou=nss,ou=groups,o=niifi,o=niif,c=hu"

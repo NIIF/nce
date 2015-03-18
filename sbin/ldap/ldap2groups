@@ -1,0 +1,120 @@
+#!/bin/bash
+
+config=/opt/nce/sbin/ldap/config
+password=/opt/nce/sbin/ldap/password
+
+if test -r ${config} ; then
+  source ${config}
+else
+  echo "Not found: ${config}"
+  exit 1
+fi
+
+if ! test -r ${password} ; then
+  echo "Not found: ${password}"
+  exit 1
+fi
+
+# ldapsearch -X u:nslcd -v -LLL -b ${base} -D ${binddn} -H ${uri} -y ${password} '(objectClass=groupOfUniqueNames)'
+# echo ldapsearch -v -x -LLL -D "${binddn}" -y ${password} -H ${uri} -b "${base}" member
+
+function ldap/member() {
+  ldapsearch -v -x -LLL -D "${binddn}" \
+  -y ${password} -H ${uri} \
+  -b "${base}" member 2>/dev/null | \
+  grep member | \
+  awk '{print $2}'
+}
+
+function ldap/search() {
+  ldapsearch -v -x -LLL -D "${binddn}" \
+  -y ${password} -H ${uri} \
+  -b "${base}" 2>/dev/null
+}
+
+# uid uidNumber gidNumber gecos homeDirectory loginShell
+
+function ldap/email() {
+  ldapsearch -v -x -LLL -D "${binddn}" \
+  -y ${password} -H ${uri} \
+  -b "${base}" uid=${1} mail 2> /dev/null | \
+  grep "^mail" | \
+  cut -f 2 -d ' '
+}
+
+function OLD/ldap/sshpub() {
+  ldapsearch -v -x -LLL -D "${binddn}" \
+  -y ${password} -H ${uri} \
+  -b "${base}" uid=${1} sshPublicKey 2> /dev/null | \
+  grep -v "^dn" | \
+  sed ':a;N;$!ba;s/\n //g' | \
+  sed s/.*ssh-rsa/ssh-rsa/
+}
+
+function ldap/sshpub() {
+  ldapsearch -v -x -LLL -D "${binddn}" \
+  -y ${password} -H ${uri} \
+  -b "${base}" uid=${1} sshPublicKey 2> /dev/null | \
+  grep -v "^dn" | \
+  sed ':a;N;$!ba;s/\n //g' | \
+  awk '
+    /sshPublicKey::/{system("echo "$2"| base64 -d 2>/dev/null")}
+    /sshPublicKey: /{print $2,$3,$4}
+  '  
+}
+
+function ldap/users() {
+  ldap/member | \
+  sed s/uid=// | \
+  sed s/,.*//
+}
+
+function user/home() {
+  getent passwd $1 | cut -d: -f6
+}
+
+function user/user() {
+  id -nu $1
+}
+
+function user/group() {
+  id -ng $1
+}
+
+function user/groups() {
+  id -nG $1
+}
+
+function create/homes() {
+  for user in $(ldap/users); do
+  #for user in htom; do
+  # home="/tmp/test/$user"
+    home=$(user/home $user)
+    if test -d ${home} ; then
+      continue
+    fi
+    group=$(user/group $user)
+    echo "Creating home: $user ($group)"
+    cp -R /etc/skel ${home}
+    mkdir ${home}/.ssh
+    ldap/sshpub ${user} > ${home}/.ssh/authorized_keys
+    chmod 600 ${home}/.ssh/authorized_keys
+
+    ldap/email ${user} > ${home}/.forward
+
+    # roczei
+
+    mkdir -p /scratch/${user}
+    chown -R ${user}.${group} /scratch/${user}
+    chmod 700 /scratch/${user}
+    chmod 700 /home/${user}
+    chmod 700 /home/${user}/.ssh
+   
+    chown -R ${user}.${group} ${home}
+  done
+}
+
+create/homes
+# ldap/search
+# ldap/sshpub htom
+# ldap/email htom
