@@ -77,6 +77,8 @@ setenv NCE_OFLAGS "-O2 -xAVX"
 ### omp default
 setenv OMP_NUM_THREADS 1
 
+prepend-path PATH /opt/TurboVNC/bin:/opt/VirtualGL/bin
+
 ### default modules
 
 module load openmpi/1.8.3
