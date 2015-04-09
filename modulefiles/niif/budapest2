@@ -86,4 +86,5 @@ module load cuda/6.5
 module load nce/niif/intel
 module load paraview
 module load blender
+module load jdk/1.7.0_75
 
