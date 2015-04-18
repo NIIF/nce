@@ -1,0 +1,35 @@
+#!/bin/sh
+_ID=slurm-${SLURM_JOBID}
+_TMP=/scratch/tmp/${_ID}
+
+# Job clean
+
+pgid=`cat ${_TMP}/pgid &> /dev/null`
+ppids=`ps xao pid,ppid,pgid,comm | awk -v pgid=$pgid '($3 == pgid) && ($4 != "slurm_script") {print $2}'`
+pids=`ps  xao pid,ppid,pgid,comm | awk -v pgid=$pgid '$3 == pgid {print $1}'`
+all_pids="$pids $ppids"
+
+if [ ! -z "$all_pids" ]
+then
+
+for i in $all_pids
+do
+  while true
+  do
+    kill -KILL $i &> /dev/null
+    if [ $? -eq 1 ]
+    then
+       break
+    fi
+    sleep 1
+  done
+done
+
+fi
+
+if test -d ${_TMP}; then
+  rm -fR ${_TMP} &> /dev/null
+fi
+
+exit 0
+

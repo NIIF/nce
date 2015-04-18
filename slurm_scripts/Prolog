@@ -1,0 +1,15 @@
+#!/bin/sh
+_ID=slurm-${SLURM_JOBID}
+_TMP=/scratch/tmp/${_ID}
+
+mkdir -p ${_TMP}
+chmod 750 ${_TMP}
+echo "export TMPDIR=${_TMP}"
+
+/opt/nce/slurm/generate_pbs_nodefile > ${_TMP}/PBS_NODEFILE
+echo "export PBS_NODEFILE=${_TMP}/PBS_NODEFILE"
+
+# slurm_script PID = Prolog PPID = slurm_script PGID
+
+ps --no-headers -o pid,ppid,pgid,comm -p $$ | awk 'NR == 1 {print $2}' > ${_TMP}/pgid
+
