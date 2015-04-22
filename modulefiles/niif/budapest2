@@ -84,7 +84,5 @@ prepend-path PATH /opt/TurboVNC/bin:/opt/VirtualGL/bin
 module load openmpi/1.8.3
 module load cuda/6.5
 module load nce/niif/intel
-module load paraview
-module load blender
 module load jdk/1.7.0_75
 
