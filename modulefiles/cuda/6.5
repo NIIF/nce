@@ -49,6 +49,6 @@ if { $module != $current } {
 setenv LIB_CUDA $module
 setenv LIB_CUDA_HOME $approot
 prepend-path PATH $approot/bin:$approot/samples/bin/x86_64/linux/release
-prepend-path LD_LIBRARY_PATH $approot/lib64:/usr/lib64/nvidia
-prepend-path LD_RUN_PATH $approot/lib64:/usr/lib64/nvidia
+prepend-path LD_LIBRARY_PATH $approot/lib64:/usr/lib64/nvidia:/usr/lib64/vdpau
+prepend-path LD_RUN_PATH $approot/lib64:/usr/lib64/nvidia:/usr/lib64/vdpau
 # prepend-path MANPATH $approot/share/man
