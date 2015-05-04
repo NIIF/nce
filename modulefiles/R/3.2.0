@@ -50,6 +50,6 @@ setenv NCE_R_HOME $approot
 
 prepend-path PATH $approot/bin
 prepend-path LD_LIBRARY_PATH $approot/lib64
-prepend-path MANPATH $approot/man
+prepend-path MANPATH $approot/share/man
 prepend-path -d { } NCE_CFLAGS -I$approot/include
 prepend-path -d { } CFLAGS -I$approot/include
