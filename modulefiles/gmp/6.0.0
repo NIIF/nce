@@ -1,8 +1,7 @@
 #%Module1.0
 
-
 ### errors
-# module-log error null
+module-log error null
 
 ### globals
 set module  [module-info name]
@@ -17,10 +16,10 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "Cuda"
-set appdesc "Cuda SDK 5.5"
-set appurl  "http://www.nvidia.com/object/cuda_home_new.html"
-set license NVIDIA
+set appname "GNU GMP"
+set appdesc "GNU GMP"
+set appurl  "http://gmplib.org/"
+set license GPL
 
 ### help
 proc ModulesHelp { } {
@@ -34,8 +33,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(LIB_CUDA)] {
-  set current $env(LIB_CUDA)
+if [info exists env(LIB_GMP)] {
+  set current $env(LIB_GMP)
 } else {
   set current $module
 }
@@ -46,9 +45,20 @@ if { $module != $current } {
 }
 
 ### env
-setenv LIB_CUDA $module
-setenv LIB_CUDA_HOME $approot
-prepend-path PATH $approot/bin:$approot/samples/bin/x86_64/linux/release
-prepend-path LD_LIBRARY_PATH $approot/lib64:/usr/lib64/nvidia:/usr/lib64/vdpau
-prepend-path LD_RUN_PATH $approot/lib64:/usr/lib64/nvidia:/usr/lib64/vdpau
-# prepend-path MANPATH $approot/share/man
+setenv LIB_GMP $module
+setenv LIB_GMP_HOME $approot
+
+# prepend-path PATH $approot/bin
+prepend-path LD_LIBRARY_PATH $approot/lib
+
+prepend-path -d { } NCE_CFLAGS -I$approot/include
+prepend-path -d { } CFLAGS -I$approot/include
+# prepend-path -d { } NCE_FFLAGS -I$approot/include
+# shared
+append-path -d { } NCE_LDFLAGS -L$approot/lib
+append-path -d { } NCE_LDFLAGS -lgmp
+append-path -d { } LDFLAGS -L$approot/lib
+append-path -d { } LDFLAGS -lgmp
+
+# static
+# append-path -d { } NCE_STATIC_LDFLAGS

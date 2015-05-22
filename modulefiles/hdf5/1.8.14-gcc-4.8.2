@@ -1,6 +1,5 @@
 #%Module1.0
 
-
 ### errors
 # module-log error null
 
@@ -17,10 +16,10 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "Cuda"
-set appdesc "Cuda SDK 5.5"
-set appurl  "http://www.nvidia.com/object/cuda_home_new.html"
-set license NVIDIA
+set appname "HDF5"
+set appdesc "HDF5 1.8.14"
+set appurl  "http://www.hdfgroup.org"
+set license GNU
 
 ### help
 proc ModulesHelp { } {
@@ -34,8 +33,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(LIB_CUDA)] {
-  set current $env(LIB_CUDA)
+if [info exists env(LIB_HDF5)] {
+  set current $env(LIB_HDF5)
 } else {
   set current $module
 }
@@ -46,9 +45,16 @@ if { $module != $current } {
 }
 
 ### env
-setenv LIB_CUDA $module
-setenv LIB_CUDA_HOME $approot
-prepend-path PATH $approot/bin:$approot/samples/bin/x86_64/linux/release
-prepend-path LD_LIBRARY_PATH $approot/lib64:/usr/lib64/nvidia:/usr/lib64/vdpau
-prepend-path LD_RUN_PATH $approot/lib64:/usr/lib64/nvidia:/usr/lib64/vdpau
-# prepend-path MANPATH $approot/share/man
+setenv LIB_HDF5 $module
+setenv LIB_HDF5_HOME $approot
+prepend-path PATH $approot/bin
+prepend-path LD_LIBRARY_PATH $approot/lib
+prepend-path LD_RUN_PATH $approot/lib
+
+prepend-path -d { } NCE_CFLAGS -I$approot/include
+prepend-path -d { } NCE_FFLAGS -I$approot/include
+# shared
+append-path -d { } NCE_LDFLAGS -L$approot/$release/lib
+append-path -d { } NCE_LDFLAGS -lhdf5
+# static
+append-path -d { } NCE_STATIC_LDFLAGS $approot/lib/libhdf5.a

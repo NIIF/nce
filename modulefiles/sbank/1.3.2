@@ -1,6 +1,5 @@
 #%Module1.0
 
-
 ### errors
 # module-log error null
 
@@ -17,10 +16,10 @@ if [info exists env(NCE_PACKAGES)] {
 }
 
 set approot $nce_pkgs/$module
-set appname "Cuda"
-set appdesc "Cuda SDK 5.5"
-set appurl  "http://www.nvidia.com/object/cuda_home_new.html"
-set license NVIDIA
+set appname "Slurm Bank"
+set appdesc "Slurm Bank 1.2"
+set appurl  "http://thammuz.tchpc.tcd.ie/mirrors/slurm-bank/slurm-bank-1.2/html/walkthrough.html"
+set license GPL
 
 ### help
 proc ModulesHelp { } {
@@ -34,8 +33,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(LIB_CUDA)] {
-  set current $env(LIB_CUDA)
+if [info exists env(SLURM_BANK)] {
+  set current $env(SLURM_BANK)
 } else {
   set current $module
 }
@@ -46,9 +45,6 @@ if { $module != $current } {
 }
 
 ### env
-setenv LIB_CUDA $module
-setenv LIB_CUDA_HOME $approot
-prepend-path PATH $approot/bin:$approot/samples/bin/x86_64/linux/release
-prepend-path LD_LIBRARY_PATH $approot/lib64:/usr/lib64/nvidia:/usr/lib64/vdpau
-prepend-path LD_RUN_PATH $approot/lib64:/usr/lib64/nvidia:/usr/lib64/vdpau
-# prepend-path MANPATH $approot/share/man
+setenv SLURM_BANK $module
+setenv SLURM_BANK_HOME $approot
+prepend-path PATH $approot/src
