@@ -49,8 +49,7 @@ setenv NCE_SAGE $module
 setenv NCE_SAGE_HOME $approot
 setenv SAGE_ROOT $approot
 
-prepend-path PATH $approot/sage/local/bin
-prepend-path PATH $approot/sage/bin
+prepend-path PATH $approot/sage/bin:$approot/sage/local/bin
 prepend-path LD_LIBRARY_PATH $approot/sage/local/lib64
 prepend-path -d { } NCE_CFLAGS -I$approot/include
 prepend-path -d { } CFLAGS -I$approot/include
