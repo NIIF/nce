@@ -50,9 +50,9 @@ setenv NCE_SAGE_HOME $approot
 setenv SAGE_ROOT /mnt/nfs3/home/opt/nce/packages/global/sage/6.5/sage
 
 prepend-path PATH $approot/sage/bin:$approot/sage/local/bin
-prepend-path LD_LIBRARY_PATH $approot/sage/local/lib64
-prepend-path -d { } NCE_CFLAGS -I$approot/include
-prepend-path -d { } CFLAGS -I$approot/include
+#prepend-path LD_LIBRARY_PATH $approot/sage/local/lib64
+#prepend-path -d { } NCE_CFLAGS -I$approot/include
+#prepend-path -d { } CFLAGS -I$approot/include
 prepend-path MANPATH $approot/sage/local/man:$approot/sage/local/share/man
 
 
