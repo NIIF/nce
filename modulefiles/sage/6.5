@@ -17,7 +17,7 @@ if [info exists env(NCE_PACKAGES)] {
 
 set approot $nce_pkgs/$module
 set appname "SAGE"
-set appdesc "SAGE 6.7"
+set appdesc "SAGE 6.5"
 set license "GPL"
 set appurl  "http://sagemath.org/"
 
@@ -54,4 +54,5 @@ prepend-path PATH $approot
 prepend-path LD_LIBRARY_PATH $approot/lib
 prepend-path -d { } NCE_CFLAGS -I$approot/include
 prepend-path -d { } CFLAGS -I$approot/include
+
 
