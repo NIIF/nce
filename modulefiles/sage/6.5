@@ -47,7 +47,7 @@ if { $module != $current } {
 ### env
 setenv NCE_SAGE $module
 setenv NCE_SAGE_HOME $approot
-setenv SAGE_ROOT $approot
+setenv SAGE_ROOT $approot/sage
 
 prepend-path PATH $approot/sage/bin:$approot/sage/local/bin
 prepend-path LD_LIBRARY_PATH $approot/sage/local/lib64
