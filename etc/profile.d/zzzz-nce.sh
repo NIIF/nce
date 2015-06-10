@@ -12,7 +12,7 @@ else
   module use /opt/nce/modulefiles
   module load nce/global
   module load $(cat /etc/NCE_SYSTEM)
-  export PS1="${NCE_HOSTID}[\h] \W (\$?)\\$ "
+  export PS1="${NCE_HOSTID}[\h] \w (\$?)\\$ "
 fi
 
 if ! test -z "${NCE_SCHEDULER}" ; then
