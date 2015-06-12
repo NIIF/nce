@@ -71,7 +71,7 @@ setenv NCE_COMPUTE_MPI mpi/ompi
 setenv LC_NUMERIC C
 
 # default squeue output 
-setenv SQUEUE_FORMAT "%.18i %.9P %.8j %.8u %.2t %.10M %.6D %.6C %.22S %R"
+setenv SQUEUE_FORMAT "%.18i %.9P %.8j %.8u %.2t %.11M %.6D %.6C %.22S %R"
 
 module load nce/niif/intel
 module load cuda/6.5.14
