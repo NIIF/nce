@@ -71,6 +71,9 @@ setenv NCE_OFLAGS "-O2 -xSSE4.2"
 ### sgi
 # module load slurm/2.2.7
 
+# default squeue output 
+setenv SQUEUE_FORMAT "%.18i %.9P %.8j %.8u %.2t %.10M %.6D %.6C %.22S %R"
+
 module load nce/niif/intel
 module load sgi/mpt/2.09
 module load g09

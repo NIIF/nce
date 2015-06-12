@@ -70,6 +70,9 @@ setenv NCE_COMPUTE_MPI mpi/ompi
 # default LC_NUMERIC on RedHat (this will solve awk problems)
 setenv LC_NUMERIC C
 
+# default squeue output 
+setenv SQUEUE_FORMAT "%.18i %.9P %.8j %.8u %.2t %.10M %.6D %.6C %.22S %R"
+
 module load nce/niif/intel
 module load cuda/6.5.14
 module load sbank/1.2
