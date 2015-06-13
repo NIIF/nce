@@ -74,7 +74,7 @@ setenv NCE_HOSTID PÉCS
 setenv SQUEUE_FORMAT "%.18i %.9P %.8j %.8u %.2t %.11M %.6D %.6C %.22S %R"
 
 # default sinfo format
-setenv SINFO_FORMAT "%10P %5a %8s %.10l %.6c %.6z %.7D %10T %N"
+setenv SINFO_FORMAT "%10P %5a %8s %.10l %.6c %.14C %.7D %10T %N"
 
 # sgi
 module load nce/niif/intel
