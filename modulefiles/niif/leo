@@ -66,7 +66,7 @@ setenv NCE_COMPUTE_CORES 8
 setenv NCE_COMPUTE_SLOTS 16
 # default MPI mode
 setenv NCE_COMPUTE_MPI mpi/ompi
-setenv NCE_HOSTID LEO
+setenv NCE_HOSTID DEBRECEN2
 
 # default LC_NUMERIC on RedHat (this will solve awk problems)
 setenv LC_NUMERIC C
