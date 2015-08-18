@@ -88,7 +88,7 @@ setenv SINFO_FORMAT "%10P %5a %8s %.10l %.6c %.6z %.7D %10T %N"
 ### default modules
 
 module load openmpi/1.8.3-intel
-module load cuda/6.5
+#module load cuda/6.5
 #module load nce/niif/intel
 module load jdk/1.7.0_75
 module load sbank/1.3.2
