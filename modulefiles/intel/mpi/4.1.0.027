@@ -34,6 +34,7 @@ if { $module != $current } {
 ### env
 setenv NCE_INTEL_MPI $module
 setenv I_MPI_ROOT "/opt/intel/impi/4.1.0.027"
+set I_MPI_ROOT "/opt/intel/impi/4.1.0.027"
 
 ### path
 prepend-path PATH $I_MPI_ROOT/bin64
