@@ -1,0 +1,75 @@
+#%Module1.0
+
+### errors
+module-log error null
+
+### globals
+set module  [module-info name]
+set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
+set release [lrange [split $module {/}] end end]
+
+set approot /opt/intel
+set appname "Intel Compiler"
+set appdesc "Intel Compiler 2016"
+set appurl  "http://software.intel.com/en-us/articles/intel-compilers/"
+set license Intel
+set arch    intel64
+set app     compilers_and_libraries
+
+### help
+proc ModulesHelp { } {
+  global appname release appdesc appurl license
+  puts stderr "Application : $appname"
+  puts stderr "Description : $appdesc"
+  puts stderr "License     : $license"
+  puts stderr "URL         : $appurl"
+}
+
+module-whatis "$appname"
+
+### conflict
+if [info exists env(INTEL_COMPILER)] {
+  set current $env(INTEL_COMPILER)
+} else {
+  set current $module
+}
+if { $module != $current } {
+  if { [ is-loaded $current ] } {
+    module unload $current
+  }
+}
+
+### env
+setenv INTEL_COMPILER $module
+setenv INTEL_COMPILER_HOME $approot
+
+setenv INTEL_IFORT_HOME $approot/${app}_${release}/linux
+setenv INTEL_ICC_HOME   $approot/${app}_${release}/linux
+
+### Compiler
+prepend-path PATH $approot/${app}_${release}/bin/$arch
+prepend-path MANPATH $approot/${app}_${release}/man
+prepend-path LD_LIBRARY_PATH $approot/${app}_${release}/linux/lib/$arch
+prepend-path LD_RUN_PATH $approot/${app}_${release}/linux/lib/$arch
+prepend-path NLSPATH $approot/${app}_${release}/linux/lib/$arch/locale/en_US/%N
+
+### License
+setenv INTEL_LICENSE_FILE /opt/intel/licenses/
+
+prepend-path OPENCL_VENDOR_PATH $approot/${app}_${release}/etc/OpenCL/vendors
+prepend-path LD_LIBRARY_PATH $approot/${app}_${release}/linux/lib/$arch/OpenCL/vendors/intel
+prepend-path LD_RUN_PATH $approot/${app}_${release}/linux/lib/$arch/OpenCL/vendors/intel
+
+prepend-path -d { } NCE_CFLAGS -I$approot/${app}_${release}/linux/include
+prepend-path -d { } NCE_FFLAGS -I$approot/${app}_${release}/linux/include
+append-path -d { } NCE_LDFLAGS -L$approot/${app}_${release}/linux/lib/$arch
+
+prepend-path -d { } PRACE_CFLAGS -I$approot/${app}_${release}/linux/include
+prepend-path -d { } PRACE_FFLAGS -I$approot/${app}_${release}/linux/include
+append-path -d { } PRACE_LDFLAGS -L$approot/${app}_${release}/linux/lib/$arch
+
+append-path -d { } NCE_LDFLAGS -liomp5
+append-path -d { } PRACE_LDFLAGS -liomp5
+
+append-path -d { } NCE_LDFLAGS -limf
+append-path -d { } PRACE_LDFLAGS -limf
