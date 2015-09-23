@@ -47,8 +47,8 @@ setenv INTEL_IFORT_HOME $approot/${app}_${release}/linux
 setenv INTEL_ICC_HOME   $approot/${app}_${release}/linux
 
 ### Compiler
-prepend-path PATH $approot/${app}_${release}/bin/$arch
-prepend-path MANPATH $approot/${app}_${release}/man
+prepend-path PATH $approot/${app}_${release}/linux/bin/$arch
+prepend-path MANPATH $approot/${app}_${release}/linux/man
 prepend-path LD_LIBRARY_PATH $approot/${app}_${release}/linux/lib/$arch
 prepend-path LD_RUN_PATH $approot/${app}_${release}/linux/lib/$arch
 prepend-path NLSPATH $approot/${app}_${release}/linux/lib/$arch/locale/en_US/%N
