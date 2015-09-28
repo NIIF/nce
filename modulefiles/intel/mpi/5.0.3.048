@@ -1,0 +1,49 @@
+#%Module1.0
+
+### errors
+module-log error null
+
+### globals
+set module  [module-info name]
+set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
+set release [lrange [split $module {/}] end end]
+set approot /opt/intel
+set appname "Intel MPI"
+set version "5.0.3.048"
+
+### help
+proc ModulesHelp { } {
+  global appname
+  puts stderr "Application : $appname"
+}
+
+module-whatis "$appname"
+
+### conflict
+if [info exists env(NCE_INTEL_MPI)] {
+  set current $env(NCE_INTEL_MPI)
+} else {
+  set current $module
+}
+if { $module != $current } {
+  if { [ is-loaded $current ] } {
+    module unload $current
+  }
+}
+
+### env
+setenv NCE_INTEL_MPI $module
+setenv I_MPI_ROOT "/opt/intel/impi/5.0.3.048"
+set I_MPI_ROOT "/opt/intel/impi/5.0.3.048"
+
+### path
+prepend-path PATH $I_MPI_ROOT/bin64
+prepend-path MANPATH $I_MPI_ROOT/man
+prepend-path LD_LIBRARY_PATH $I_MPI_ROOT/intel64/lib
+prepend-path LD_RUN_PATH $I_MPI_ROOT/intel64/lib
+
+prepend-path -d { } NCE_CFLAGS -I$I_MPI_ROOT/include
+prepend-path -d { } NCE_FFLAGS -I$I_MPI_ROOT/include
+# shared
+append-path -d { } NCE_LDFLAGS -L$I_MPI_ROOT/intel64/lib
+
