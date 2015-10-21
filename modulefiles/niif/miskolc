@@ -75,7 +75,6 @@ setenv SQUEUE_FORMAT "%.18i %.9P %.8j %.8u %.2t %.11M %.6D %.6C %.22S %R"
 setenv SINFO_FORMAT "%10P %5a %8s %.10l %.6c %.14C %.7D %10T %N"
 
 # sgi
-module load nce/niif/intel
 module load jdk
 module load python
 module load cmake
@@ -84,6 +83,7 @@ module load globus/4.2.1 xmlsec1/1.2.20 db/5.3.21
 module load sbank
 module load sgi/perfboost/1.09
 module load sgi/mpt/2.09
+module load intel/2016
 
 # uv defaults
 setenv MPI_MEMMAP_OFF 1
