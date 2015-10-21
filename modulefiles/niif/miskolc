@@ -1,0 +1,93 @@
+#%Module1.0
+
+### errors
+# module-log error null
+
+### globals
+set module  [module-info name]
+set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
+set release [lrange [split $module {/}] end end]
+
+### eszr
+if [info exists env(NCE_ROOT)] {
+  set nce_root $env(NCE_ROOT)
+} else {
+  puts stderr "Error: NCE_ROOT is not set"
+  break
+}
+
+set appname "NIIF Miskolc HPC System"
+set appdesc "SGI UV 2000"
+set appurl  ""
+set license GPL
+
+### help
+proc ModulesHelp { } {
+  global appname release appdesc appurl license
+  puts stderr "Application : $appname"
+  puts stderr "Description : $appdesc"
+  puts stderr "License     : $license"
+  puts stderr "URL         : $appurl"
+}
+
+module-whatis "$appname"
+
+### conflict
+if [info exists env(NCE_SYSTEM)] {
+  set current $env(NCE_SYSTEM)
+} else {
+  set current $module
+}
+if { $module != $current } {
+  if { [ is-loaded $current ] } {
+    module unload $current
+  }
+}
+
+### env
+setenv NCE_SYSTEM $module
+
+### system
+setenv NCE_ARCH intel64
+setenv NCE_HOME $env(HOME)
+setenv NCE_DATA $env(HOME)
+setenv NCE_SCRATCH /scratch/$env(USER)
+setenv NCE_GENDERS $nce_root/etc/$module/genders
+### node spec
+# cluster smp
+setenv NCE_COMPUTE_TYPE smp
+setenv NCE_COMPUTE_HOST uv
+setenv NCE_COMPUTE_SOCKETS 2
+# cores per socket
+setenv NCE_COMPUTE_CORES 8
+# total slots per node = cores * sckts
+setenv NCE_COMPUTE_SLOTS 16
+# default MPI mode
+setenv NCE_COMPUTE_MPI mpi/mpt
+# setenv NCE_DEFAULT_MPI sgi/mpt/2.04
+
+setenv NCE_HOSTID MISKOLC
+
+# default squeue format 
+setenv SQUEUE_FORMAT "%.18i %.9P %.8j %.8u %.2t %.11M %.6D %.6C %.22S %R"
+
+# default sinfo format
+setenv SINFO_FORMAT "%10P %5a %8s %.10l %.6c %.14C %.7D %10T %N"
+
+# sgi
+module load nce/niif/intel
+module load jdk
+module load python
+module load cmake
+module load arc/5.0.0
+module load globus/4.2.1 xmlsec1/1.2.20 db/5.3.21
+module load sbank
+module load sgi/perfboost/1.09
+module load sgi/mpt/2.09
+
+# uv defaults
+setenv MPI_MEMMAP_OFF 1
+setenv MPI_BUFS_PER_PROC 256
+setenv MPI_IB_RAILS 2
+setenv MPI_BUFS_THRESHOLD 0
+setenv MPI_GROUP_MAX 512
