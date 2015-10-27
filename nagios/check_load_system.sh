@@ -2,7 +2,7 @@
 
 _limit=${1:-20}
 
-gstat -1 -i masterhost -a -l | \
+gstat -1 -i scheduler -a -l | \
 grep ^cn | \
 awk -v l=${_limit} -F, 'BEGIN{_exit=0} {
 if ($5 > l ) {

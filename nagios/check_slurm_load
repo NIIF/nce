@@ -9,7 +9,7 @@ _exit=$nagiosStateOk
 _warn=${1:-30}
 _crit=${1:-48}
 
-gstat -1 -i masterhost -a -l | \
+gstat -1 -i scheduler -a -l | \
 grep ^cn | \
 awk -v l=${_warn} -F, 'BEGIN{_exit=0} {
 sub(/].*/,"",$3);
@@ -19,7 +19,7 @@ if ($3 > l ) {
 } END{ exit _exit}'
 _exit=$?
 
-gstat -1 -i masterhost -a -l | \
+gstat -1 -i scheduler -a -l | \
 grep ^cn | \
 awk -v l=${_crit} -v e=${_exit} -F, 'BEGIN{_exit=e} {
 sub(/].*/,"",$3);
