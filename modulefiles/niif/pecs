@@ -56,14 +56,14 @@ setenv NCE_SCRATCH /scratch/$env(USER)
 setenv NCE_GENDERS $nce_root/etc/$module/genders
 # setenv NCE_SCHEDULER sog/8.1.3
 ### node spec
-# cluster smp
-setenv NCE_COMPUTE_TYPE smp
+# cluster ccnuma
+setenv NCE_COMPUTE_TYPE ccnuma
 setenv NCE_COMPUTE_HOST uv
 setenv NCE_COMPUTE_SOCKETS 2
 # cores per socket
 setenv NCE_COMPUTE_CORES 6
 # total slots per node = cores * sckts
-setenv NCE_COMPUTE_SLOTS 12
+setenv NCE_COMPUTE_SLOTS 1140
 # default MPI mode
 setenv NCE_COMPUTE_MPI mpi/mpt
 # setenv NCE_DEFAULT_MPI sgi/mpt/2.04
