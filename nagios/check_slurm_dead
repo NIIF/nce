@@ -6,9 +6,9 @@ nagiosStateCritical=2
 nagiosStateUnknown=3
 _exit=$nagiosStateOk
 
-_dead=$(gstat -i masterhost -d | grep Dead | awk '{print $3}')
+_dead=$(gstat -i scheduler -d | grep Dead | awk '{print $3}')
 if [ ${_dead} -gt 0 ] ; then
-  # gstat -i masterhost -d
+  # gstat -i scheduler -d
   echo "ERROR: Dead hosts: ${_dead}"
   _exit=$nagiosStateWarning
 else

@@ -9,7 +9,7 @@ _exit=$nagiosStateOk
 _warn=${1:-20}
 _crit=50
 
-gstat -1 -i masterhost -a -l | \
+gstat -1 -i scheduler -a -l | \
 grep ^cn | \
 awk -v l=${_warn} -F, 'BEGIN{_exit=0} {
 if ($5 > l ) {
@@ -19,7 +19,7 @@ if ($5 > l ) {
 
 _exit=$?
 
-gstat -1 -i masterhost -a -l | \
+gstat -1 -i scheduler -a -l | \
 grep ^cn | \
 awk -v l=${_crit} -v e=${_exit} -F, 'BEGIN{_exit=e} {
 if ($5 > l ) {
