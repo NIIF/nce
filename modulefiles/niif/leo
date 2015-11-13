@@ -80,7 +80,7 @@ setenv OMP_NUM_THREADS 1
 prepend-path PATH /opt/TurboVNC/bin:/opt/VirtualGL/bin
 
 # default squeue format 
-setenv SQUEUE_FORMAT "%.18i %.9P %.8j %.8u %.2t %.11M %.6D %.6C %.22S %R"
+setenv SQUEUE_FORMAT "%.18i %.13P %.8j %.8u %.2t %.11M %.6D %.6C %.22S %R"
 
 # default sinfo format
 setenv SINFO_FORMAT "%13P %5a %8s %.10l %.6c %.6z %.7D %10T %N"
