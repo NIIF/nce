@@ -8,8 +8,7 @@ set module  [module-info name]
 set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
 set release [lrange [split $module {/}] end end]
 set approot /opt/intel
-set appname "Intel Environment 2015"
-set version 3.187
+set appname "Intel Environment 2016"
 
 ### help
 proc ModulesHelp { } {
