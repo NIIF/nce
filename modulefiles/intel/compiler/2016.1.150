@@ -1,0 +1,33 @@
+#%Module1.0
+
+### errors
+module-log error null
+
+set suiteversion 2016u1
+
+set appname "Intel Compiler"
+set appdesc "Intel Compiler 2016 Update 1"
+set appurl  "https://software.intel.com/en-us/intel-compilers"
+set license Intel
+
+source [file dirname $ModulesCurrentModulefile]/../common/$suiteversion
+
+CheckConflict INTEL_COMPILER
+
+### env
+setenv INTEL_COMPILER_HOME $moduleroot
+setenv INTEL_IFORT_HOME $approot/${app}_${release}/linux
+setenv INTEL_ICC_HOME   $approot/${app}_${release}/linux
+
+### Compiler
+prepend-path PATH $approot/${app}_${release}/linux/bin/$arch
+prepend-path MANPATH $approot/${app}_${release}/linux/man/common
+prepend-path NLSPATH $libpath/locale/en_US/%N
+
+### License
+#setenv INTEL_LICENSE_FILE /opt/intel/licenses/
+
+append-path -d { } NCE_LDFLAGS -limf
+append-path -d { } PRACE_LDFLAGS -limf
+
+SetCFlags

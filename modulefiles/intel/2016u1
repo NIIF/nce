@@ -1,0 +1,43 @@
+#%Module1.0
+
+### errors
+module-log error null
+
+### globals
+set module  [module-info name]
+set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
+set release [lrange [split $module {/}] end end]
+set approot /opt/intel
+set appname "Intel Environment 2016 Update 1"
+
+### help
+proc ModulesHelp { } {
+  global appname
+  puts stderr "Application : $appname"
+}
+
+module-whatis "$appname"
+
+### conflict
+if [info exists env(NCE_INTEL_SUITE)] {
+  set current $env(NCE_INTEL_SUITE)
+} else {
+  set current $module
+}
+if { $module != $current } {
+  if { [ is-loaded $current ] } {
+    module unload $current
+  }
+}
+
+### env
+setenv NCE_INTEL_SUITE $module
+
+module load intel/compiler/2016.1.150
+module load intel/mkl/2016.1.150
+module load intel/ipp/2016.1.150
+
+module load intel/daal/2016.1.150
+module load intel/tbb/2016.1.150
+module load intel/mpi/2016.1.150
+module load intel/dbg/2016.1.150

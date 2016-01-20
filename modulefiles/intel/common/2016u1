@@ -1,0 +1,59 @@
+### globals
+set module  [module-info name]
+set program [string map {" " "/"} [lrange [split $module {/}] 1 end-1]]
+set release [lrange [split $module {/}] end end]
+
+set approot /opt/intel
+set arch    intel64
+set app     compilers_and_libraries
+set os      linux
+
+set moduleroot  $approot/${app}_${release}/$os/$program
+set includepath $moduleroot/include
+set libpath     $moduleroot/lib/$arch
+
+module-whatis "$appname"
+
+### help
+proc ModulesHelp { } {
+  global appname release appdesc appurl license
+  puts stderr "Application : $appname"
+  puts stderr "Description : $appdesc"
+  puts stderr "License     : $license"
+  puts stderr "URL         : $appurl"
+}
+
+proc CheckConflict { flag } {
+    global module
+    if [info exists env($flag)] {
+	set current $env($flag)
+    } else {
+	set current $module
+    }
+    if { $module != $current } {
+	if { [ is-loaded $current ] } {
+	    module unload $current
+	}
+	setenv $flag $current
+    }
+}
+
+proc SetCFlags { } {
+    global libpath includepath
+    
+    prepend-path LD_LIBRARY_PATH $libpath
+    prepend-path LD_RUN_PATH     $libpath
+
+    ### nce
+    prepend-path -d { } NCE_CFLAGS  -I$includepath
+    prepend-path -d { } NCE_FFLAGS  -I$includepath
+    append-path  -d { } NCE_LDFLAGS -L$libpath
+
+    ### prace
+    prepend-path -d { } PRACE_CFLAGS  -I$includepath
+    prepend-path -d { } PRACE_FFLAGS  -I$includepath
+    append-path  -d { } PRACE_LDFLAGS -L$libpath
+
+    append-path -d { } NCE_LDFLAGS   -liomp5
+    append-path -d { } PRACE_LDFLAGS -liomp5
+}

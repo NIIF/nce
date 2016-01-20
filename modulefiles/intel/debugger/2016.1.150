@@ -1,0 +1,19 @@
+#%Module1.0
+
+### errors
+module-log error null
+
+set suiteversion 2016u1
+
+set appname "Intel Debugger 2016 Update 1"
+set appdesc "Intel Debugger"
+set appurl  "https://software.intel.com/en-us/intel-compilers"
+set license Intel
+
+source [file dirname $ModulesCurrentModulefile]/../common/$suiteversion
+
+CheckConflict INTEL_DBG
+
+setenv INTEL_DBG_HOME $moduleroot
+append-path  LD_LIBRARY_PATH $approot/debugger_2016/libipt/$arch/lib
+prepend-path PATH $approot/${app}_${release}/linux/bin/$arch

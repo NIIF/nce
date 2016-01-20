@@ -1,0 +1,20 @@
+#%Module1.0
+
+### errors
+module-log error null
+
+set suiteversion 2016u1
+
+set appname "Intel TBB 2016 Update 1"
+set appdesc "Intel Thread Building Blocks"
+set appurl  "https://software.intel.com/en-us/intel-tbb"
+set license Intel
+
+source [file dirname $ModulesCurrentModulefile]/../common/$suiteversion
+
+CheckConflict INTEL_TBB
+
+setenv INTEL_TBB_HOME $moduleroot
+setenv TBBROOT $moduleroot
+
+SetCFlags
