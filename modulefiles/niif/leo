@@ -89,7 +89,8 @@ setenv SINFO_FORMAT "%13P %5a %8s %.10l %.6c %.6z %.7D %10T %N"
 
 module load openmpi/1.8.3-intel
 module load cuda/6.5
-module load nce/niif/intel
+module load intel/2016u1
+module load PrgEnv-pgi/15.10
 module load jdk/1.7.0_75
 module load sbank/1.2
 module load maple/2015
