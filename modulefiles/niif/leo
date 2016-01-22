@@ -87,6 +87,7 @@ setenv SINFO_FORMAT "%13P %5a %8s %.10l %.6c %.6z %.7D %10T %N"
 
 ### default modules
 
+module use /opt/pgi/modulefiles
 module load openmpi/1.8.3-intel
 module load cuda/6.5
 module load intel/2016u1
