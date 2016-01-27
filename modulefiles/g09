@@ -49,6 +49,6 @@ if { $module != $current } {
 setenv APP_G09 $module
 setenv APP_G09_HOME /opt/nce/packages/global/g09
 setenv g09root /opt/nce/packages/global
+setenv GAUSS_SCRDIR /scratch/$env(USER)
 
-prepend-path PATH /opt/nce/packages/global/g09/bin
-
+prepend-path PATH /opt/nce/packages/global/g09
