@@ -13,11 +13,14 @@ if [ ${_down} -gt 0 ] ; then
 fi
 
 
-#_drain=$(scontrol -o show nodes | grep DRAIN | wc -l)
-#if [ ${_drain} -gt 0 ] ; then
-#  _exit=$nagiosStateWarning
+_drain=$(sinfo -a | grep drain | awk '{print $4}')
+if [ -z "$_drain" ] ; then
+  _drain=0
+fi
+if [ ${_drain} -gt 0 ] ; then
+  _exit=$nagiosStateWarning
   # scontrol -o show nodes | grep DRAIN
-#fi
+fi
 
 
 _fail=$(scontrol -o show nodes | grep FAIL | wc -l)
@@ -27,8 +30,8 @@ if [ ${_fail} -gt 0 ] ; then
 fi
 
 if [ ${_exit} -gt 0 ] ; then
-#  echo "ERROR DOWN: ${_down}  DRAIN: ${_drain}  FAIL: ${_fail}"
-  echo "ERROR DOWN: ${_down} FAIL: ${_fail}"
+  echo "ERROR DOWN: ${_down}  DRAIN: ${_drain}  FAIL: ${_fail}"
+#  echo "ERROR DOWN: ${_down} FAIL: ${_fail}"
 else
   echo "OK: all hosts are running"
 fi
