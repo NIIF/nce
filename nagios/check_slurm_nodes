@@ -32,6 +32,8 @@ fi
 if [ ${_exit} -gt 0 ] ; then
   echo "ERROR DOWN: ${_down}  DRAIN: ${_drain}  FAIL: ${_fail}"
 #  echo "ERROR DOWN: ${_down} FAIL: ${_fail}"
+  echo "Drained hosts:" `sinfo -a | grep drain | awk '{print $6}'`
+  echo "Down hosts: " `sinfo -a | grep down | awk '{print $6}'`
 else
   echo "OK: all hosts are running"
 fi
