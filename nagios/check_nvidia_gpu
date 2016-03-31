@@ -10,29 +10,41 @@ _exit=$nagiosStateOk
 WRONG_NODES=""
 for i in {1..84}
 do
+ (
   node="cn0"
   if [ $i -lt 10 ];
   then
     node="cn00"
   fi
   GPUS=`ssh  $node$i 'nvidia-smi -a -q|grep Gpu' 2>/dev/null|wc -l`
-  if [[ ( $GPUS -gt 0 )  &&  ($GPUS -ne $GPU_COUNT_PER_NODE ) ]];
-  then
-    if [ "$WRONG_NODES" == "" ];
+  echo $node$i $GPUS
+ ) &
+done |
+{
+  while read GPUS
+  do
+    info=(${GPUS//\n / })
+    node=${info[0]}
+    GPUS=${info[1]}
+    if [[ ( $GPUS -gt 0 )  &&  ($GPUS -ne $GPU_COUNT_PER_NODE ) ]];
     then
-      WRONG_NODES="$node$i"
-    else
-      WRONG_NODES="$WRONG_NODES, $node$i"
+
+      if [ "$WRONG_NODES" == "" ];
+      then
+        WRONG_NODES="$node"
+      else
+        WRONG_NODES="$WRONG_NODES, $node"
+      fi
     fi
+  done
+
+  if [ "$WRONG_NODES" == "" ];
+  then
+    echo "OK: All gpus are running"
+  else
+    echo "ERROR: Missing one or more GPU(s) here: $WRONG_NODES"
+    _exit=$nagiosStateWarning
   fi
-done
 
-if [ "$WRONG_NODES" == "" ];
-then
-  echo "OK: All gpus are running"
-else
-  echo "ERROR: Missing one or more GPU(s) here: $WRONG_NODES"
-  _exit=$nagiosStateWarning
-fi
-
-exit ${_exit}
+  exit ${_exit}
+}
