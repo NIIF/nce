@@ -1,5 +1,6 @@
 #!/bin/bash
 
+CriticalLevel=5
 nagiosStateOk=0
 nagiosStateWarning=1
 nagiosStateCritical=2
@@ -36,6 +37,10 @@ if [ ${_exit} -gt 0 ] ; then
   echo "Down hosts: " `sinfo -a | grep down | awk '{print $6}'`
 else
   echo "OK: all hosts are running"
+fi
+
+if [ $(( $_down + $_drain + $_fail )) -gt ${CriticalLevel} ] ; then
+  _exit=$nagiosStateCritical
 fi
 
 exit ${_exit}
