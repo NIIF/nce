@@ -1,5 +1,18 @@
 #!/bin/bash
 
+if [ -z "$1" ]
+  then
+    echo "No argument supplied. Please give a value of critical level as parameter. (for example: slurm_nodes 2)"
+    exit 1
+else
+  re='^[0-9]+$'
+  if ! [[ $1 =~ $re ]] ; then
+     echo "error: Not a number given as parameter" >&2;
+     exit 1
+  fi
+fi
+
+CriticalLevel=$1
 nagiosStateOk=0
 nagiosStateWarning=1
 nagiosStateCritical=2
@@ -13,11 +26,14 @@ if [ ${_down} -gt 0 ] ; then
 fi
 
 
-#_drain=$(scontrol -o show nodes | grep DRAIN | wc -l)
-#if [ ${_drain} -gt 0 ] ; then
-#  _exit=$nagiosStateWarning
+_drain=$(sinfo -a | grep drain | awk '{print $4}')
+if [ -z "$_drain" ] ; then
+  _drain=0
+fi
+if [ ${_drain} -gt 0 ] ; then
+  _exit=$nagiosStateWarning
   # scontrol -o show nodes | grep DRAIN
-#fi
+fi
 
 
 _fail=$(scontrol -o show nodes | grep FAIL | wc -l)
@@ -27,10 +43,17 @@ if [ ${_fail} -gt 0 ] ; then
 fi
 
 if [ ${_exit} -gt 0 ] ; then
-#  echo "ERROR DOWN: ${_down}  DRAIN: ${_drain}  FAIL: ${_fail}"
-  echo "ERROR DOWN: ${_down} FAIL: ${_fail}"
+  echo "ERROR DOWN: ${_down}  DRAIN: ${_drain}  FAIL: ${_fail}"
+#  echo "ERROR DOWN: ${_down} FAIL: ${_fail}"
+  echo "Drained hosts:" `sinfo -a | grep drain | awk '{print $6}'`
+  echo "Down hosts: " `sinfo -a | grep down | awk '{print $6}'`
 else
   echo "OK: all hosts are running"
 fi
 
+if [ $(( $_down + $_drain + $_fail )) -gt ${CriticalLevel} ] ; then
+  _exit=$nagiosStateCritical
+fi
+
 exit ${_exit}
+
