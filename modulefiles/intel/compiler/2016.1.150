@@ -18,6 +18,7 @@ CheckConflict INTEL_COMPILER
 setenv INTEL_COMPILER_HOME $moduleroot
 setenv INTEL_IFORT_HOME $approot/${app}_${release}/linux
 setenv INTEL_ICC_HOME   $approot/${app}_${release}/linux
+setenv MIC_LD_LIBRARY_PATH $approot/${app}_${release}/linux/compiler/lib/intel64_lin_mic/
 
 ### Compiler
 prepend-path PATH $approot/${app}_${release}/linux/bin/$arch
