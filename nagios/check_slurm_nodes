@@ -1,6 +1,18 @@
 #!/bin/bash
 
-CriticalLevel=5
+if [ -z "$1" ]
+  then
+    echo "No argument supplied. Please give a value of critical level as parameter. (for example: slurm_nodes 2)"
+    exit 1
+else
+  re='^[0-9]+$'
+  if ! [[ $1 =~ $re ]] ; then
+     echo "error: Not a number given as parameter" >&2;
+     exit 1
+  fi
+fi
+
+CriticalLevel=$1
 nagiosStateOk=0
 nagiosStateWarning=1
 nagiosStateCritical=2
@@ -44,3 +56,4 @@ if [ $(( $_down + $_drain + $_fail )) -gt ${CriticalLevel} ] ; then
 fi
 
 exit ${_exit}
+
