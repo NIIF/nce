@@ -16,5 +16,6 @@ CheckConflict INTEL_MKL
 
 setenv INTEL_MKL_HOME $moduleroot
 setenv MKLROOT $moduleroot
+append-path MIC_LD_LIBRARY_PATH $approot/${app}_${release}/linux/mkl/lib/intel64_lin_mic/
 
 SetCFlags
