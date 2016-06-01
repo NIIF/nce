@@ -17,4 +17,6 @@ CheckConflict INTEL_MPI
 setenv INTEL_MPI_HOME $moduleroot
 setenv MPIROOT $moduleroot
 
+prepend-path PATH $moduleroot/bin64
+
 SetCFlags
