@@ -40,4 +40,4 @@ module load intel/ipp/2016.1.150
 module load intel/daal/2016.1.150
 module load intel/tbb/2016.1.150
 module load intel/mpi/2016.1.150
-module load intel/dbg/2016.1.150
+module load intel/debugger/2016.1.150
