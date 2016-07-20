@@ -1,0 +1,41 @@
+#!/bin/bash
+
+if [ -z "$1" ]
+  then
+    echo "No argument supplied. Please give a value of critical level as parameter. (for example: slurm_jobhelduser 2)"
+    exit 1
+else
+  re='^[0-9]+$'
+  if ! [[ $1 =~ $re ]] ; then
+     echo "error: Not a number given as parameter" >&2;
+     exit 1
+  fi
+fi
+
+CriticalLevel=$1
+
+nagiosStateOk=0
+nagiosStateWarning=1
+nagiosStateCritical=2
+nagiosStateUnknown=3
+_exit=$nagiosStateOk
+
+JobHeldUser=`squeue -r -o '%A %u' | grep JobHeldUser`
+
+NR_OF_PROBLEMS=`echo "$JobHeldUser" | wc -l`
+
+if [ "$JobHeldUser" == "" ];
+then
+  echo "OK: No jobs are in JobHeldUser state"
+else
+  echo "WARNING: jobs are in JobHeldUser state:"
+  echo "JobID  User"
+  echo "$JobHeldUser"
+  _exit=$nagiosStateWarning
+fi
+
+if [ $(( $NR_OF_PROBLEMS )) -gt ${CriticalLevel} ] ; then
+  _exit=$nagiosStateCritical
+fi
+
+exit ${_exit}
