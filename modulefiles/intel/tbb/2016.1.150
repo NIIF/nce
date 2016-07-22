@@ -18,3 +18,5 @@ setenv INTEL_TBB_HOME $moduleroot
 setenv TBBROOT $moduleroot
 
 SetCFlags
+prepend-path LD_LIBRARY_PATH $moduleroot/lib/intel64/gcc4.4
+
