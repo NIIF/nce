@@ -53,6 +53,10 @@ fi
 if test -d ${_TMP}; then
     rm -fR ${_TMP}
 fi
+if test -d ${_LOGDIR}; then
+    rm -fR ${_LOGDIR}
+fi
+
 
 # csak a log miatt
 exit $?
