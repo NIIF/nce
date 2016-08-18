@@ -1,8 +1,9 @@
 #!/bin/bash
 
-_ID=slurm-${SLURM_JOB_ID}
+_ID=slurm-$SLURM_JOB_ID
 _TMP=/scratch/tmp/${_ID}
-_LOGDIR=/scratch/slurm_log/$SLURM_JOB_ID
+_LOGROOT=/scratch/slurm_log
+_LOGDIR=$_LOGROOT/$SLURM_JOB_ID
 
 mkdir -p ${_LOGDIR}
 # csak az stderr-t iranyitjuk at, hogy echoval tudjunk a slurmnek
@@ -50,13 +51,19 @@ if test -r ${_TMP}/mpirun.pid; then
 fi
 
 # szegeden cron csinalja
+DATE=`date +%Y-%m-%d_%H:%M:%S`
 if test -d ${_TMP}; then
     rm -fR ${_TMP}
+    if [ ! $? -eq 0 ]; then
+       echo $DATE Nem törölhető: ${_TMP}, JobID: ${SLURM_JOB_ID} >> ${_LOGROOT}/Epilog_error.log
+    fi
 fi
 if test -d ${_LOGDIR}; then
     rm -fR ${_LOGDIR}
+    if [ ! $? -eq 0 ]; then
+       echo $DATE Nem törölhető: ${_LOGDIR}, JobID: ${SLURM_JOB_ID} >> ${_LOGROOT}/Epilog_error.log
+    fi
 fi
 
-
-# csak a log miatt
-exit $?
+# Nem 0 esetén drain-be megy a compute node.
+exit 0
