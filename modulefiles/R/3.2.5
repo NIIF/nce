@@ -44,6 +44,8 @@ if { $module != $current } {
   }
 }
 
+module unload intel/2011_sp1
+module load intel/2015_sp3
 ### env
 setenv NCE_R $module
 setenv NCE_R_HOME $approot
@@ -53,3 +55,6 @@ prepend-path LD_LIBRARY_PATH $approot/lib64
 prepend-path MANPATH $approot/share/man
 prepend-path -d { } NCE_CFLAGS -I$approot/include
 prepend-path -d { } CFLAGS -I$approot/include
+
+puts stderr ""
+puts stderr "install packages      To install packages into home directory, use mirror 22 (Other HTTP) and choose Hungary"
