@@ -30,7 +30,7 @@ setenv PRACE_HOME "$env(HOME)"
 # module load openmpi
 
 ### acml + scalapack
-module load acml
+#module load acml
 module load scalapack
 
 ### fftw
@@ -40,7 +40,12 @@ module load fftw
 module load netcdf
 module load hdf5
 
-module load subversion/1.6.11
+#module load subversion/1.6.11
+
+### Python
+module load python
+module load numpy
+module load scipy
 
 proc ModulesHelp {} {
   global ModulefileVersion

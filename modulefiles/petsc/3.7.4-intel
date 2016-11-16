@@ -8,6 +8,7 @@ set module  [module-info name]
 set program [string map {" " "/"} [lrange [split $module {/}] 0 end-1]]
 set release [lrange [split $module {/}] end end]
 
+### eszr
 if [info exists env(NCE_PACKAGES)] {
   set nce_pkgs $env(NCE_PACKAGES)
 } else {
@@ -15,11 +16,11 @@ if [info exists env(NCE_PACKAGES)] {
   break
 }
 
-set approot $nce_pkgs/$module
-set appname "HDF5"
-set appdesc "HDF5 1.8.14"
-set appurl  "http://www.hdfgroup.org"
-set license GNU
+set approot $nce_pkgs/$program
+set appname "PETSc"
+set appdesc "PETSc 3.7.4 intel"
+set appurl  "https://www.mcs.anl.gov/petsc"
+set license BSD
 
 ### help
 proc ModulesHelp { } {
@@ -33,8 +34,8 @@ proc ModulesHelp { } {
 module-whatis "$appname"
 
 ### conflict
-if [info exists env(LIB_HDF5)] {
-  set current $env(LIB_HDF5)
+if [info exists env(LIB_PETSC)] {
+  set current $env(LIB_PETSC)
 } else {
   set current $module
 }
@@ -44,19 +45,19 @@ if { $module != $current } {
   }
 }
 
-### env
-setenv LIB_HDF5 $module
-setenv LIB_HDF5_HOME $approot
-prepend-path PATH $approot/bin
-prepend-path LD_LIBRARY_PATH $approot/lib
-prepend-path LD_RUN_PATH $approot/lib
 
-prepend-path -d { } CPPFLAGS -I$approot/include
+### env
+setenv LIB_PETSC $module
+setenv LIB_PETSC_HOME $approot/$release
+setenv PETSC_DIR $approot/$release
+setenv PETSC_ARCH ""
+prepend-path PATH $approot/$release/bin
+prepend-path LD_LIBRARY_PATH $approot/$release/lib
+prepend-path LD_RUN_PATH $approot/$release/lib
+
 prepend-path -d { } NCE_CFLAGS -I$approot/include
 prepend-path -d { } NCE_FFLAGS -I$approot/include
-# shared
-append-path -d { } LDFLAGS -L$approot/lib
-append-path -d { } NCE_LDFLAGS -L$approot/lib
-append-path -d { } NCE_LDFLAGS -lhdf5
-# static
-append-path -d { } NCE_STATIC_LDFLAGS $approot/lib/libhdf5.a
+append-path -d { } NCE_LDFLAGS $approot/$release/lib
+append-path -d { } NCE_STATIC_LDFLAGS $approot/$release/lib
+
+append-path -d { } PRACE_LDFLAGS $approot/$release/lib
